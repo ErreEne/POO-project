@@ -167,18 +167,19 @@ public class Grafo {
 
         for (int i = 0; i < this.verticenovo; i++) {
 
-            if (this.Vertices[i].GetNomeVertice() == ab) {
+            /*if (this.Vertices[i].GetNomeVertice() == ab) {
 
                 a = this.Vertices[i];
                 break;
 
-            }
+            }*/
+            Vertices[i].PrintLigações();
 
         }
 
-        if (a != null) {
+        /*if (a != null) {
             a.PrintLigações();
-        }
+        }*/
     }
 
 }
