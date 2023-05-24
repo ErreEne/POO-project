@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Grafo {
 
     int MaxVertices;
-    vertice Vertices[];
+    vertice[] Vertices;
     int verticenovo;
     int edges;
     int peso;
@@ -102,7 +102,7 @@ public class Grafo {
             aux = rand.nextInt(this.MaxVertices);
             aux1 = rand.nextInt(this.MaxVertices);
             flag++;
-            if (aux != aux1 && this.Vertices[aux].checkLig(this.Vertices[aux1]) == false) {
+            if (aux != aux1 && !this.Vertices[aux].checkLig(this.Vertices[aux1])) {
                 flag = 0;
                 this.AdicionarLiga(this.Vertices[aux].GetNomeVertice(), this.Vertices[aux1].GetNomeVertice(),
                         rand.nextInt(peso));
@@ -182,4 +182,7 @@ public class Grafo {
         }*/
     }
 
+    public int getN() {
+        return this.MaxVertices;
+    }
 }
