@@ -1,4 +1,4 @@
 package DSS;
 
-public class Event {
+public abstract class Event {
 }

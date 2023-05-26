@@ -27,52 +27,27 @@ public class Ant {
         this.eta = eta;
     }
 
-    public void move() {
-
+    public static double getProbability(double alfa, double beta, int no, double[] weight, double[] pheromone, int nNodes){
+        double Ci = 0;
+        double  Cijk = (alfa+pheromone[no])/(beta+weight[no]);
+        for (int i = 0; i < nNodes; i++) {
+            Ci += ((alfa+pheromone[i])/(beta+weight[i]));
+        }
+        return  Cijk/Ci;
     }
 
-    public void chooseNextNode() {
-
+    public void updatePath(int newNode) {
+        int inLoop = checkLoop(newNode);
+        if(inLoop != -1) {
+            addToPath(newNode);
+        } else {
+            removeLoop(newNode);
+        }
     }
 
-    public void updatePheromone() {
-
+    public double pheromoneLevel (int gama) {
+        double custo = Grafo.vertice.ListadePonteiros.getCusto();
+        double miu=1; ///Miu o que é, de onde vem??
+        return (gama*custo)/miu;
     }
-
-    public void checkPheromone() {
-
-    }
-
-    public void checkNode() {
-
-    }
-
-    public void checkAnt() {
-
-    }
-
-    public void updateAnt() {
-
-    }
-
-    public void updateBest() {
-
-    }
-
-    public void updatePheromones() {
-
-    }
-
-    public void updateAnts() {
-
-    }
-
-    public void checkPheromones() {
-
-    }
-
-    public void checkAnts() {
-
-    }
-
 }

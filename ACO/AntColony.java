@@ -19,14 +19,8 @@ public class AntColony {
         this.ant_colony_size = ant_colony_size;
     }
 
-    public void start() {
-        // TODO Auto-generated method stub
-
-    }
-
-    public void initialize() {
-        // TODO Auto-generated method stub
-
+    public void addAnt(Ant ant) {
+        this.colony.add(ant);
     }
 
     public void createAnts() {

@@ -19,7 +19,7 @@ public class Ponteiro {
 
     }
 
-    public int returnCusto() {
+    public int getCusto() {
         return this.custo;
     }
 
