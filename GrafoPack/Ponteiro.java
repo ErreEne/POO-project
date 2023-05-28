@@ -33,7 +33,6 @@ public class Ponteiro {
     }
 
     public int verticeInfo() {
-
         return this.pointer.GetNomeVertice();
     }
 

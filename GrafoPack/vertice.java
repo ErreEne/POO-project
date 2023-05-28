@@ -38,9 +38,11 @@ public class vertice {
     }
 
     public int GetNomeVertice() {
-
         return this.elemento;
+    }
 
+    public ArrayList<Ponteiro> getPonteiros() {
+        return this.ListaPonteiros;
     }
 
     public void PrintLigações() {

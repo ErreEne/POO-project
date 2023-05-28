@@ -27,8 +27,8 @@ public class AntColony {
     }
 
     public void createAnts() {
+        Ant ant = new Ant(this.grafo, this.nest_node, this.alpha, this.beta, this.gamma, this.delta, this.eta);
         for (int i = 0; i < this.ant_colony_size; i++) {
-            Ant ant = new Ant();
             addAnt(ant);
         }
     }
