@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Grafo {
 
-    int MaxVertices;
+    static int MaxVertices;
     vertice[] Vertices;
     int verticenovo;
     int edges;
@@ -24,6 +24,7 @@ public class Grafo {
     public Grafo(int flag) {
 
         if (flag == 0) {
+            //está vazio?????????
         } else {
             this.MaxVertices = 5;
             this.Vertices = new vertice[this.MaxVertices];
@@ -182,7 +183,7 @@ public class Grafo {
         }*/
     }
 
-    public int getN() {
-        return this.MaxVertices;
+    public static int getN() {
+        return MaxVertices;
     }
 }

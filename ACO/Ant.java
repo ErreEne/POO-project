@@ -1,6 +1,8 @@
 package ACO;
 
 import GrafoPack.Grafo;
+import GrafoPack.Ponteiro;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,7 +59,7 @@ public class Ant {
     }
 
     public double pheromoneLevel (int gama) {
-        double custo = Grafo.vertice.ListadePonteiros.getCusto();
+        int custo = Grafo.getN();//mal
         double miu=1; ///Miu o que é, de onde vem??
         return (gama*custo)/miu;
     }
