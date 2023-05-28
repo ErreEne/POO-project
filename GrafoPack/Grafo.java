@@ -37,8 +37,8 @@ public class Grafo {
             this.CriarVertice(5);
 
             this.AdicionarLiga(1, 3, 6);
-            this.AdicionarLiga(1, 2, 6);
-            this.AdicionarLiga(1, 4, 3);
+            this.AdicionarLiga(1, 2, 3);
+            this.AdicionarLiga(1, 4, 6);
             this.AdicionarLiga(1, 5, 2);
             this.AdicionarLiga(2, 3, 3);
             this.AdicionarLiga(2, 5, 5);
@@ -183,8 +183,21 @@ public class Grafo {
         }*/
     }
 
-    public static int getN() {
-        return MaxVertices;
-    }
+    public int[][] matrizAdjacencia() {
+        int[][] matriz = new int[this.MaxVertices][this.MaxVertices];
 
+        for (int i = 0; i < this.MaxVertices; i++) {
+            for (int j = 0; j < this.MaxVertices; j++) {
+                if(i == j) {
+                    matriz[i][j] = 0;
+                }
+                else {
+                    matriz[i][j] = this.Vertices[i].GetCustoLig(j+1);
+                }
+
+            }
+        }
+
+        return matriz;
+    }
 }

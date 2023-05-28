@@ -1,16 +1,13 @@
 package ACO;
 
-import GrafoPack.Grafo;
-import GrafoPack.Ponteiro;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Ant {
+    public int[][] matrizAdj;
     public ArrayList<Integer> path;
-    public ArrayList<Integer> visitedNodes;
     public ArrayList<Integer> unVisitedNodes;
-    public Grafo grafo;
     public int nest_node;
     public float alpha;
     public float beta;
@@ -18,8 +15,8 @@ public class Ant {
     public float delta;
     public float eta;
 
-    public Ant(Grafo grafo, int nest_node, float alpha, float beta, float gamma, float delta, float eta) {
-        this.grafo = grafo; // talvez cada ant nao tem conhecimento do grafo, mas sim dos vetor de ponteiros onde pode andar para
+    public Ant(int[][] matrizAdj, int nest_node, float alpha, float beta, float gamma, float delta, float eta) {
+        this.matrizAdj = matrizAdj;
         this.nest_node = nest_node;
         this.alpha = alpha;
         this.beta = beta;
@@ -27,19 +24,66 @@ public class Ant {
         this.delta = delta;
         this.eta = eta;
         this.path = new ArrayList<Integer>();
-        this.unVisitedNodes = new ArrayList<Integer>(); // receber todos os nos do grafo?? ainda nao sei se isto da jeito para o programa
+        this.unVisitedNodes = new ArrayList<Integer>();
+        for(int i = 0; i < matrizAdj.length; i++) {
+            this.unVisitedNodes.add(i);
+        }
     }
 
-    public static double getProbability(double alfa, double beta, int no, double[] weight, double[] pheromone, int nNodes){
-        double Ci = 0;
-        double  Cijk = (alfa+pheromone[no])/(beta+weight[no]);
+    public static float getProbability(float alfa, float beta, int weight, float pheromone, int nNodes){
+        float Ci = 0;
+        float weights = (float)weight;
+        float Cijk = (alfa+pheromone)/(beta+weights);
         for (int i = 0; i < nNodes; i++) {
-            Ci += ((alfa+pheromone[i])/(beta+weight[i]));
+            Ci += ((alfa+pheromone)/(beta+weight));
         }
         return  Cijk/Ci;
     }
 
+    public int[] getWeights(int currentNode) {
+        int[] weights = new int[this.matrizAdj.length];
 
+        for (int i = 0; i < this.matrizAdj.length; i++) {
+                weights[i] = this.matrizAdj[currentNode][i];
+        }
+        return weights;
+    }
+
+    public float[] getPheromone(int currentNode) {
+        float[] pheromone = new float[this.matrizAdj.length];
+
+        for (int i = 0; i < this.matrizAdj.length; i++) {
+                pheromone[i] = this.matrizAdj[currentNode][i]; // mudar para feromonas
+        }
+        return pheromone;
+    }
+
+    public int chooseNextNode(int currentNode) {
+        Random rand = new Random();
+        int[] weights = getWeights(currentNode);
+        float[] pheromone = getPheromone(currentNode);
+        float[] probability = new float[this.matrizAdj.length];
+        float sum = 0;
+        float partialSum = 0;
+        float node = rand.nextFloat(0,1);
+
+        for (int i = 0; i < this.matrizAdj.length; i++) {
+            probability[i] = getProbability(this.alpha, this.beta, weights[i], pheromone[i], this.matrizAdj.length);
+            sum += probability[i];
+        }
+
+        for(int i = 0; i < this.matrizAdj.length; i++) {
+            probability[i] = probability[i]/sum;
+        }
+
+        for (int i = 0; i < this.matrizAdj.length; i++) {
+            partialSum += probability[i];
+            if (partialSum >= node) {
+                return i;
+            }
+        }
+        return 0;
+    }
 
     public Boolean updatePath(int newNode) {
         if(!checkIfEndedPath()) {
@@ -91,7 +135,7 @@ public class Ant {
     }
 
     public double pheromoneLevel (int gama) {
-        int custo = Grafo.getN();//mal
+        int custo = 0;
         double miu=1; ///Miu o que é, de onde vem??
         return (gama*custo)/miu;
     }

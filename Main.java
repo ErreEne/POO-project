@@ -1,5 +1,3 @@
-package GrafoPack;
-
 import ACO.AntColony;
 import GrafoPack.Grafo;
 
@@ -20,7 +18,7 @@ public class Main {
         int v = 0;            // ant colony size
         int tao = 0;          // final instant
 
-        String arg = args[0];                      // read the argument -r or -f
+       /* String arg = args[0];                      // read the argument -r or -f
 
         if (arg.equals("-r")){                     //reads from terminal
             if (args.length != 11) {
@@ -65,13 +63,20 @@ public class Main {
         }
         else{
             System.out.println("Invalid argument, use -r or -f");
+        }*/
+
+        Grafo grafo = new Grafo(2);
+        int[][] matriz = new int[5][5];
+        matriz[0][1] = 1;
+        matriz = grafo.matrizAdjacencia();
+        for(int i = 0; i < 5; i++){
+            for(int j = 0; j < 5; j++)
+                System.out.print(matriz[i][j] + " ");
+            System.out.println("   ");
         }
 
-
-        Grafo grafo = new Grafo(nNodes,5,8);
-
-        AntColony antColony = new AntColony(grafo, 1, alfa, beta, gamma, delta, eta,10);
-        grafo.MostrarVerticeInfo(1);
+        AntColony antColony = new AntColony(matriz, 1, alfa, beta, gamma, delta, eta,10);
+        //grafo.MostrarVerticeInfo(1);
 
     }
 }

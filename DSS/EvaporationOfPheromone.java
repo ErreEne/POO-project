@@ -7,6 +7,6 @@ public class EvaporationOfPheromone {
         this.evaporation_rate = evaporation_rate;
     }
     public void EvaporatePheromone(double delta) {
-        Miguel.setPheromone(Miguel.getPheromone() - delta);
+        // Miguel.setPheromone(Miguel.getPheromone() - delta);
     }
 }

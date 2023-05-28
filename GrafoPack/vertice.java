@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 public class vertice {
 
-    int elemento;
-    ArrayList<Ponteiro> ListaPonteiros;
+    public int elemento;
+    public ArrayList<Ponteiro> ListaPonteiros;
 
     vertice(int elementoNovo) {
         this.elemento = elementoNovo;
-        ListaPonteiros = new ArrayList<Ponteiro>();
+        this.ListaPonteiros = new ArrayList<Ponteiro>();
     }
 
     vertice() {
@@ -54,4 +54,13 @@ public class vertice {
 
     }
 
+
+    public int GetCustoLig(int y) {
+        for(Ponteiro x : this.ListaPonteiros) {
+            if(x.verticeInfo() == y) {
+                return x.getCusto();
+            }
+        }
+        return 0;
+    }
 }

@@ -5,13 +5,13 @@ import java.util.ArrayList;
 
 public class AntColony {
     private final ArrayList<Ant> colony;
-    public Grafo grafo;
+    public int[][] matrizAdj;
     public int nest_node;
     public float beta, alpha, gamma, delta, eta;
     public int ant_colony_size;
 
-    public AntColony(Grafo grafo, int nest_node, float alpha, float beta, float gamma, float delta, float eta, int ant_colony_size) {
-        this.grafo = grafo;
+    public AntColony(int[][] matrizAdj, int nest_node, float alpha, float beta, float gamma, float delta, float eta, int ant_colony_size) {
+        this.matrizAdj = matrizAdj;
         this.nest_node = nest_node;
         this.beta = beta;
         this.alpha = alpha;
@@ -27,7 +27,7 @@ public class AntColony {
     }
 
     public void createAnts() {
-        Ant ant = new Ant(this.grafo, this.nest_node, this.alpha, this.beta, this.gamma, this.delta, this.eta);
+        Ant ant = new Ant(this.matrizAdj, this.nest_node, this.alpha, this.beta, this.gamma, this.delta, this.eta);
         for (int i = 0; i < this.ant_colony_size; i++) {
             addAnt(ant);
         }
