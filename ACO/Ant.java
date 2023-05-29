@@ -44,7 +44,7 @@ public class Ant {
         int[] weights = new int[this.matrizAdj.length];
 
         for (int i = 0; i < this.matrizAdj.length; i++) {
-                weights[i] = this.matrizAdj[currentNode][i];
+            weights[i] = this.matrizAdj[currentNode][i];
         }
         return weights;
     }
@@ -53,19 +53,16 @@ public class Ant {
         float[] pheromone = new float[this.matrizAdj.length];
 
         for (int i = 0; i < this.matrizAdj.length; i++) {
-                pheromone[i] = this.matrizAdj[currentNode][i]; // mudar para feromonas
+            pheromone[i] = this.matrizAdj[currentNode][i]; // mudar para feromonas
         }
         return pheromone;
     }
 
-    public int chooseNextNode(int currentNode) {
-        Random rand = new Random();
+    public float[] getNormalizedProbabilities(int currentNode) {
         int[] weights = getWeights(currentNode);
         float[] pheromone = getPheromone(currentNode);
         float[] probability = new float[this.matrizAdj.length];
         float sum = 0;
-        float partialSum = 0;
-        float node = rand.nextFloat(0,1);
 
         for (int i = 0; i < this.matrizAdj.length; i++) {
             probability[i] = getProbability(this.alpha, this.beta, weights[i], pheromone[i], this.matrizAdj.length);
@@ -75,27 +72,48 @@ public class Ant {
         for(int i = 0; i < this.matrizAdj.length; i++) {
             probability[i] = probability[i]/sum;
         }
+        return probability;
+    }
 
-        for (int i = 0; i < this.matrizAdj.length; i++) {
+    public int nodeChosen(float[] probability) {
+        Random rand = new Random();
+        float node = rand.nextFloat(0,1);
+        float partialSum = 0;
+        for (int i = 0; i < probability.length; i++) {
             partialSum += probability[i];
-            if (partialSum >= node) {
+            if (node < partialSum) {
                 return i;
             }
         }
-        return 0;
+        return probability.length;
     }
 
     public Boolean updatePath(int newNode) {
-        if(!checkIfEndedPath()) {
-            if(checkLoop(newNode) != -1) {
-                addToList(this.path, newNode);
-                removeFromList(this.unVisitedNodes, newNode);
-            } else {
-                removeLoop(newNode);
+        int[] possibleChoices = getPossibleChoices(this.matrizAdj[newNode]);
+        int length = possibleChoices.length;
+        float[] NormalizedProbabilities = getNormalizedProbabilities(newNode);
+        int chosenNode = 0;
+        if(checkIfEndedPath()) {
+            return false;
+        }else {
+            while (possibleChoices.length != 0) {
+                chosenNode = nodeChosen(NormalizedProbabilities);
+                addToList(this.path, chosenNode);
+                removeFromList(this.unVisitedNodes, chosenNode);
+                int loop = checkLoop(chosenNode);
+                if (loop != -1) {
+                    for(int i = 0; i < possibleChoices.length; i++) {
+                        if(possibleChoices[i] == chosenNode) {
+                            possibleChoices[i] = -1;
+                        }
+                    }
+                } else {
+                    removeLoop(chosenNode);
+                    break;
+                }
             }
-            return Boolean.FALSE;
         }
-        return Boolean.TRUE;
+        return null;
     }
 
     public void removeLoop(int nodeToRemove) {
@@ -104,6 +122,7 @@ public class Ant {
             if (i == nodeToRemove || flag == 1) {
                 flag = 1;
                 removeFromList(this.path, i);
+                addToList(this.unVisitedNodes, i);
             }
         }
         addToList(this.path, nodeToRemove);
@@ -121,8 +140,20 @@ public class Ant {
         return listToCheck.size();
     }
 
+    public int[] getPossibleChoices(int[] connectedNodes) {
+        int[] possibleChoices = new int[connectedNodes.length];
+        int j = 0;
+        for (int i = 0; i < connectedNodes.length; i++) {
+            if (connectedNodes[i] != 0) {
+                possibleChoices[j] = i;
+                j++;
+            }
+        }
+        return possibleChoices;
+    }
+
     public int checkLoop(int newNode) {
-        for (int i = 0; i < this.getSize(this.path); i++) {
+        for (int i = 0; i < this.getSize(this.path) - 1; i++) {
             if(this.path.get(i) == newNode) {
                 return i;
             }
