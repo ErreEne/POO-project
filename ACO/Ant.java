@@ -28,20 +28,20 @@ public class Ant {
         for(int i = 0; i < matrizAdj.length; i++) {
             this.unVisitedNodes.add(i);
         }
+        System.out.println("Ant created");
     }
 
-    public static float getProbability(float alfa, float beta, int weight, float pheromone, int nNodes){
+    public static float getProbability(float alfa, float beta, float[] weight, float[] pheromone, int nNodes,int nextNode){
         float Ci = 0;
-        float weights = (float)weight;
-        float Cijk = (alfa+pheromone)/(beta+weights);
+        float Cijk = (alfa+pheromone[nextNode])/(beta+weight[nextNode]);
         for (int i = 0; i < nNodes; i++) {
-            Ci += ((alfa+pheromone)/(beta+weight));
+            Ci += ((alfa+pheromone[i])/(beta+weight[i]));
         }
         return  Cijk/Ci;
     }
 
-    public int[] getWeights(int currentNode) {
-        int[] weights = new int[this.matrizAdj.length];
+    public float[] getWeights(int currentNode) {
+        float[] weights = new float[this.matrizAdj.length];
 
         for (int i = 0; i < this.matrizAdj.length; i++) {
             weights[i] = this.matrizAdj[currentNode][i];

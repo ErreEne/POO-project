@@ -107,7 +107,7 @@ public class Main {
                     }
                     System.out.println("   ");
                 }
-                AntColony antColony = new AntColony(matriz, 1, alfa, beta, gamma, delta, eta,10);
+                AntColony antColony = new AntColony(matriz, 1, alfa, beta, gamma, delta, eta,v);
 
                 scanner.close();
             } catch (FileNotFoundException e) {
@@ -116,11 +116,9 @@ public class Main {
         else{
             System.out.println("Invalid argument, use -r or -f");
         }
+        AntColony.createAnts();
 
-        Grafo grafo = new Grafo(2);
-        //matriz = grafo.matrizAdjacencia();
-
-        //AntColony antColony = new AntColony(matriz, 1, alfa, beta, gamma, delta, eta,10);
+        //Grafo grafo = new Grafo(2);
         //grafo.MostrarVerticeInfo(1);
 
     }

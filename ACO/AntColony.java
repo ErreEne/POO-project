@@ -4,31 +4,37 @@ import GrafoPack.Grafo;
 import java.util.ArrayList;
 
 public class AntColony {
-    private final ArrayList<Ant> colony;
-    public int[][] matrizAdj;
-    public int nest_node;
-    public float beta, alpha, gamma, delta, eta;
-    public int ant_colony_size;
+    private static ArrayList<Ant> colony = null;
+    public static int[][] matrizAdj;
+    public static int nest_node;
+    public static float beta;
+    public static float alpha;
+    public static float gamma;
+    public static float delta;
+    public static float eta;
+    public static int ant_colony_size;
 
     public AntColony(int[][] matrizAdj, int nest_node, float alpha, float beta, float gamma, float delta, float eta, int ant_colony_size) {
-        this.matrizAdj = matrizAdj;
-        this.nest_node = nest_node;
-        this.beta = beta;
-        this.alpha = alpha;
-        this.gamma = gamma;
-        this.delta = delta;
-        this.eta = eta;
-        this.ant_colony_size = ant_colony_size;
-        this.colony = new ArrayList<Ant>();
+        AntColony.matrizAdj = matrizAdj;
+        AntColony.nest_node = nest_node;
+        AntColony.beta = beta;
+        AntColony.alpha = alpha;
+        AntColony.gamma = gamma;
+        AntColony.delta = delta;
+        AntColony.eta = eta;
+        AntColony.ant_colony_size = ant_colony_size;
+        colony = new ArrayList<Ant>();
+        System.out.println("Ant Colony created");
     }
 
-    public void addAnt(Ant ant) {
-        this.colony.add(ant);
+    public static void addAnt(Ant ant) {
+        colony.add(ant);
     }
 
-    public void createAnts() {
-        Ant ant = new Ant(this.matrizAdj, this.nest_node, this.alpha, this.beta, this.gamma, this.delta, this.eta);
-        for (int i = 0; i < this.ant_colony_size; i++) {
+    public static void createAnts() {
+        Ant ant = new Ant(matrizAdj, nest_node, alpha, beta, gamma, delta, eta);
+        int i = 0;
+        for (i = 0; i < ant_colony_size; i++) {
             addAnt(ant);
         }
     }
