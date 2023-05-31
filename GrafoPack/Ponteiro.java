@@ -1,39 +1,18 @@
 package GrafoPack;
 
-public class Ponteiro {
+public class Ponteiro extends vertice {
 
-    vertice pointer;
     int custo = 0;
 
-    Ponteiro(vertice Ponteiro, int weight) {
+    Ponteiro(int elementoLig, int weight) {
 
-        this.pointer = Ponteiro;
+        super(elementoLig);
         this.custo = weight;
-
-    }
-
-    public void CriarPointer(vertice apontador, int custo) {
-
-        this.custo = custo;
-        this.pointer = apontador;
 
     }
 
     public int getCusto() {
         return this.custo;
-    }
-
-    public vertice returnPointer() {
-        return this.pointer;
-    }
-
-    public void removePointer() {
-        this.pointer = null;
-        this.custo = 0;
-    }
-
-    public int verticeInfo() {
-        return this.pointer.GetNomeVertice();
     }
 
 }
