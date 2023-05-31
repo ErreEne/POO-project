@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Grafo {
 
-    static int MaxVertices;
+    int MaxVertices;
     vertice[] Vertices;
     int verticenovo;
     int edges;
@@ -24,7 +24,7 @@ public class Grafo {
     public Grafo(int flag) {
 
         if (flag == 0) {
-            //está vazio?????????
+            // está vazio?????????
         } else {
             this.MaxVertices = 5;
             this.Vertices = new vertice[this.MaxVertices];
@@ -44,8 +44,6 @@ public class Grafo {
             this.AdicionarLiga(2, 5, 5);
             this.AdicionarLiga(2, 4, 2);
             this.AdicionarLiga(4, 5, 1);
-
-            this.MostrarVerticeInfo(2);
 
         }
 
@@ -70,7 +68,18 @@ public class Grafo {
      * 
      * @param peso
      */
+/*
 
+
+
+
+    Talvez tenhamos de ver isto mais tarde
+
+
+
+
+    
+ */
     public void GenerateGraphWHamiltonCycle(int peso) {
 
         int aux, aux1, flag = 0;
@@ -105,7 +114,7 @@ public class Grafo {
             flag++;
             if (aux != aux1 && !this.Vertices[aux].checkLig(this.Vertices[aux1])) {
                 flag = 0;
-                this.AdicionarLiga(this.Vertices[aux].GetNomeVertice(), this.Vertices[aux1].GetNomeVertice(),
+                this.AdicionarLiga(this.Vertices[aux].GetVerticeInfo(), this.Vertices[aux1].GetVerticeInfo(),
                         rand.nextInt(peso));
                 this.edges--;
 
@@ -135,10 +144,10 @@ public class Grafo {
 
         for (int i = 0; i < this.verticenovo; i++) {
 
-            if (this.Vertices[i].GetNomeVertice() == a) {
+            if (this.Vertices[i].GetVerticeInfo() == a) {
                 v1 = this.Vertices[i];
             }
-            if (this.Vertices[i].GetNomeVertice() == b) {
+            if (this.Vertices[i].GetVerticeInfo() == b) {
                 v2 = this.Vertices[i];
             }
 
@@ -146,8 +155,8 @@ public class Grafo {
 
         if (v1 != null && v2 != null) {
 
-            v1.NovaLigação(v2, custo);
-            v2.NovaLigação(v1, custo);
+            v1.NovaLigação(b, custo);
+            v2.NovaLigação(a, custo);
         }
 
     }
@@ -164,23 +173,12 @@ public class Grafo {
      */
 
     public void MostrarVerticeInfo(int ab) {
-        vertice a = null;
 
         for (int i = 0; i < this.verticenovo; i++) {
 
-            /*if (this.Vertices[i].GetNomeVertice() == ab) {
-
-                a = this.Vertices[i];
-                break;
-
-            }*/
             Vertices[i].PrintLigações();
 
         }
-
-        /*if (a != null) {
-            a.PrintLigações();
-        }*/
     }
 
     public int[][] matrizAdjacencia() {
@@ -188,11 +186,10 @@ public class Grafo {
 
         for (int i = 0; i < this.MaxVertices; i++) {
             for (int j = 0; j < this.MaxVertices; j++) {
-                if(i == j) {
+                if (i == j) {
                     matriz[i][j] = 0;
-                }
-                else {
-                    matriz[i][j] = this.Vertices[i].GetCustoLig(j+1);
+                } else {
+                    matriz[i][j] = this.Vertices[i].GetCustoLig(this.Vertices[j]);
                 }
 
             }

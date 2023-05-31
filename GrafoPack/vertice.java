@@ -12,14 +12,11 @@ public class vertice {
         this.ListaPonteiros = new ArrayList<Ponteiro>();
     }
 
-    vertice() {
-    }
+    public void NovaLigação(int id, int custo) {
 
-    public void NovaLigação(vertice teste, int custo) {
+        Ponteiro NewPointer = new Ponteiro(id, custo);
 
-        Ponteiro aux = new Ponteiro(teste, custo);
-
-        ListaPonteiros.add(aux);
+        ListaPonteiros.add(NewPointer);
 
     }
 
@@ -27,7 +24,7 @@ public class vertice {
 
         for (Ponteiro x : ListaPonteiros) {
 
-            if (x.returnPointer() == novo) {
+            if (x == novo) {
 
                 return true;
             }
@@ -37,7 +34,7 @@ public class vertice {
 
     }
 
-    public int GetNomeVertice() {
+    public int GetVerticeInfo() {
         return this.elemento;
     }
 
@@ -49,15 +46,14 @@ public class vertice {
 
         System.out.println("Elementos ligados a " + this.elemento + ":");
         for (Ponteiro l : ListaPonteiros) {
-            System.out.println(l.verticeInfo());
+            System.out.println(l.GetVerticeInfo());
         }
 
     }
 
-
-    public int GetCustoLig(int y) {
-        for(Ponteiro x : this.ListaPonteiros) {
-            if(x.verticeInfo() == y) {
+    public int GetCustoLig(vertice Vertice) {
+        for (Ponteiro x : this.ListaPonteiros) {
+            if (x == Vertice) {
                 return x.getCusto();
             }
         }
