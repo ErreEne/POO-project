@@ -1,0 +1,2 @@
+- o que fazer no caso de o ultimo no nao tiver caminho para o nest?
+- eventos?

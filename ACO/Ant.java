@@ -1,11 +1,13 @@
 package ACO;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Random;
 
 public class Ant {
     public int[][] matrizAdj;
+    public int[][] matrizAux;
     public ArrayList<Integer> path;
     public ArrayList<Integer> unVisitedNodes;
     public int nest_node;
@@ -18,6 +20,7 @@ public class Ant {
 
     public Ant(int[][] matrizAdj, int nest_node, float alpha, float beta, float gamma, float delta, float eta) {
         this.matrizAdj = matrizAdj;
+        this.matrizAux = matrizAdj;
         this.nest_node = nest_node;
         this.alpha = alpha;
         this.beta = beta;
@@ -30,15 +33,6 @@ public class Ant {
             this.unVisitedNodes.add(i);
         }
         System.out.println("Ant created");
-    }
-
-    public static float getProbability(float alfa, float beta, float[] weight, float[] pheromone, int nNodes, int Node){
-        float Ci = 0;
-        float Cijk = (alfa+pheromone[Node])/(beta+weight[Node]);
-        for (int i = 0; i < nNodes; i++) {
-            Ci += ((alfa+pheromone[i])/(beta+weight[i]));
-        }
-        return  Cijk/Ci;
     }
 
     public float[] getWeights(int currentNode) {
@@ -66,17 +60,27 @@ public class Ant {
 
         float[] probability = new float[this.matrizAdj.length];
         float sum = 0;
+        float Ci = 0;
+        float Cijk = 0;
 
         for (int i = 0; i < this.matrizAdj.length; i++) {
+            Ci += ((this.alpha + pheromone[i])/(this.beta + weights[i]));
+        }
 
-            probability[i] = getProbability(this.alpha, this.beta, weights, pheromone, this.matrizAdj.length, i);
-            System.out.println("Probability: " + probability[i]);
+        for (int i = 0; i < this.matrizAdj.length; i++) {
+            if(weights[i] == 0) {
+                probability[i] = 0;
+            } else {
+                Cijk = ((this.alpha + pheromone[i])/(this.beta + weights[i]));
+                probability[i] = Cijk/Ci;
+            }
             sum += probability[i];
         }
 
         for(int i = 0; i < this.matrizAdj.length; i++) {
             probability[i] = probability[i]/sum;
         }
+
         return probability;
     }
 
@@ -93,32 +97,26 @@ public class Ant {
         return probability.length;
     }
 
-    public Boolean updatePath(int Node) {
-        ArrayList<Integer> possibleChoices = getPossibleChoices(this.matrizAdj[Node]);
-
-        float[] NormalizedProbabilities = getNormalizedProbabilities(Node);
-        int chosenNode = 0;
+    public Boolean updatePath(int currentNode) {
         if(checkIfEndedPath()) {
-            return false;
-        }else {
-            while (possibleChoices.size() != 0) {
-                chosenNode = chooseNode(NormalizedProbabilities);
-                addToList(this.path, chosenNode);
-                removeFromList(this.unVisitedNodes, chosenNode);
-                int loop = checkLoop(chosenNode);
-                if (loop != -1) {
-                    for(int i = 0; i < possibleChoices.size(); i++) {
-                        if(possibleChoices.get(i) == chosenNode) {
-                            possibleChoices.remove(i);
-                        }
-                    }
-                } else {
-                    removeLoop(chosenNode);
-                    break;
-                }
-            }
+            return true;
         }
-        return null;
+
+        float[] NormalizedProbabilities = getNormalizedProbabilities(currentNode);
+        int newNode = chooseNode(NormalizedProbabilities);
+
+        int loop = checkLoop(newNode);
+        if(loop == -1) { // loop
+            removeLoop(newNode);
+            return false;
+        }
+
+
+        this.matrizAdj[currentNode][newNode] = 0;
+        this.matrizAdj[newNode][currentNode] = 0;
+        this.path.add(newNode);
+
+        return false;
     }
 
     public void removeLoop(int nodeToRemove) {
@@ -144,22 +142,6 @@ public class Ant {
         return listToCheck.size();
     }
 
-    public ArrayList<Integer> getPossibleChoices(int[] connectedNodes) {
-        ArrayList<Integer> possibleChoices = new ArrayList<>();
-        int j = 0;
-        for (int i = 0; i < connectedNodes.length; i++) {
-            if (connectedNodes[i] != 0) {
-                for (Integer unVisitedNode : this.unVisitedNodes) {
-                    if (unVisitedNode == i) {
-                        possibleChoices.add(j, i);
-                        j++;
-                    }
-                }
-            }
-        }
-        return possibleChoices;
-    }
-
     public int checkLoop(int newNode) {
         for (int i = 0; i < this.getSize(this.path) - 1; i++) {
             if(this.path.get(i) == newNode) {
@@ -170,7 +152,16 @@ public class Ant {
     }
 
     public Boolean checkIfEndedPath() {
-        return this.unVisitedNodes.isEmpty();
+        if (this.getSize(this.path) == this.matrizAdj.length) {
+            for(int i = 0; i < this.matrizAdj.length; i++) {
+                if(matrizAdj[this.nest_node][i] != 0 && (i + 1) == this.path.get(this.getSize(this.path))) {
+                    this.path.add(this.nest_node);
+                    return true;
+                }
+            }
+            return true;
+        }
+        return false;
     }
 
     public double pheromoneLevel (int gama) {
