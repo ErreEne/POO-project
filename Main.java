@@ -1,14 +1,16 @@
+import ACO.Ant;
 import ACO.AntColony;
-import GrafoPack.Grafo;
+
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         int nNodes = 0;       // number of nodes in the graph
-        int n1 = 0;           // the nest node
+        int nest_node = 0;           // the nest node
         float alfa = 0;       // alpha, ant move event
         float beta = 0;       // beta, ant move event
         float delta = 0;      // delta, ant move event
@@ -17,7 +19,7 @@ public class Main {
         float gamma = 0;    // pheronome level
         int v = 0;            // ant colony size
         float tao = 0;          // final instant
-
+        int[][] matriz = new int[0][];
         String arg = args[0];
         System.out.println(arg); // read the argument -r or -f
 
@@ -28,7 +30,7 @@ public class Main {
             }
             else {
             nNodes = Integer.parseInt(args[1]);
-            n1 = Integer.parseInt(args[2]);
+            nest_node = Integer.parseInt(args[2]);
             alfa = Float.parseFloat(args[3]);
             beta = Float.parseFloat(args[4]);
             delta = Float.parseFloat(args[5]);
@@ -38,7 +40,7 @@ public class Main {
             v = Integer.parseInt(args[9]);
             tao = Integer.parseInt(args[10]);
             /*System.out.print(nNodes + " ");
-            System.out.print(n1 + " ");
+            System.out.print(nest_node + " ");
             System.out.print(alfa + " ");
             System.out.print(beta + " ");
             System.out.print(delta + " ");
@@ -64,7 +66,7 @@ public class Main {
                     System.exit(0);             //terminates program ???
                 }
                 nNodes = Integer.parseInt(inputs[0]);
-                n1 = Integer.parseInt(inputs[1]);
+                nest_node = Integer.parseInt(inputs[1]);
                 alfa = Float.parseFloat(inputs[2]);
                 beta = Float.parseFloat(inputs[3]);
                 delta = Float.parseFloat(inputs[4]);
@@ -74,7 +76,7 @@ public class Main {
                 v = Integer.parseInt(inputs[8]);
                 tao = Float.parseFloat(inputs[9]);
                 System.out.print(nNodes + " ");
-                System.out.print(n1 + " ");
+                System.out.print(nest_node + " ");
                 System.out.print(alfa + " ");
                 System.out.print(beta + " ");
                 System.out.print(delta + " ");
@@ -86,7 +88,7 @@ public class Main {
                 System.out.println("   ");
 
                 int j=0,i=0;
-                int[][] matriz = new int[nNodes][nNodes];
+                matriz = new int[nNodes][nNodes];
                 for (i = 0; i < nNodes; i++) {
                     for (j = 0; j < nNodes; j++) {
                         matriz[i][j] = 0;
@@ -107,7 +109,7 @@ public class Main {
                     }
                     System.out.println("   ");
                 }
-                AntColony antColony = new AntColony(matriz, 1, alfa, beta, gamma, delta, eta,v);
+                AntColony antColony = new AntColony(matriz, nest_node - 1, alfa, beta, gamma, delta, eta,v);
 
                 scanner.close();
             } catch (FileNotFoundException e) {
@@ -117,7 +119,15 @@ public class Main {
             System.out.println("Invalid argument, use -r or -f");
         }
         AntColony.createAnts();
+        Ant ant = new Ant(matriz, nest_node, alfa, beta, gamma, delta, eta);
 
+        float[] pheromone = new float[nNodes];
+        float[] heuristic = new float[nNodes];
+        ant.setPheromone(pheromone);
+        heuristic = ant.getNormalizedProbabilities(0);
+        for (int i=0; i < nNodes; i++){
+            System.out.println(heuristic[i]);
+        }
         //Grafo grafo = new Grafo(2);
         //grafo.MostrarVerticeInfo(1);
 

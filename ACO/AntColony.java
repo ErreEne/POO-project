@@ -1,6 +1,5 @@
 package ACO;
 
-import GrafoPack.Grafo;
 import java.util.ArrayList;
 
 public class AntColony {
