@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Random;
 
 public class Ant {
-    public int[][] matrizAdj;
-    public int[][] matrizAux;
     public ArrayList<Integer> path;
     public ArrayList<Integer> unVisitedNodes;
     public int nest_node;
@@ -17,10 +15,9 @@ public class Ant {
     public float delta;
     public float eta;
     private float[] pheromone;
+    private int tamanhoMax = 0;
 
     public Ant(int[][] matrizAdj, int nest_node, float alpha, float beta, float gamma, float delta, float eta) {
-        this.matrizAdj = matrizAdj;
-        this.matrizAux = matrizAdj;
         this.nest_node = nest_node;
         this.alpha = alpha;
         this.beta = beta;
@@ -36,18 +33,18 @@ public class Ant {
     }
 
     public float[] getWeights(int currentNode) {
-        float[] weights = new float[this.matrizAdj.length];
+        float[] weights = new float[tamanhoMax];
 
-        for (int i = 0; i < this.matrizAdj.length; i++) {
-            weights[i] = (float)this.matrizAdj[currentNode][i];
+        for (int i = 0; i < tamanhoMax; i++) {
+            weights[i] = 10;
         }
         return weights;
     }
 
     public float[] getPheromone(int currentNode) {
-        float[] pheromone = new float[this.matrizAdj.length];
+        float[] pheromone = new float[tamanhoMax];
 
-        for (int i = 0; i < this.matrizAdj.length; i++) {
+        for (int i = 0; i < tamanhoMax; i++) {
             pheromone[i] = this.pheromone[i]; // mudar para feromonas
         }
         return pheromone;
@@ -58,16 +55,16 @@ public class Ant {
 
         float[] pheromone = getPheromone(currentNode);
 
-        float[] probability = new float[this.matrizAdj.length];
+        float[] probability = new float[tamanhoMax];
         float sum = 0;
         float Ci = 0;
         float Cijk = 0;
 
-        for (int i = 0; i < this.matrizAdj.length; i++) {
+        for (int i = 0; i < tamanhoMax; i++) {
             Ci += ((this.alpha + pheromone[i])/(this.beta + weights[i]));
         }
 
-        for (int i = 0; i < this.matrizAdj.length; i++) {
+        for (int i = 0; i < tamanhoMax; i++) {
             if(weights[i] == 0) {
                 probability[i] = 0;
             } else {
@@ -77,7 +74,7 @@ public class Ant {
             sum += probability[i];
         }
 
-        for(int i = 0; i < this.matrizAdj.length; i++) {
+        for(int i = 0; i < tamanhoMax; i++) {
             probability[i] = probability[i]/sum;
         }
 
@@ -110,10 +107,6 @@ public class Ant {
             removeLoop(newNode);
             return false;
         }
-
-
-        this.matrizAdj[currentNode][newNode] = 0;
-        this.matrizAdj[newNode][currentNode] = 0;
         this.path.add(newNode);
 
         return false;
@@ -152,9 +145,9 @@ public class Ant {
     }
 
     public Boolean checkIfEndedPath() {
-        if (this.getSize(this.path) == this.matrizAdj.length) {
-            for(int i = 0; i < this.matrizAdj.length; i++) {
-                if(matrizAdj[this.nest_node][i] != 0 && (i + 1) == this.path.get(this.getSize(this.path))) {
+        if (this.getSize(this.path) == tamanhoMax) {
+            for(int i = 0; i < tamanhoMax; i++) {
+                if() {
                     this.path.add(this.nest_node);
                     return true;
                 }

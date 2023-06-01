@@ -1,6 +1,6 @@
 package GrafoPack;
 
-public class Ponteiro extends vertice {
+public class Ponteiro extends VerticeSuper {
 
     int custo;
 

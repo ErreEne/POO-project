@@ -2,13 +2,12 @@ package GrafoPack;
 
 import java.util.ArrayList;
 
-public class vertice {
+public class vertice extends VerticeSuper{
 
-    public int elemento;
     public ArrayList<Ponteiro> ListaPonteiros;
 
     vertice(int elementoNovo) {
-        this.elemento = elementoNovo;
+        super(elementoNovo);
         this.ListaPonteiros = new ArrayList<Ponteiro>();
     }
 
@@ -20,7 +19,7 @@ public class vertice {
 
     }
 
-    public boolean checkLig(vertice novo) {
+    public boolean checkLig(VerticeSuper novo) {
 
         for (Ponteiro x : ListaPonteiros) {
 
@@ -51,7 +50,7 @@ public class vertice {
 
     }
 
-    public int GetCustoLig(vertice Vertice) {
+    public int GetCustoLig(VerticeSuper Vertice) {
         for (Ponteiro x : this.ListaPonteiros) {
             if (x == Vertice) {
                 return x.getCusto();

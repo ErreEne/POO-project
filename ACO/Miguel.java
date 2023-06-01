@@ -6,6 +6,14 @@ import java.util.Arrays;
 
 public class Miguel {
     float pheromone=0;
+    int[] edgeInfo;
+
+    Miguel(int pheromone,int entrada, int saida){
+
+        this.pheromone = pheromone;
+        this.edgeInfo = new int[2];
+
+    }
 
     public float getPheromone() {
         return this.pheromone;

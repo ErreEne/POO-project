@@ -58,7 +58,7 @@ public class Grafo implements GrafoInterface {
         edgesaux = aux.getPonteiros();
 
         for (Ponteiro x: edgesaux){
-            edges.put(x.GetVerticeInfo(),x.GetCustoLig(x));
+            edges.put(x.GetVerticeInfo(),x.getCusto());
         }
 
 
