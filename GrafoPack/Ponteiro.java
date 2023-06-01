@@ -2,7 +2,7 @@ package GrafoPack;
 
 public class Ponteiro extends vertice {
 
-    int custo = 0;
+    int custo;
 
     Ponteiro(int elementoLig, int weight) {
 

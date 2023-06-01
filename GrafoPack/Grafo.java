@@ -1,9 +1,10 @@
 package GrafoPack;
 
+import java.util.Hashtable;
 import java.util.Random;
 import java.util.ArrayList;
 
-public class Grafo {
+public class Grafo implements GrafoInterface {
 
     int MaxVertices;
     vertice[] Vertices;
@@ -49,6 +50,21 @@ public class Grafo {
 
     }
 
+    @Override
+    public Hashtable<Integer,Integer> getEdges(int vertice) {
+        Hashtable<Integer,Integer> edges = new Hashtable<Integer,Integer>();
+        ArrayList<Ponteiro> edgesaux = new ArrayList<Ponteiro>();
+        vertice aux = this.Vertices[vertice-1];
+        edgesaux = aux.getPonteiros();
+
+        for (Ponteiro x: edgesaux){
+            edges.put(x.GetVerticeInfo(),x.GetCustoLig(x));
+        }
+
+
+        return edges;
+
+    }
     /**
      * Este metodo cria um vertice e guarda-o na estrutura dos grafos
      * 
