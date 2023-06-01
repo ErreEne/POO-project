@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Random;
+import GrafoPack.GrafoInterface;
 
 public class Ant {
     public ArrayList<Integer> path;
@@ -15,10 +16,13 @@ public class Ant {
     public float delta;
     public float eta;
     private float[] pheromone;
-    private int tamanhoMax = 0;
+    private int tamanhoMax;
+    private GrafoInterface grafo;
 
-    public Ant(int[][] matrizAdj, int nest_node, float alpha, float beta, float gamma, float delta, float eta) {
+    public Ant(int[][] matrizAdj, int nest_node, float alpha, float beta, float gamma, float delta, float eta,
+            GrafoInterface graph) {
         this.nest_node = nest_node;
+        this.grafo = graph;
         this.alpha = alpha;
         this.beta = beta;
         this.gamma = gamma;
@@ -26,7 +30,7 @@ public class Ant {
         this.eta = eta;
         this.path = new ArrayList<Integer>();
         this.unVisitedNodes = new ArrayList<Integer>();
-        for(int i = 0; i < matrizAdj.length; i++) {
+        for (int i = 0; i < matrizAdj.length; i++) {
             this.unVisitedNodes.add(i);
         }
         System.out.println("Ant created");
@@ -61,21 +65,21 @@ public class Ant {
         float Cijk = 0;
 
         for (int i = 0; i < tamanhoMax; i++) {
-            Ci += ((this.alpha + pheromone[i])/(this.beta + weights[i]));
+            Ci += ((this.alpha + pheromone[i]) / (this.beta + weights[i]));
         }
 
         for (int i = 0; i < tamanhoMax; i++) {
-            if(weights[i] == 0) {
+            if (weights[i] == 0) {
                 probability[i] = 0;
             } else {
-                Cijk = ((this.alpha + pheromone[i])/(this.beta + weights[i]));
-                probability[i] = Cijk/Ci;
+                Cijk = ((this.alpha + pheromone[i]) / (this.beta + weights[i]));
+                probability[i] = Cijk / Ci;
             }
             sum += probability[i];
         }
 
-        for(int i = 0; i < tamanhoMax; i++) {
-            probability[i] = probability[i]/sum;
+        for (int i = 0; i < tamanhoMax; i++) {
+            probability[i] = probability[i] / sum;
         }
 
         return probability;
@@ -83,7 +87,7 @@ public class Ant {
 
     public int chooseNode(float[] probability) {
         Random rand = new Random();
-        float node = rand.nextFloat(0,1);
+        float node = rand.nextFloat(0, 1);
         float partialSum = 0;
         for (int i = 0; i < probability.length; i++) {
             partialSum += probability[i];
@@ -95,7 +99,7 @@ public class Ant {
     }
 
     public Boolean updatePath(int currentNode) {
-        if(checkIfEndedPath()) {
+        if (checkIfEndedPath()) {
             return true;
         }
 
@@ -103,7 +107,7 @@ public class Ant {
         int newNode = chooseNode(NormalizedProbabilities);
 
         int loop = checkLoop(newNode);
-        if(loop == -1) { // loop
+        if (loop == -1) { // loop
             removeLoop(newNode);
             return false;
         }
@@ -137,7 +141,7 @@ public class Ant {
 
     public int checkLoop(int newNode) {
         for (int i = 0; i < this.getSize(this.path) - 1; i++) {
-            if(this.path.get(i) == newNode) {
+            if (this.path.get(i) == newNode) {
                 return i;
             }
         }
@@ -146,8 +150,8 @@ public class Ant {
 
     public Boolean checkIfEndedPath() {
         if (this.getSize(this.path) == tamanhoMax) {
-            for(int i = 0; i < tamanhoMax; i++) {
-                if() {
+            for (int i = 0; i < tamanhoMax; i++) {
+                if (true) {
                     this.path.add(this.nest_node);
                     return true;
                 }
@@ -157,10 +161,10 @@ public class Ant {
         return false;
     }
 
-    public double pheromoneLevel (int gama) {
+    public double pheromoneLevel(int gama) {
         int custo = 0;
-        double miu=1; ///Miu o que é, de onde vem??
-        return (gama*custo)/miu;
+        double miu = 1; /// Miu o que é, de onde vem??
+        return (gama * custo) / miu;
     }
 
     public void setPheromone(float[] pheromone) {

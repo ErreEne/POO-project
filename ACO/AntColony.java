@@ -1,6 +1,7 @@
 package ACO;
 
 import java.util.ArrayList;
+import GrafoPack.GrafoInterface;
 
 public class AntColony {
     private static ArrayList<Ant> colony = null;
@@ -12,9 +13,11 @@ public class AntColony {
     public static float delta;
     public static float eta;
     public static int ant_colony_size;
+    private GrafoInterface Grafo;
 
-    public AntColony(int[][] matrizAdj, int nest_node, float alpha, float beta, float gamma, float delta, float eta, int ant_colony_size) {
-        AntColony.matrizAdj = matrizAdj;
+    public AntColony(GrafoInterface Graph,int nest_node, float alpha, float beta, float gamma, float delta, float eta, int ant_colony_size) {
+
+        this.Grafo = Graph;
         AntColony.nest_node = nest_node;
         AntColony.beta = beta;
         AntColony.alpha = alpha;
@@ -31,7 +34,7 @@ public class AntColony {
     }
 
     public static void createAnts() {
-        Ant ant = new Ant(matrizAdj, nest_node, alpha, beta, gamma, delta, eta);
+        Ant ant = new Ant(matrizAdj, nest_node, alpha, beta, gamma, delta, eta,Graph);
         int i = 0;
         for (i = 0; i < ant_colony_size; i++) {
             addAnt(ant);

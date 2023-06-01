@@ -51,20 +51,25 @@ public class Grafo implements GrafoInterface {
     }
 
     @Override
-    public Hashtable<Integer,Integer> getEdges(int vertice) {
-        Hashtable<Integer,Integer> edges = new Hashtable<Integer,Integer>();
+    public Hashtable<Integer, Integer> getEdges(int vertice) {
+        Hashtable<Integer, Integer> edges = new Hashtable<Integer, Integer>();
         ArrayList<Ponteiro> edgesaux = new ArrayList<Ponteiro>();
-        vertice aux = this.Vertices[vertice-1];
+        vertice aux = this.Vertices[vertice - 1];
         edgesaux = aux.getPonteiros();
 
-        for (Ponteiro x: edgesaux){
-            edges.put(x.GetVerticeInfo(),x.getCusto());
+        for (Ponteiro x : edgesaux) {
+            edges.put(x.GetVerticeInfo(), x.getCusto());
         }
-
 
         return edges;
 
     }
+
+    @Override
+    public int totalVertex() {
+        return this.MaxVertices;
+    };
+
     /**
      * Este metodo cria um vertice e guarda-o na estrutura dos grafos
      * 
@@ -84,18 +89,18 @@ public class Grafo implements GrafoInterface {
      * 
      * @param peso
      */
-/*
-
-
-
-
-    Talvez tenhamos de ver isto mais tarde
-
-
-
-
-    
- */
+    /*
+     * 
+     * 
+     * 
+     * 
+     * Talvez tenhamos de ver isto mais tarde
+     * 
+     * 
+     * 
+     * 
+     * 
+     */
     public void GenerateGraphWHamiltonCycle(int peso) {
 
         int aux, aux1, flag = 0;
