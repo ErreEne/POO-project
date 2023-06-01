@@ -1,8 +1,13 @@
 package GrafoPack;
 
+import ACO.AntColony;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Hashtable;
 import java.util.Random;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Grafo implements GrafoInterface {
 
@@ -25,7 +30,7 @@ public class Grafo implements GrafoInterface {
     public Grafo(int flag) {
 
         if (flag == 0) {
-            // está vazio?????????
+
         } else {
             this.MaxVertices = 5;
             this.Vertices = new vertice[this.MaxVertices];
@@ -217,5 +222,80 @@ public class Grafo implements GrafoInterface {
         }
 
         return matriz;
+    }
+
+    public void GrafoFromFile(String path) {
+        try {
+            int nNodes = 0;       // number of nodes in the graph
+            int nest_node = 0;           // the nest node
+            float alfa = 0;       // alpha, ant move event
+            float beta = 0;       // beta, ant move event
+            float delta = 0;      // delta, ant move event
+            float eta = 0;        // eta, pheronome evaporation event
+            float ro = 0;         // ro, pheronome evaporation event
+            float gamma = 0;    // pheronome level
+            int v = 0;            // ant colony size
+            float tao = 0;          // final instant
+            int[][] matriz = new int[0][]; // adjacency matrix
+
+            File file = new File(path);  // Specify the path to your text file
+            Scanner scanner = new Scanner(file);
+
+            String inputLine = scanner.nextLine();
+            String[] inputs = inputLine.split(" "); // split the line into an array of strings
+            if (inputs.length != 10) {
+                System.out.println("Invalid number of input values");
+                System.exit(0);             //terminates program ???
+            }
+            nNodes = Integer.parseInt(inputs[0]);
+            nest_node = Integer.parseInt(inputs[1]);
+            alfa = Float.parseFloat(inputs[2]);
+            beta = Float.parseFloat(inputs[3]);
+            delta = Float.parseFloat(inputs[4]);
+            eta = Float.parseFloat(inputs[5]);
+            ro = Float.parseFloat(inputs[6]);
+            gamma = Float.parseFloat(inputs[7]);
+            v = Integer.parseInt(inputs[8]);
+            tao = Float.parseFloat(inputs[9]);
+            /*System.out.print(nNodes + " ");
+            System.out.print(nest_node + " ");
+            System.out.print(alfa + " ");
+            System.out.print(beta + " ");
+            System.out.print(delta + " ");
+            System.out.print(eta + " ");
+            System.out.print(ro + " ");
+            System.out.print(gamma + " ");
+            System.out.print(v + " ");
+            System.out.print(tao+ " ");
+            System.out.println("   ");*/
+
+            int j=0,i=0;
+            matriz = new int[nNodes][nNodes];
+            for (i = 0; i < nNodes; i++) {
+                for (j = 0; j < nNodes; j++) {
+                    matriz[i][j] = 0;
+                }
+            }
+            j=0;
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] elements = line.split("[\\s\\t]+");
+                for (i=0; i < nNodes; i++){
+                    matriz[j][i]= Integer.parseInt(elements[i]);
+                }
+                j++;
+            }
+            for(i = 0; i < nNodes; i++){
+                for(j = 0; j < nNodes; j++){
+                    System.out.print(matriz[i][j] + " ");
+                }
+                System.out.println("   ");
+            }
+            Grafo grafo = new Grafo(matriz,1);
+            AntColony antColony = new AntColony(grafo, nest_node - 1, alfa, beta, gamma, delta, eta,v);
+
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: " + e.getMessage());}
     }
 }

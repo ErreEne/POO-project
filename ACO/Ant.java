@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Random;
+
+import GrafoPack.Grafo;
 import GrafoPack.GrafoInterface;
 
 public class Ant {
@@ -20,7 +22,7 @@ public class Ant {
     private GrafoInterface grafo;
 
     public Ant(int[][] matrizAdj, int nest_node, float alpha, float beta, float gamma, float delta, float eta,
-            GrafoInterface graph) {
+               Grafo graph) {
         this.nest_node = nest_node;
         this.grafo = graph;
         this.alpha = alpha;
@@ -36,7 +38,7 @@ public class Ant {
         System.out.println("Ant created");
     }
 
-    public float[] getWeights(int currentNode) {
+    public float[] getWeights(int currentNode) { // este methodo já não é preciso ??
         float[] weights = new float[tamanhoMax];
 
         for (int i = 0; i < tamanhoMax; i++) {

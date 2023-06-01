@@ -1,5 +1,7 @@
 import ACO.Ant;
 import ACO.AntColony;
+import GrafoPack.Grafo;
+import GrafoPack.GrafoInterface;
 
 
 import java.io.File;
@@ -39,21 +41,14 @@ public class Main {
             gamma = Float.parseFloat(args[8]);
             v = Integer.parseInt(args[9]);
             tao = Integer.parseInt(args[10]);
-            /*System.out.print(nNodes + " ");
-            System.out.print(nest_node + " ");
-            System.out.print(alfa + " ");
-            System.out.print(beta + " ");
-            System.out.print(delta + " ");
-            System.out.print(eta + " ");
-            System.out.print(ro + " ");
-            System.out.print(gamma + " ");
-            System.out.print(v + " ");
-            System.out.print(tao+ " ");
-            System.out.println("   ");*/
+
+            Grafo grafo = new Grafo(nNodes);
             }
         }
         else if (arg.equals("-f")){          //reads from file
-            try {
+            Grafo grafo = new Grafo(0);
+            grafo.GrafoFromFile(args[1]);
+            /*try {
                 String path = args[1];
                 File file = new File(path);  // Specify the path to your text file
 
@@ -109,7 +104,8 @@ public class Main {
                     }
                     System.out.println("   ");
                 }
-                AntColony antColony = new AntColony(matriz, nest_node - 1, alfa, beta, gamma, delta, eta,v);
+                Grafo grafo = new Grafo(matriz,1);
+                AntColony antColony = new AntColony(grafo, nest_node - 1, alfa, beta, gamma, delta, eta,v);
 
                 scanner.close();
             } catch (FileNotFoundException e) {
@@ -117,9 +113,10 @@ public class Main {
         }
         else{
             System.out.println("Invalid argument, use -r or -f");
+        }*/
         }
         AntColony.createAnts();
-        Ant ant = new Ant(matriz, nest_node, alfa, beta, gamma, delta, eta);
+        Ant ant = new Ant(grafo, nest_node, alfa, beta, gamma, delta, eta);
 
         float[] pheromone = new float[nNodes];
         float[] heuristic = new float[nNodes];
