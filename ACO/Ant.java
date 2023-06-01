@@ -22,7 +22,7 @@ public class Ant {
     private GrafoInterface grafo;
 
     public Ant(int[][] matrizAdj, int nest_node, float alpha, float beta, float gamma, float delta, float eta,
-               Grafo graph) {
+               GrafoInterface graph) {
         this.nest_node = nest_node;
         this.grafo = graph;
         this.alpha = alpha;

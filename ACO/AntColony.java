@@ -13,11 +13,11 @@ public class AntColony {
     public static float delta;
     public static float eta;
     public static int ant_colony_size;
-    private final GrafoInterface Grafo;  // final??
+    private static GrafoInterface Grafo = null;  // final??
 
     public AntColony(GrafoInterface Graph, int nest_node, float alpha, float beta, float gamma, float delta, float eta, int ant_colony_size) {
 
-        this.Grafo = Graph;
+        AntColony.Grafo = Graph;
         AntColony.nest_node = nest_node;
         AntColony.beta = beta;
         AntColony.alpha = alpha;
@@ -30,7 +30,7 @@ public class AntColony {
     }
 
     public static void createAnts() {
-        Ant ant = new Ant(matrizAdj, nest_node, alpha, beta, gamma, delta, eta,Graph);
+        Ant ant = new Ant(matrizAdj, nest_node, alpha, beta, gamma, delta, eta, Grafo);
         int i = 0;
         for (i = 0; i < ant_colony_size; i++) {
             colony.add(ant);

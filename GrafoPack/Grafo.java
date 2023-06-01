@@ -257,17 +257,6 @@ public class Grafo implements GrafoInterface {
             gamma = Float.parseFloat(inputs[7]);
             v = Integer.parseInt(inputs[8]);
             tao = Float.parseFloat(inputs[9]);
-            /*System.out.print(nNodes + " ");
-            System.out.print(nest_node + " ");
-            System.out.print(alfa + " ");
-            System.out.print(beta + " ");
-            System.out.print(delta + " ");
-            System.out.print(eta + " ");
-            System.out.print(ro + " ");
-            System.out.print(gamma + " ");
-            System.out.print(v + " ");
-            System.out.print(tao+ " ");
-            System.out.println("   ");*/
 
             int j=0,i=0;
             matriz = new int[nNodes][nNodes];
@@ -287,13 +276,10 @@ public class Grafo implements GrafoInterface {
             }
             for(i = 0; i < nNodes; i++){
                 for(j = 0; j < nNodes; j++){
-                    System.out.print(matriz[i][j] + " ");
+                    System.out.print(matriz[i][j] + "a ");
                 }
                 System.out.println("   ");
             }
-            Grafo grafo = new Grafo(matriz,1);
-            AntColony antColony = new AntColony(grafo, nest_node - 1, alfa, beta, gamma, delta, eta,v);
-
             scanner.close();
         } catch (FileNotFoundException e) {
             System.out.println("File not found: " + e.getMessage());}

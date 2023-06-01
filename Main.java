@@ -48,75 +48,11 @@ public class Main {
         else if (arg.equals("-f")){          //reads from file
             Grafo grafo = new Grafo(0);
             grafo.GrafoFromFile(args[1]);
-            /*try {
-                String path = args[1];
-                File file = new File(path);  // Specify the path to your text file
-
-                Scanner scanner = new Scanner(file);
-
-                String inputLine = scanner.nextLine();
-                String[] inputs = inputLine.split(" "); // split the line into an array of strings
-                if (inputs.length != 10) {
-                    System.out.println("Invalid number of input values");
-                    System.exit(0);             //terminates program ???
-                }
-                nNodes = Integer.parseInt(inputs[0]);
-                nest_node = Integer.parseInt(inputs[1]);
-                alfa = Float.parseFloat(inputs[2]);
-                beta = Float.parseFloat(inputs[3]);
-                delta = Float.parseFloat(inputs[4]);
-                eta = Float.parseFloat(inputs[5]);
-                ro = Float.parseFloat(inputs[6]);
-                gamma = Float.parseFloat(inputs[7]);
-                v = Integer.parseInt(inputs[8]);
-                tao = Float.parseFloat(inputs[9]);
-                System.out.print(nNodes + " ");
-                System.out.print(nest_node + " ");
-                System.out.print(alfa + " ");
-                System.out.print(beta + " ");
-                System.out.print(delta + " ");
-                System.out.print(eta + " ");
-                System.out.print(ro + " ");
-                System.out.print(gamma + " ");
-                System.out.print(v + " ");
-                System.out.print(tao+ " ");
-                System.out.println("   ");
-
-                int j=0,i=0;
-                matriz = new int[nNodes][nNodes];
-                for (i = 0; i < nNodes; i++) {
-                    for (j = 0; j < nNodes; j++) {
-                        matriz[i][j] = 0;
-                    }
-                }
-                j=0;
-                while (scanner.hasNextLine()) {
-                    String line = scanner.nextLine();
-                    String[] elements = line.split("[\\s\\t]+");
-                    for (i=0; i < nNodes; i++){
-                        matriz[j][i]= Integer.parseInt(elements[i]);
-                    }
-                    j++;
-                }
-                for(i = 0; i < nNodes; i++){
-                    for(j = 0; j < nNodes; j++){
-                        System.out.print(matriz[i][j] + " ");
-                    }
-                    System.out.println("   ");
-                }
-                Grafo grafo = new Grafo(matriz,1);
-                AntColony antColony = new AntColony(grafo, nest_node - 1, alfa, beta, gamma, delta, eta,v);
-
-                scanner.close();
-            } catch (FileNotFoundException e) {
-                System.out.println("File not found: " + e.getMessage());}
-        }
-        else{
-            System.out.println("Invalid argument, use -r or -f");
-        }*/
         }
         AntColony.createAnts();
-        Ant ant = new Ant(grafo, nest_node, alfa, beta, gamma, delta, eta);
+        int[][] matrix = new int[1][1];
+        matrix[0][0] = 1;
+        Ant ant = new Ant(matriz, nest_node, alfa, beta, gamma, delta, eta,null); // primeira e última para não se babar
 
         float[] pheromone = new float[nNodes];
         float[] heuristic = new float[nNodes];
