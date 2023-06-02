@@ -10,77 +10,38 @@ import GrafoPack.GrafoInterface;
 
 public class Ant {
     public ArrayList<Integer> path;
-    public ArrayList<Integer> unVisitedNodes;
-    public int nest_node;
-    public float alpha;
-    public float beta;
-    public float gamma;
-    public float delta;
-    public float eta;
-    private float[] pheromone;
-    private int tamanhoMax;
-    private GrafoInterface grafo;
+    private AntColony colony;
 
-    public Ant(int nest_node, float alpha, float beta, float gamma, float delta, float eta,
-               GrafoInterface graph) {
-        this.nest_node = nest_node;
-        this.grafo = graph;
-        this.alpha = alpha;
-        this.beta = beta;
-        this.gamma = gamma;
-        this.delta = delta;
-        this.eta = eta;
+    public Ant(AntColony Antcolony) {
+        this.colony = Antcolony;
         this.path = new ArrayList<Integer>();
-        this.unVisitedNodes = new ArrayList<Integer>();
-        /*for (int i = 0; i < matrizAdj.length; i++) {
-            this.unVisitedNodes.add(i);
-        }*/
-        System.out.println("Ant created");
-    }
-
-    public float[] getWeights(int currentNode) { // este methodo já não é preciso ??
-        float[] weights = new float[tamanhoMax];
-
-        for (int i = 0; i < tamanhoMax; i++) {
-            weights[i] = 10;
-        }
-        return weights;
-    }
-
-    public float[] getPheromone(int currentNode) {
-        float[] pheromone = new float[tamanhoMax];
-
-        for (int i = 0; i < tamanhoMax; i++) {
-            pheromone[i] = this.pheromone[i]; // mudar para feromonas
-        }
-        return pheromone;
     }
 
     public float[] getNormalizedProbabilities(int currentNode) {
-        float[] weights = getWeights(currentNode);
+        Hashtable<Integer, Integer> weights = colony.getWeightsFromNode(currentNode);
 
-        float[] pheromone = getPheromone(currentNode);
+        float[] pheromone = colony.getPheromonesFromNode(currentNode);
 
-        float[] probability = new float[tamanhoMax];
+        float[] probability = new float[colony.tamanhoMax];
         float sum = 0;
         float Ci = 0;
         float Cijk = 0;
 
-        for (int i = 0; i < tamanhoMax; i++) {
-            Ci += ((this.alpha + pheromone[i]) / (this.beta + weights[i]));
+        for (int i = 0; i < colony.tamanhoMax; i++) {
+            Ci += ((colony.alpha + pheromone[i]) / (colony.beta + weights.get(i)));
         }
 
-        for (int i = 0; i < tamanhoMax; i++) {
-            if (weights[i] == 0) {
+        for (int i = 0; i < colony.tamanhoMax; i++) {
+            if (weights.get(i) == 0) {
                 probability[i] = 0;
             } else {
-                Cijk = ((this.alpha + pheromone[i]) / (this.beta + weights[i]));
+                Cijk = ((colony.alpha + pheromone[i]) / (colony.beta + weights[i]));
                 probability[i] = Cijk / Ci;
             }
             sum += probability[i];
         }
 
-        for (int i = 0; i < tamanhoMax; i++) {
+        for (int i = 0; i < colony.tamanhoMax; i++) {
             probability[i] = probability[i] / sum;
         }
 
@@ -113,7 +74,7 @@ public class Ant {
             removeLoop(newNode);
             return false;
         }
-        this.path.add(newNode);
+        addToList(this.path, newNode);
 
         return false;
     }
@@ -124,9 +85,34 @@ public class Ant {
             if (i == nodeToRemove || flag == 1) {
                 flag = 1;
                 removeFromList(this.path, i);
-                addToList(this.unVisitedNodes, i);
             }
         }
+    }
+
+    public int checkLoop(int newNode) {
+        for (int i = 0; i < this.path.size() - 1; i++) {
+            if (getFromList(this.path, i) == newNode) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public Boolean checkIfEndedPath() {
+        if (getSize(this.path) == colony.tamanhoMax) {
+            for (int i = 0; i < colony.tamanhoMax; i++) {
+                if (true) {
+                    addToList(this.path, colony.nest_node);
+                    return true;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public int getFromList(ArrayList<Integer> getFrom, int index) {
+        return getFrom.get(index);
     }
 
     public void removeFromList(ArrayList<Integer> listToRemove, int nodeToRemove) {
@@ -139,28 +125,6 @@ public class Ant {
 
     public int getSize(ArrayList<Integer> listToCheck) {
         return listToCheck.size();
-    }
-
-    public int checkLoop(int newNode) {
-        for (int i = 0; i < this.getSize(this.path) - 1; i++) {
-            if (this.path.get(i) == newNode) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    public Boolean checkIfEndedPath() {
-        if (this.getSize(this.path) == tamanhoMax) {
-            for (int i = 0; i < tamanhoMax; i++) {
-                if (true) {
-                    this.path.add(this.nest_node);
-                    return true;
-                }
-            }
-            return true;
-        }
-        return false;
     }
 
 }

@@ -5,32 +5,39 @@ import DSS.EvaporationOfPheromone;
 import java.util.Arrays;
 
 public class Miguel {
-    float pheromone;
-    float gamma;
+    float[][] pheromones; // IMPLEMENTAR MAP MAP MAP
     int[] edgeInfo;
+    int totalWeights;
 
-    Miguel(int pheromone, int entrada, int saida, int gamma) {
-
-        this.pheromone = 0;
-        this.gamma = gamma;
-        this.edgeInfo = new int[2];
-        this.edgeInfo[0] = entrada;
-        this.edgeInfo[1] = saida;
-
+    public Miguel(int numberOfNodes, int totalWeights) {
+        for(int i = 0; i < numberOfNodes; i++) {
+            for(int j = 0; j < numberOfNodes; j++) {
+                assert false;
+                this.pheromones[i][j] = 0;
+            }
+        }
+        this.totalWeights = totalWeights;
     }
 
-    public float getPheromone() {
-        return this.pheromone;
+    public void setPheromones(float[] weights, int[] Path, float gamma) {
+        float pheromone = 0;
+        int sumOfWeights = 0;
+        for (float weight : weights) {
+            sumOfWeights += weight;
+        }
+        pheromone = (gamma * this.totalWeights) / sumOfWeights;
+        for(int i = 0; i < Path.length - 1; i++) {
+            this.pheromones[Path[i]][Path[i + 1]] += pheromone;
+        }
     }
 
-    public void PheromoneLevel(float pheromone, float[] weight, int no) {
-        float W = 0;
-        for (int i = 0; i < weight.length; i++)
-            W += weight[i];
-        this.pheromone = W * this.gamma / weight[no]; // (W*y)/u(n)
-    }
-
-    public float setPheromone(float pheromone) {
-        return this.pheromone = pheromone;
+    public float[] getPheromone(int currentNode) {
+        float[] pheromone = new float[currentNode];
+        for(int i = 0; i < pheromones.length; i++) {
+            if(pheromone[i] != 0) {
+                pheromone[i] = this.pheromones[currentNode][i];
+            }
+        }
+        return pheromone;
     }
 }
