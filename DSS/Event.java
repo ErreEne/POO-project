@@ -1,5 +1,5 @@
 package DSS;
 
-public abstract class Event {
+public interface Event {
     public abstract void execute();
 }

@@ -21,7 +21,7 @@ public class Ant {
     private int tamanhoMax;
     private GrafoInterface grafo;
 
-    public Ant(int[][] matrizAdj, int nest_node, float alpha, float beta, float gamma, float delta, float eta,
+    public Ant(int nest_node, float alpha, float beta, float gamma, float delta, float eta,
                GrafoInterface graph) {
         this.nest_node = nest_node;
         this.grafo = graph;
@@ -32,9 +32,9 @@ public class Ant {
         this.eta = eta;
         this.path = new ArrayList<Integer>();
         this.unVisitedNodes = new ArrayList<Integer>();
-        for (int i = 0; i < matrizAdj.length; i++) {
+        /*for (int i = 0; i < matrizAdj.length; i++) {
             this.unVisitedNodes.add(i);
-        }
+        }*/
         System.out.println("Ant created");
     }
 
@@ -89,7 +89,7 @@ public class Ant {
 
     public int chooseNode(float[] probability) {
         Random rand = new Random();
-        float node = rand.nextFloat(0, 1);
+        float node = rand.nextFloat();
         float partialSum = 0;
         for (int i = 0; i < probability.length; i++) {
             partialSum += probability[i];
