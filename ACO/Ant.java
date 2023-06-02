@@ -163,13 +163,4 @@ public class Ant {
         return false;
     }
 
-    public double pheromoneLevel(int gama) {
-        int custo = 0;
-        double miu = 1; /// Miu o que é, de onde vem??
-        return (gama * custo) / miu;
-    }
-
-    public void setPheromone(float[] pheromone) {
-        this.pheromone = pheromone;
-    }
 }
