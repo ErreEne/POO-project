@@ -16,6 +16,16 @@ public class Grafo implements GrafoInterface {
     int verticenovo;
     int edges;
     int peso;
+    int nNodes = 0;       // number of nodes in the graph
+    int nest_node = 0;           // the nest node
+    float alfa = 0;       // alpha, ant move event
+    float beta = 0;       // beta, ant move event
+    float delta = 0;      // delta, ant move event
+    float eta = 0;        // eta, pheronome evaporation event
+    float ro = 0;         // ro, pheronome evaporation event
+    float gamma = 0;    // pheronome level
+    int v = 0;            // ant colony size
+    float tao = 0;          // final instant
 
     public Grafo(int verticeNumero, int edges, int peso) {
         this.MaxVertices = verticeNumero;
@@ -27,11 +37,30 @@ public class Grafo implements GrafoInterface {
         this.GenerateGraphWHamiltonCycle(peso);
     }
 
-    public Grafo(int flag) {
-
-        if (flag == 0) {
-
-        } else {
+    public Grafo(String[] args) {
+        if (args[0].equals("-r")) {
+            if (args.length != 11) {
+                System.out.println("Invalid number of arguments");
+                System.exit(0);             //terminates program ???
+            }
+            else {
+                nNodes = Integer.parseInt(args[1]);
+                nest_node = Integer.parseInt(args[2]);
+                alfa = Float.parseFloat(args[3]);
+                beta = Float.parseFloat(args[4]);
+                delta = Float.parseFloat(args[5]);
+                eta = Float.parseFloat(args[6]);
+                ro = Float.parseFloat(args[7]);
+                gamma = Float.parseFloat(args[8]);
+                v = Integer.parseInt(args[9]);
+                tao = Integer.parseInt(args[10]);
+                //Grafo grafo = new Grafo(nNodes,#,#); /////////////////////////// o que meter em edges e peso????
+            }
+        }
+        else if (args[0].equals("-f")) {
+            this.GrafoFromFile(args[1]);
+        }
+        else {
             this.MaxVertices = 5;
             this.Vertices = new vertice[this.MaxVertices];
             this.verticenovo = 0;
@@ -83,7 +112,6 @@ public class Grafo implements GrafoInterface {
      */
 
     public void CriarVertice(int verticeInfo) {
-
         this.Vertices[this.verticenovo] = new vertice(verticeInfo);
         this.verticenovo++;
 
@@ -107,7 +135,6 @@ public class Grafo implements GrafoInterface {
      * 
      */
     public void GenerateGraphWHamiltonCycle(int peso) {
-
         int aux, aux1, flag = 0;
         ArrayList<Integer> EdgeAux = new ArrayList<Integer>();
         ArrayList<Integer> ligFeitas = new ArrayList<Integer>();
@@ -143,13 +170,10 @@ public class Grafo implements GrafoInterface {
                 this.AdicionarLiga(this.Vertices[aux].GetVerticeInfo(), this.Vertices[aux1].GetVerticeInfo(),
                         rand.nextInt(peso));
                 this.edges--;
-
             }
-
             if (flag == 50) {
                 break;
             }
-
         }
 
     }
@@ -226,18 +250,6 @@ public class Grafo implements GrafoInterface {
 
     public void GrafoFromFile(String path) {
         try {
-            int nNodes = 0;       // number of nodes in the graph
-            int nest_node = 0;           // the nest node
-            float alfa = 0;       // alpha, ant move event
-            float beta = 0;       // beta, ant move event
-            float delta = 0;      // delta, ant move event
-            float eta = 0;        // eta, pheronome evaporation event
-            float ro = 0;         // ro, pheronome evaporation event
-            float gamma = 0;    // pheronome level
-            int v = 0;            // ant colony size
-            float tao = 0;          // final instant
-            int[][] matriz = new int[0][]; // adjacency matrix
-
             File file = new File(path);  // Specify the path to your text file
             Scanner scanner = new Scanner(file);
 
@@ -259,13 +271,7 @@ public class Grafo implements GrafoInterface {
             tao = Float.parseFloat(inputs[9]);
 
             int j=0,i=0;
-            matriz = new int[nNodes][nNodes];
-            for (i = 0; i < nNodes; i++) {
-                for (j = 0; j < nNodes; j++) {
-                    matriz[i][j] = 0;
-                }
-            }
-            j=0;
+            int[][] matriz = new int[nNodes][nNodes];
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] elements = line.split("[\\s\\t]+");
@@ -274,14 +280,22 @@ public class Grafo implements GrafoInterface {
                 }
                 j++;
             }
-            for(i = 0; i < nNodes; i++){
-                for(j = 0; j < nNodes; j++){
-                    System.out.print(matriz[i][j] + "a ");
-                }
-                System.out.println("   ");
-            }
             scanner.close();
         } catch (FileNotFoundException e) {
             System.out.println("File not found: " + e.getMessage());}
+    }
+    public float[] getInput(){
+        float[] input = new float[10];
+        input[0] = nNodes;
+        input[1] = nest_node;
+        input[2] = alfa;
+        input[3] = beta;
+        input[4] = delta;
+        input[5] = eta;
+        input[6] = ro;
+        input[7] = gamma;
+        input[8] = v;
+        input[9] = tao;
+        return input;
     }
 }
