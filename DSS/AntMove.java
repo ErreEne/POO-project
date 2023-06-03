@@ -3,18 +3,29 @@ package DSS;
 import ACO.*;
 
 import java.util.Random;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
-public class AntMove implements Event, Comparable<AntMove> {
+public class AntMove implements Event, AntMoveInterface {
     double timestamp = 0;
+    Queue<NextEvent<AntInterface>> PEC;
 
-    public AntMove(double time, double delta, double a_ij) {
-        Random random = new Random();
-        timestamp = (1 - Math.exp(-random.nextDouble() / delta * a_ij));
+    public AntMove() {
+        /*
+         * Random random = new Random();
+         * timestamp = (1 - Math.exp(-random.nextDouble() / delta * a_ij));
+         */
+        PEC = new PriorityQueue<>();
     }
 
-    public int compareTo(AntMove other) {
-        // Compare based on the values
-        return Double.compare(this.timestamp, other.timestamp);
+    public double getTime() {
+        return this.timestamp;
+    }
+
+    public void GetAnts(AntInterface ant){}
+
+    public void GenerateQueue(AntInterface obj) {
+
     }
 
     @Override
