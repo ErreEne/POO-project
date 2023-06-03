@@ -1,6 +1,6 @@
 package ACO;
-
 import java.util.PriorityQueue;
+import java.util.Random;
 
 public class SortedPriorityQueue<T extends Comparable<T>> {
     private final PriorityQueue<T> queue;
@@ -8,30 +8,24 @@ public class SortedPriorityQueue<T extends Comparable<T>> {
     public SortedPriorityQueue() {
         queue = new PriorityQueue<>();
     }
-
-    public void enqueue(T item) {
-        queue.offer(item);
+    public void insertQueue(T event) {
+        queue.offer(event);          // Insert into the priority queue
     }
-
-    public T dequeue() {
+    public T getFirst() {
         if (isEmpty()) {
             throw new IllegalStateException("Priority queue is empty.");
         }
-        return queue.poll();
+        return queue.poll();        // Returns the Event at the top of the current queue and removes it
     }
-
-    public T peek() {
-        if (isEmpty()) {
-            throw new IllegalStateException("Priority queue is empty.");
-        }
-        return queue.peek();
-    }
-
     public boolean isEmpty() {
         return queue.isEmpty();
     }
-
-    public int size() {
-        return queue.size();
+    public record Event(String name, int timestamp, String type) implements Comparable<Event> {
+        @Override
+        public int compareTo(Event other) {
+            // Compare based on the values
+            return Integer.compare(this.timestamp, other.timestamp);
+        }
     }
 }
+
