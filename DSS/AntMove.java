@@ -3,6 +3,8 @@ package DSS;
 import ACO.Ant;
 import ACO.SortedPriorityQueue;
 
+import java.util.Random;
+
 public class AntMove implements Event, Comparable<AntMove> {
     double timestamp=0;
 
@@ -20,4 +22,6 @@ public class AntMove implements Event, Comparable<AntMove> {
     public void execute() {
         // Chamar coisas na Ant que façam-na mover para o próximo nó e depois gerar o timestamp do próximo evento
     };
+
+
 }
