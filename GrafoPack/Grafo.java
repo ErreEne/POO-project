@@ -11,6 +11,7 @@ public class Grafo implements GrafoInterface {
     int verticenovo;
     int edges;
     int peso;
+    int somarEdges;
 
     public Grafo(int verticeNumero, int edges, int peso) {
         this.MaxVertices = verticeNumero;
@@ -81,6 +82,13 @@ public class Grafo implements GrafoInterface {
 
         this.Vertices[this.verticenovo] = new vertice(verticeInfo);
         this.verticenovo++;
+
+    }
+
+    @Override
+    public int totalEdgesSum() {
+
+        return this.somarEdges;
 
     }
 
@@ -179,6 +187,8 @@ public class Grafo implements GrafoInterface {
             v1.NovaLigação(b, custo);
             v2.NovaLigação(a, custo);
         }
+
+        this.somarEdges += custo;
 
     }
 

@@ -57,19 +57,21 @@ public class Ant {
     }
 
     public void move() {
-        if (checkIfEndedPath()) {
-            path.clear();
-        }
-
         Hashtable<Integer, Float> NormalizedProbabilities = getNormalizedProbabilities(currentNode);
         int newNode = chooseNode(NormalizedProbabilities);
 
-        int loop = checkLoop(newNode);
+        int loop = checkLoop(currentNode);
         if (loop == -1) { // loop
-            removeLoop(newNode);
+            removeLoop(currentNode);
+        } else {
+
+            addToList(this.path, newNode);
+            currentNode = newNode;
         }
-        addToList(this.path, newNode);
-        currentNode = newNode;
+
+        if (checkIfEndedPath()) {
+            path.clear();
+        }
     }
 
     public void removeLoop(int nodeToRemove) {
@@ -94,10 +96,10 @@ public class Ant {
     public Boolean checkIfEndedPath() {
         if (getSize(path) == colony.tamanhoMax) {
             for (int i = 0; i < colony.tamanhoMax; i++) {
-                if (true) {
-                    addToList(this.path, colony.nest_node);
-                    return true;
-                }
+
+                addToList(this.path, colony.nest_node);
+                return false;
+
             }
             return true;
         }
