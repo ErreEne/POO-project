@@ -96,17 +96,9 @@ public class Main {
         else{
             System.out.println("Invalid argument, use -r or -f");
         }
-        SortedPriorityQueue<Integer> pq = new SortedPriorityQueue<>();
-        pq.enqueue(5);
-        pq.enqueue(2);
-        pq.enqueue(7);
-        pq.enqueue(1);
 
-        while (!pq.isEmpty()) {
-            System.out.println(pq.dequeue());
-        }
 
-        AntColony.createAnts();
+        /*AntColony.createAnts();
         Ant ant = new Ant(matriz, nest_node, alfa, beta, gamma, delta, eta);
 
         float[] pheromone = new float[nNodes];
@@ -115,7 +107,7 @@ public class Main {
         heuristic = ant.getNormalizedProbabilities(0);
         for (int i=0; i < nNodes; i++){
             System.out.println(heuristic[i]);
-        }
+        }*/
         //Grafo grafo = new Grafo(2);
         //grafo.MostrarVerticeInfo(1);
 

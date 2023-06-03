@@ -5,15 +5,17 @@ import DSS.EvaporationOfPheromone;
 
 import java.util.Random;
 
-public class PEC {
+public class PEC<T> {
     SortedPriorityQueue<AntMove> queue = new SortedPriorityQueue<>();
     public PEC(){}
 
 
-    public void addEvPEC(Event ev){
+    public void addEvPEC(AntMove ev){
+        queue.insertQueue(ev);
     }
 
     public Event nextEvPEC(){
+        return queue.getFirst();
     }
 
     public double calcTimeStamp(double delta, double a_ij){
