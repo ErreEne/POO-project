@@ -3,41 +3,34 @@ package ACO;
 import DSS.EvaporationOfPheromone;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Map;
 
 public class Miguel {
-    float[][] pheromones; // IMPLEMENTAR MAP MAP MAP
-    int[] edgeInfo;
+    Map<Integer, Hashtable<Integer, Float>> pheromones;
     int totalWeights;
 
     public Miguel(int numberOfNodes, int totalWeights) {
-        for(int i = 0; i < numberOfNodes; i++) {
-            for(int j = 0; j < numberOfNodes; j++) {
-                assert false;
-                this.pheromones[i][j] = 0;
-            }
-        }
+        this.pheromones = new HashMap<>(numberOfNodes);
         this.totalWeights = totalWeights;
     }
 
-    public void setPheromones(float[] weights, int[] Path, float gamma) {
-        float pheromone = 0;
-        int sumOfWeights = 0;
-        for (float weight : weights) {
-            sumOfWeights += weight;
-        }
-        pheromone = (gamma * this.totalWeights) / sumOfWeights;
-        for(int i = 0; i < Path.length - 1; i++) {
-            this.pheromones[Path[i]][Path[i + 1]] += pheromone;
+    public void setPheromones(int[] path, float gamma, int sumOfWeights) {
+        int currentNode = path[0];
+        int nextNode = path[1];
+        float pheromone =  gamma * sumOfWeights / totalWeights;
+        for (int i = 0; i < path.length - 1; i++) {
+            currentNode =  path[i];
+            nextNode =  path[i + 1];
+
+            Hashtable<Integer, Float> pheromonesFromNode = pheromones.get(currentNode);
+            pheromonesFromNode.put(nextNode, pheromonesFromNode.get(nextNode) + pheromone);
+            pheromones.put(currentNode, pheromonesFromNode);
         }
     }
 
-    public float[] getPheromone(int currentNode) {
-        float[] pheromone = new float[currentNode];
-        for(int i = 0; i < pheromones.length; i++) {
-            if(pheromone[i] != 0) {
-                pheromone[i] = this.pheromones[currentNode][i];
-            }
-        }
-        return pheromone;
+    public Hashtable<Integer, Float> getPheromone(int currentNode) {
+        return new Hashtable<>(pheromones.get(currentNode));
     }
 }

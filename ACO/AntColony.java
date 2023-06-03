@@ -30,7 +30,7 @@ public class AntColony {
         colony = new ArrayList<Ant>();
         // funcao no grafo para dar total weights
         this.tamanhoMax = Grafo.totalVertex();// buscar numero de nos
-        this.pheromones = new Miguel(ant_colony_size, tamanhoMax);
+        this.pheromones = new Miguel(ant_colony_size, tamanhoMax); // quero totalWeights
     }
 
     public void createAnts() {
@@ -41,7 +41,7 @@ public class AntColony {
         }
     }
 
-    public float[] getPheromonesFromNode(int node) {
+    public Hashtable<Integer, Float> getPheromonesFromNode(int node) {
         return pheromones.getPheromone(node);
     }
 
