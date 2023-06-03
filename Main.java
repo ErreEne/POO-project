@@ -106,7 +106,7 @@ public class Main {
             System.out.println(pq.dequeue());
         }
 
-        /*AntColony.createAnts();
+        AntColony.createAnts();
         Ant ant = new Ant(matriz, nest_node, alfa, beta, gamma, delta, eta);
 
         float[] pheromone = new float[nNodes];
@@ -115,7 +115,7 @@ public class Main {
         heuristic = ant.getNormalizedProbabilities(0);
         for (int i=0; i < nNodes; i++){
             System.out.println(heuristic[i]);
-        }*/
+        }
         //Grafo grafo = new Grafo(2);
         //grafo.MostrarVerticeInfo(1);
 
