@@ -8,17 +8,19 @@ import GrafoPack.GrafoInterface;
 public class Ant {
     public ArrayList<Integer> path;
     private AntColony colony;
+    public int currentNode;
 
     public Ant(AntColony Antcolony) {
         this.colony = Antcolony;
-        this.path = new ArrayList<Integer>();
+        this.path = new ArrayList<>();
+        this.currentNode = colony.nest_node;
     }
 
     public Hashtable<Integer, Float> getNormalizedProbabilities(int currentNode) {
         Hashtable<Integer, Float> probability = new Hashtable<>();
         float sum = 0;
         float Ci = 0;
-        float Cijk = 0;
+        float Cijk;
         Hashtable<Integer, Integer> weights = colony.getWeightsFromNode(currentNode);
 
         Hashtable<Integer, Float> pheromone = colony.getPheromonesFromNode(currentNode);
@@ -54,9 +56,9 @@ public class Ant {
         return -1;
     }
 
-    public Boolean updatePath(int currentNode) {
+    public void move() {
         if (checkIfEndedPath()) {
-            return true;
+            path.clear();
         }
 
         Hashtable<Integer, Float> NormalizedProbabilities = getNormalizedProbabilities(currentNode);
@@ -65,16 +67,14 @@ public class Ant {
         int loop = checkLoop(newNode);
         if (loop == -1) { // loop
             removeLoop(newNode);
-            return false;
         }
         addToList(this.path, newNode);
-
-        return false;
+        currentNode = newNode;
     }
 
     public void removeLoop(int nodeToRemove) {
         int flag = 0;
-        for (int i = 0; i < getSize(this.path) - 1; i++) {
+        for (int i = 0; i < getSize(path) - 1; i++) {
             if (i == nodeToRemove || flag == 1) {
                 flag = 1;
                 removeFromList(this.path, i);
@@ -83,7 +83,7 @@ public class Ant {
     }
 
     public int checkLoop(int newNode) {
-        for (int i = 0; i < this.path.size() - 1; i++) {
+        for (int i = 0; i < getSize(path) - 1; i++) {
             if (getFromList(this.path, i) == newNode) {
                 return i;
             }
@@ -92,7 +92,7 @@ public class Ant {
     }
 
     public Boolean checkIfEndedPath() {
-        if (getSize(this.path) == colony.tamanhoMax) {
+        if (getSize(path) == colony.tamanhoMax) {
             for (int i = 0; i < colony.tamanhoMax; i++) {
                 if (true) {
                     addToList(this.path, colony.nest_node);
