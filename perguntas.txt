@@ -1,2 +1,8 @@
 - o que fazer no caso de o ultimo no nao tiver caminho para o nest?
 - eventos?
+
+
+André:
+-o que é o GeralObject em AntMove.java?
+-Como funciona a PEC?
+-No EvaporationOfPheromone.java o gerar o próximo timestamp precisa de ter o current
