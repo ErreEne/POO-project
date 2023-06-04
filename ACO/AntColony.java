@@ -49,8 +49,7 @@ public class AntColony {
 
     public void createAnts() {
         Ant ant = new Ant(this);
-        int i = 0;
-        for (i = 0; i < ant_colony_size; i++) {
+        for (int i = 0; i < ant_colony_size; i++) {
             colony.add(ant);
         }
     }

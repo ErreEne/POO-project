@@ -48,6 +48,8 @@ public class AntMove implements AntEvent {
         /*
          * meter aqui formula para alterar o tempo e alterar a timestamp no aux
          */
+        //Random random = new Random();      // esta formula???? Falta input delta e a_ij
+        //this.timestamp = this.timestamp + (1 - Math.exp(-random.nextDouble() / delta * a_ij));
 
          PEC.add(aux);
 
