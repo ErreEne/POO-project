@@ -5,8 +5,9 @@ import ACO.*;
 import java.util.Random;
 import java.util.PriorityQueue;
 import java.util.Queue;
+import java.util.ArrayList;
 
-public class AntMove implements Event, AntMoveInterface {
+public class AntMove implements AntEvent {
     double timestamp = 0;
     Queue<NextEvent<AntInterface>> PEC;
 
@@ -22,16 +23,34 @@ public class AntMove implements Event, AntMoveInterface {
         return this.timestamp;
     }
 
-    public void GetAnts(AntInterface ant){}
+    public void GenerateQueue(ArrayList<AntInterface> obj) {
 
-    public void GenerateQueue(AntInterface obj) {
+        NextEvent<AntInterface> aux = new NextEvent<AntInterface>(null);
+
+        for(AntInterface x: obj){
+
+            aux = new NextEvent<AntInterface>(x);
+            PEC.add(aux);            
+
+        }
+
 
     }
 
     @Override
     public void execute() {
-        // Chamar coisas na Ant que façam-na mover para o próximo nó e depois gerar o
-        // timestamp do próximo evento
+        NextEvent<AntInterface> aux;
+
+        aux = PEC.poll();
+        aux.GeralObject.move();
+        this.timestamp = aux.getTime();
+        
+        /*
+         * meter aqui formula para alterar o tempo e alterar a timestamp no aux
+         */
+
+         PEC.add(aux);
+
     };
 
 }

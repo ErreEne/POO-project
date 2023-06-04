@@ -1,9 +1,16 @@
 package DSS;
 
-public class EvaporationOfPheromone implements Event{
+import ACO.MiguelInter;
+import java.util.ArrayList;
 
-    public void execute(){
-        // Chamar coisas em Miguel?? que evaporem e depois gerar o timestamp do próximo evento
+public class EvaporationOfPheromone implements FeromonasInterface {
+
+    public void execute() {
+        // Chamar coisas em Miguel?? que evaporem e depois gerar o timestamp do próximo
+        // evento
     };
+
+    public void GenerateQueue(ArrayList<MiguelInter> array) {
+    }
 
 }

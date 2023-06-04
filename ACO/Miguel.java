@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 
-public class Miguel {
+public class Miguel implements MiguelInter{
     Map<Integer, Hashtable<Integer, Float>> pheromones;
     int totalWeights;
     float gamma;

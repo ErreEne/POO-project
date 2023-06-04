@@ -3,7 +3,9 @@ package ACO;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
+import DSS.AntEvent;
 import DSS.Event;
+import DSS.FeromonasInterface;
 import GrafoPack.GrafoInterface;
 
 public class AntColony {
@@ -19,11 +21,11 @@ public class AntColony {
     public Miguel pheromones;
     public int tamanhoMax;
     public float ro;
-    private Event MoveFormiga;
-    private Event Feromonas;
+    private AntEvent MoveFormiga;
+    private FeromonasInterface Feromonas;
 
     public AntColony(GrafoInterface Graph, int nest_node, float alpha, float beta, float gamma, float delta, float eta,
-            int ant_colony_size, float ro, Event Feromonas, Event AntMove) {
+            int ant_colony_size, float ro) {
         this.Grafo = Graph;
         this.nest_node = nest_node;
         this.beta = beta;
@@ -37,6 +39,8 @@ public class AntColony {
         // funcao no grafo para dar total weights
         this.tamanhoMax = Grafo.totalVertex();// buscar numero de nos
         this.pheromones = new Miguel(ant_colony_size, tamanhoMax, gamma, ro); // quero totalWeights
+        
+
     }
 
     public ArrayList<Ant> getAnts() {

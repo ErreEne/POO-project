@@ -18,6 +18,14 @@ public class NextEvent<QueueObject> implements Comparable<NextEvent<QueueObject>
 
     }
 
+    public double getTime(){
+        return this.TimeStampEvento;
+    }
+
+    public QueueObject getObjeto(){
+        return this.GeralObject;
+    }
+
     @Override
     public int compareTo(NextEvent<QueueObject> aux) {
         return this.TimeStampEvento > aux.TimeStampEvento ? 1 : -1;
