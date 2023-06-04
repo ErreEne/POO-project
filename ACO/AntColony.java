@@ -3,11 +3,8 @@ package ACO;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
-import DSS.AntEvent;
-import DSS.Event;
-import DSS.FeromonasInterface;
-import GrafoPack.Grafo;
-import GrafoPack.GrafoInterface;
+import DSS.*;
+import GrafoPack.*;
 
 public class AntColony {
     private ArrayList<Ant> colony;
