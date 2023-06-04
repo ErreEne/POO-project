@@ -18,7 +18,7 @@ public class NextEvent<QueueObject> implements Comparable<NextEvent<QueueObject>
 
     }
 
-    public double getTime(){
+    public double getTime(){   // futuro
         return this.TimeStampEvento;
     }
 

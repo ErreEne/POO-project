@@ -2,6 +2,7 @@ package ACO;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.Random;
 
 import DSS.*;
 import GrafoPack.*;
@@ -19,8 +20,8 @@ public class AntColony {
     public Miguel pheromones;
     public int totalWeights;
     public float ro;
-    private AntEvent MoveFormiga;
-    private FeromonasInterface Feromonas;
+    private Event<Ant> MoveFormiga;
+    private Event<Miguel> Feromonas;
 
     public AntColony(GrafoInterface Graph, int nest_node, float alpha, float beta, float gamma, float delta, float eta,
             int ant_colony_size, float ro) {
@@ -61,5 +62,6 @@ public class AntColony {
     public Hashtable<Integer, Integer> getWeightsFromNode(int node) {
         return Grafo.getEdges(node);
     }
+
 
 }

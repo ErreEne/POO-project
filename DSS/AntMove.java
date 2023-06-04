@@ -7,7 +7,7 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.ArrayList;
 
-public class AntMove implements AntEvent {
+public class AntMove implements Event<AntInterface> {
     double timestamp = 0;
     Queue<NextEvent<AntInterface>> PEC;
 
@@ -19,7 +19,7 @@ public class AntMove implements AntEvent {
         PEC = new PriorityQueue<>();
     }
 
-    public double getTime() {
+    public double getTime() {           // current time
         return this.timestamp;
     }
 
@@ -38,7 +38,7 @@ public class AntMove implements AntEvent {
     }
 
     @Override
-    public void execute() {
+    public AntInterface execute() {
         NextEvent<AntInterface> aux;
 
         aux = PEC.poll();
@@ -48,8 +48,8 @@ public class AntMove implements AntEvent {
         /*
          * meter aqui formula para alterar o tempo e alterar a timestamp no aux
          */
-        //Random random = new Random();      // esta formula???? Falta input delta e a_ij
-        //this.timestamp = this.timestamp + (1 - Math.exp(-random.nextDouble() / delta * a_ij));
+        Random random = new Random();
+        aux.SetTimeStamp(this.timestamp + (1 - Math.exp(-random.nextDouble() / delta * a_ij)));
 
          PEC.add(aux);
 

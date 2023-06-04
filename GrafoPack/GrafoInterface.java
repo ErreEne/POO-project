@@ -10,4 +10,6 @@ public interface GrafoInterface {
 
     public int totalEdgesSum();
 
+    public void AdicionarLiga(int vertice1, int vertice2, int peso);
+
 }

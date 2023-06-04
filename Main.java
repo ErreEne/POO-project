@@ -1,6 +1,6 @@
 import ACO.Ant;
 import ACO.AntColony;
-
+import GrafoPack.*;
 
 
 import java.io.File;
@@ -20,6 +20,7 @@ public class Main {
         int v = 0;            // ant colony size
         float tao = 0;          // final instant
         int[][] matriz = new int[0][];
+        Grafo grafo;
         String arg = args[0];
         System.out.println(arg); // read the argument -r or -f
 
@@ -90,7 +91,6 @@ public class Main {
         else{
             System.out.println("Invalid argument, use -r or -f");
         }
-
 
         /*AntColony.createAnts();
         Ant ant = new Ant(matriz, nest_node, alfa, beta, gamma, delta, eta);
