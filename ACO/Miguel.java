@@ -2,10 +2,7 @@ package ACO;
 
 import DSS.EvaporationOfPheromone;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Map;
+import java.util.*;
 
 public class Miguel implements MiguelInter{
     Map<Integer, Hashtable<Integer, Float>> pheromones;
@@ -18,15 +15,26 @@ public class Miguel implements MiguelInter{
         this.totalWeights = totalWeights;
         this.gamma = gamma;
         this.ro = ro;
+        initializePheromones(numberOfNodes);
     }
 
-    public void setPheromones(int[] path, int sumOfWeights) {
+    public void initializePheromones(int numberOfNodes){
+        for (int i = 0; i < numberOfNodes - 1; i++) {
+            Hashtable<Integer, Float> pheromonesFromNode = new Hashtable<>();
+            for (int j = 0; j < numberOfNodes - 1; j++) {
+                pheromonesFromNode.put(j, (float) 0);
+            }
+            pheromones.put(i, pheromonesFromNode);
+        }
+    }
+
+    public void setPheromones(ArrayList<Integer> path, int sumOfWeights) {
         int currentNode;
         int nextNode;
         float pheromone =  gamma * sumOfWeights / totalWeights;
-        for (int i = 0; i < path.length - 1; i++) {
-            currentNode =  path[i];
-            nextNode =  path[i + 1];
+        for (int i = 0; i < path.size() - 1; i++) {
+            currentNode =  path.get(i);
+            nextNode =  path.get(i + 1);
 
             Hashtable<Integer, Float> pheromonesFromNode = pheromones.get(currentNode);
             pheromonesFromNode.put(nextNode, pheromonesFromNode.get(nextNode) + pheromone);

@@ -6,6 +6,7 @@ import java.util.Hashtable;
 import DSS.AntEvent;
 import DSS.Event;
 import DSS.FeromonasInterface;
+import GrafoPack.Grafo;
 import GrafoPack.GrafoInterface;
 
 public class AntColony {
@@ -19,7 +20,7 @@ public class AntColony {
     public int ant_colony_size;
     public GrafoInterface Grafo;
     public Miguel pheromones;
-    public int tamanhoMax;
+    public int totalWeights;
     public float ro;
     private AntEvent MoveFormiga;
     private FeromonasInterface Feromonas;
@@ -37,10 +38,8 @@ public class AntColony {
         this.colony = new ArrayList<>();
         this.ro = ro;
         // funcao no grafo para dar total weights
-        this.tamanhoMax = Grafo.totalVertex();// buscar numero de nos
-        this.pheromones = new Miguel(ant_colony_size, tamanhoMax, gamma, ro); // quero totalWeights
-        
-
+        this.totalWeights = Grafo.totalEdgesSum();
+        this.pheromones = new Miguel(ant_colony_size, totalWeights, gamma, ro); // quero totalWeights
     }
 
     public ArrayList<Ant> getAnts() {
@@ -56,6 +55,10 @@ public class AntColony {
 
     public Hashtable<Integer, Float> getPheromonesFromNode(int node) {
         return pheromones.getPheromone(node);
+    }
+
+    public void setPheromones(ArrayList<Integer> path) {
+        pheromones.setPheromones(path, totalWeights);
     }
 
     public Hashtable<Integer, Integer> getWeightsFromNode(int node) {

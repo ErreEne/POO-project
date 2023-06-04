@@ -13,6 +13,7 @@ public class Ant {
     public Ant(AntColony Antcolony) {
         this.colony = Antcolony;
         this.path = new ArrayList<>();
+        path.add(colony.nest_node);
         this.currentNode = colony.nest_node;
     }
 
@@ -21,9 +22,16 @@ public class Ant {
         float sum = 0;
         float Ci = 0;
         float Cijk;
-        Hashtable<Integer, Integer> weights = colony.getWeightsFromNode(currentNode);
 
-        Hashtable<Integer, Float> pheromone = colony.getPheromonesFromNode(currentNode);
+        Hashtable<Integer, Integer> weights = getPossibleWeights();
+        if (weights.isEmpty()) {
+            return null;
+        }
+
+        Hashtable<Integer, Float> pheromone = getPossiblePheromones();
+        if(pheromone.isEmpty()){
+            return null;
+        }
 
         for (Map.Entry<Integer, Integer> entry : weights.entrySet()) {
             Ci += ((colony.alpha + pheromone.get(entry.getKey())) / (colony.beta + entry.getValue()));
@@ -57,27 +65,35 @@ public class Ant {
     }
 
     public void move() {
+        Random rand = new Random();
+        int newNode;
         Hashtable<Integer, Float> NormalizedProbabilities = getNormalizedProbabilities(currentNode);
-        int newNode = chooseNode(NormalizedProbabilities);
-
-        int loop = checkLoop(currentNode);
-        if (loop == -1) { // loop
-            removeLoop(currentNode);
+        if (NormalizedProbabilities == null) {
+            Hashtable<Integer, Integer> possibleWeights = getPossibleWeights();
+            newNode = possibleWeights.get(rand.nextInt(possibleWeights.size()));
+            removeLoop(newNode);
         } else {
-
-            addToList(this.path, newNode);
-            currentNode = newNode;
+            newNode = chooseNode(NormalizedProbabilities);
         }
 
+        addToList(this.path, newNode);
+        currentNode = newNode;
         if (checkIfEndedPath()) {
-            path.clear();
             // agendar evaporação para aqui a X tempo  (X definido no input)
+            setPheromones(path);
+            path.clear();
+            path.add(colony.nest_node);
+            currentNode = colony.nest_node;
         }
+    }
+
+    public void setPheromones(ArrayList<Integer> path) {
+        colony.setPheromones(path);
     }
 
     public void removeLoop(int nodeToRemove) {
         int flag = 0;
-        for (int i = 0; i < getSize(path) - 1; i++) {
+        for (int i = 0; i < getSize(path); i++) {
             if (i == nodeToRemove || flag == 1) {
                 flag = 1;
                 removeFromList(this.path, i);
@@ -85,23 +101,32 @@ public class Ant {
         }
     }
 
-    public int checkLoop(int newNode) {
-        for (int i = 0; i < getSize(path) - 1; i++) {
-            if (getFromList(this.path, i) == newNode) {
-                return i;
-            }
-        }
-        return -1;
+    public Boolean checkIfEndedPath() {
+        return getSize(path) == colony.ant_colony_size && currentNode == colony.nest_node;
     }
 
-    public Boolean checkIfEndedPath() {
-        if (getSize(path) == colony.tamanhoMax) {
-            for (int i = 0; i < colony.tamanhoMax; i++) {
-                addToList(this.path, colony.nest_node);
-            }
-            return true;
+    public Hashtable<Integer, Integer> getPossibleWeights() {
+        Hashtable<Integer, Integer> possibleWeights = getWeights();
+        for (Integer integer : path) {
+            possibleWeights.remove(integer);
         }
-        return false;
+        return possibleWeights;
+    }
+
+    public Hashtable<Integer, Integer> getWeights() {
+        return colony.getWeightsFromNode(currentNode);
+    }
+
+    public Hashtable<Integer, Float> getPheromones() {
+        return colony.getPheromonesFromNode(currentNode);
+    }
+
+    public Hashtable<Integer, Float> getPossiblePheromones() {
+        Hashtable<Integer, Float> possiblePheromones = getPheromones();
+        for (Integer integer : path) {
+            possiblePheromones.remove(integer);
+        }
+        return possiblePheromones;
     }
 
     public int getFromList(ArrayList<Integer> getFrom, int index) {
