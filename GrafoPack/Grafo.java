@@ -27,7 +27,7 @@ public class Grafo implements GrafoInterface {
 
         if (flag == 0) {
             // está vazio?????????
-        } else {
+        }else {
             this.MaxVertices = 5;
             this.Vertices = new vertice[this.MaxVertices];
             this.verticenovo = 0;

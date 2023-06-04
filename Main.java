@@ -76,16 +76,10 @@ public class Main {
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();
                     String[] elements = line.split("[\\s\\t]+");
-                    for (i=0; i < nNodes; i++){
-                        matriz[j][i]= Integer.parseInt(elements[i]);
+                    for (i=0; i < nNodes; i++){                             // i=1; i <= nNodes; i++
+                        matriz[j][i]= Integer.parseInt(elements[i]);        // Em vez de meter uma matrix de ajacencias criar logo o grafo a apartir daqui
                     }
                     j++;
-                }
-                for(i = 0; i < nNodes; i++){
-                    for(j = 0; j < nNodes; j++){
-                        System.out.print(matriz[i][j] + " ");
-                    }
-                    System.out.println("   ");
                 }
                 //AntColony antColony = new AntColony(matriz, nest_node - 1, alfa, beta, gamma, delta, eta,v);
 
