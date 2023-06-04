@@ -71,6 +71,7 @@ public class Ant {
 
         if (checkIfEndedPath()) {
             path.clear();
+            // agendar evaporação para aqui a X tempo  (X definido no input)
         }
     }
 
@@ -96,10 +97,7 @@ public class Ant {
     public Boolean checkIfEndedPath() {
         if (getSize(path) == colony.tamanhoMax) {
             for (int i = 0; i < colony.tamanhoMax; i++) {
-
                 addToList(this.path, colony.nest_node);
-                return false;
-
             }
             return true;
         }

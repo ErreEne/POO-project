@@ -14,5 +14,4 @@ public class EvaporationOfPheromone implements FeromonasInterface {
 
     public void GenerateQueue(ArrayList<MiguelInter> array) {
     }
-
 }
