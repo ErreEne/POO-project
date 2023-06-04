@@ -1,5 +1,8 @@
 package DSS;
 
+import java.util.*;
+import ACO.MiguelInter;
+
 public class NextEvent<QueueObject> implements Comparable<NextEvent<QueueObject>> {
 
     QueueObject GeralObject;
@@ -9,7 +12,7 @@ public class NextEvent<QueueObject> implements Comparable<NextEvent<QueueObject>
 
         this.GeralObject = o;
         this.TimeStampEvento = 0;
-
+    
     }
 
     public void SetTimeStamp(double newTime) {

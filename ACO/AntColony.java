@@ -21,12 +21,12 @@ public class AntColony {
     public HashMap<Integer, Hashtable<Integer, Miguel>> pheromones;
     public int totalWeights;
     public float ro;
-    private Event<Ant> MoveFormiga;
-    private Event<Miguel> Feromonas;
+    public Event<Ant> Evento;
     public int totalVertex;
+    public float timelimit;
 
     public AntColony(GrafoInterface Graph, int nest_node, float alpha, float beta, float gamma, float delta, float eta,
-            int ant_colony_size, float ro) {
+            int ant_colony_size, float ro, float tao) {
         this.Grafo = Graph;
         this.nest_node = nest_node;
         this.beta = beta;
@@ -40,6 +40,7 @@ public class AntColony {
         this.totalWeights = Grafo.totalEdgesSum();
         this.totalVertex = Grafo.totalVertex();
         this.pheromones = new HashMap<>();
+        this.timelimit = tao;
         initializePheromones();
         createAnts();
     }
@@ -99,7 +100,23 @@ public class AntColony {
 
     public void Simulate() {
 
-        MoveFormiga.GenerateQueue(colony);
+        Ant formiga;
+
+
+        Evento.GenerateQueue(colony,10);
+
+
+        while(this.Evento.getTime()<this.timelimit){
+
+            formiga = this.Evento.execute();
+            if(formiga==null){
+            }else{
+                formiga.resetPath();
+            }
+
+        }
+
+
 
     }
 

@@ -1,9 +1,5 @@
 package ACO;
 
-import DSS.EvaporationOfPheromone;
-
-import java.util.*;
-
 public class Miguel implements MiguelInter {
     float pheromone;
     int totalWeights;

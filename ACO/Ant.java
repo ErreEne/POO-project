@@ -2,7 +2,7 @@ package ACO;
 
 import java.util.*;
 
-public class Ant {
+public class Ant implements AntInterface{
     public ArrayList<Integer> path;
     private AntColony colony;
     public int currentNode;
@@ -62,8 +62,8 @@ public class Ant {
         }
         return -1;
     }
-
-    public void move() {
+    @Override
+    public int move() {
         Random rand = new Random();
         int newNode;
         Hashtable<Integer, Float> NormalizedProbabilities = getNormalizedProbabilities(currentNode);
@@ -82,8 +82,11 @@ public class Ant {
             setPheromones(path);
             PathEnded = 1;
         }
-    }
 
+        return 0;
+    }
+    
+    @Override
     public void resetPath() {
         path.clear();
         path.add(colony.nest_node);

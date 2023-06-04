@@ -1,6 +1,7 @@
 package ACO;
 
 public interface AntInterface {
-    int move();
+    public abstract int move();
+    public abstract void resetPath();
 
 }
