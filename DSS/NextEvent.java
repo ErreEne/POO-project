@@ -12,17 +12,17 @@ public class NextEvent<QueueObject> implements Comparable<NextEvent<QueueObject>
 
     }
 
-    public void SetTimeStamp(int newTime) {
+    public void SetTimeStamp(double newTime) {
 
         this.TimeStampEvento = newTime;
 
     }
 
-    public double getTime(){   // futuro
+    public double getTime() { // futuro
         return this.TimeStampEvento;
     }
 
-    public QueueObject getObjeto(){
+    public QueueObject getObjeto() {
         return this.GeralObject;
     }
 

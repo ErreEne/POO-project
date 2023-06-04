@@ -2,19 +2,18 @@ package ACO;
 
 import java.util.*;
 
-import GrafoPack.Grafo;
-import GrafoPack.GrafoInterface;
-
 public class Ant {
     public ArrayList<Integer> path;
     private AntColony colony;
     public int currentNode;
+    public int PathEnded;
 
     public Ant(AntColony Antcolony) {
         this.colony = Antcolony;
         this.path = new ArrayList<>();
         path.add(colony.nest_node);
         this.currentNode = colony.nest_node;
+        this.PathEnded = 0;
     }
 
     public Hashtable<Integer, Float> getNormalizedProbabilities(int currentNode) {
@@ -28,17 +27,17 @@ public class Ant {
             return null;
         }
 
-        Hashtable<Integer, Float> pheromone = getPossiblePheromones();
-        if(pheromone.isEmpty()){
+        Hashtable<Integer, Miguel> pheromone = getPossiblePheromones();
+        if (pheromone.isEmpty()) {
             return null;
         }
 
         for (Map.Entry<Integer, Integer> entry : weights.entrySet()) {
-            Ci += ((colony.alpha + pheromone.get(entry.getKey())) / (colony.beta + entry.getValue()));
+            Ci += ((colony.alpha + pheromone.get(entry.getKey()).getPheromone()) / (colony.beta + entry.getValue()));
         }
 
         for (Map.Entry<Integer, Integer> entry : weights.entrySet()) {
-            Cijk = ((colony.alpha + pheromone.get(entry.getKey())) / (colony.beta + entry.getValue()));
+            Cijk = ((colony.alpha + pheromone.get(entry.getKey()).getPheromone()) / (colony.beta + entry.getValue()));
             probability.put(entry.getKey(), Cijk / Ci);
             sum += Cijk / Ci;
         }
@@ -79,12 +78,17 @@ public class Ant {
         addToList(this.path, newNode);
         currentNode = newNode;
         if (checkIfEndedPath()) {
-            // agendar evaporação para aqui a X tempo  (X definido no input)
+            // agendar evaporação para aqui a X tempo (X definido no input)
             setPheromones(path);
-            path.clear();
-            path.add(colony.nest_node);
-            currentNode = colony.nest_node;
+            PathEnded = 1;
         }
+    }
+
+    public void resetPath() {
+        path.clear();
+        path.add(colony.nest_node);
+        currentNode = colony.nest_node;
+        PathEnded = 0;
     }
 
     public void setPheromones(ArrayList<Integer> path) {
@@ -102,7 +106,7 @@ public class Ant {
     }
 
     public Boolean checkIfEndedPath() {
-        return getSize(path) == colony.ant_colony_size && currentNode == colony.nest_node;
+        return getSize(path) == colony.totalVertex && currentNode == colony.nest_node;
     }
 
     public Hashtable<Integer, Integer> getPossibleWeights() {
@@ -117,12 +121,12 @@ public class Ant {
         return colony.getWeightsFromNode(currentNode);
     }
 
-    public Hashtable<Integer, Float> getPheromones() {
+    public Hashtable<Integer, Miguel> getPheromones() {
         return colony.getPheromonesFromNode(currentNode);
     }
 
-    public Hashtable<Integer, Float> getPossiblePheromones() {
-        Hashtable<Integer, Float> possiblePheromones = getPheromones();
+    public Hashtable<Integer, Miguel> getPossiblePheromones() {
+        Hashtable<Integer, Miguel> possiblePheromones = getPheromones();
         for (Integer integer : path) {
             possiblePheromones.remove(integer);
         }
@@ -144,5 +148,4 @@ public class Ant {
     public int getSize(ArrayList<Integer> listToCheck) {
         return listToCheck.size();
     }
-
 }

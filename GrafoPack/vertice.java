@@ -2,7 +2,7 @@ package GrafoPack;
 
 import java.util.ArrayList;
 
-public class vertice extends VerticeSuper{
+public class vertice extends VerticeSuper {
 
     public ArrayList<Ponteiro> ListaPonteiros;
 

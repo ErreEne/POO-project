@@ -1,6 +1,7 @@
 package ACO;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Random;
 
@@ -17,11 +18,12 @@ public class AntColony {
     public float eta;
     public int ant_colony_size;
     public GrafoInterface Grafo;
-    public Miguel pheromones;
+    public HashMap<Integer, Hashtable<Integer, Miguel>> pheromones;
     public int totalWeights;
     public float ro;
     private Event<Ant> MoveFormiga;
     private Event<Miguel> Feromonas;
+    public int totalVertex;
 
     public AntColony(GrafoInterface Graph, int nest_node, float alpha, float beta, float gamma, float delta, float eta,
             int ant_colony_size, float ro) {
@@ -35,9 +37,45 @@ public class AntColony {
         this.ant_colony_size = ant_colony_size;
         this.colony = new ArrayList<>();
         this.ro = ro;
-        // funcao no grafo para dar total weights
         this.totalWeights = Grafo.totalEdgesSum();
-        this.pheromones = new Miguel(ant_colony_size, totalWeights, gamma, ro); // quero totalWeights
+        this.totalVertex = Grafo.totalVertex();
+        this.pheromones = new HashMap<>();
+        initializePheromones();
+        createAnts();
+    }
+
+    public void initializePheromones() {
+        for (int i = 0; i < ant_colony_size - 1; i++) {
+            Hashtable<Integer, Miguel> pheromonesFromNode = new Hashtable<>();
+            for (int j = 0; j < ant_colony_size - 1; j++) {
+                pheromonesFromNode.put(j, new Miguel(ant_colony_size, totalWeights, gamma, ro));
+            }
+            pheromones.put(i, pheromonesFromNode);
+        }
+    }
+
+    public void setPheromones(ArrayList<Integer> path) {
+        int currentNode;
+        int nextNode;
+        int sumOfWeights = sumOfWeightsPath(path);
+        for (int i = 0; i < path.size() - 1; i++) {
+            currentNode = path.get(i);
+            nextNode = path.get(i + 1);
+
+            setPheromone(currentNode, nextNode, sumOfWeights);
+        }
+    }
+
+    public int sumOfWeightsPath(ArrayList<Integer> path) {
+        int sum = 0;
+        for (int i = 0; i < path.size() - 1; i++) {
+            sum += Grafo.GetCusto(path.get(i), path.get(i + 1));
+        }
+        return sum;
+    }
+
+    public void setPheromone(int currentNode, int nextNode, int sumOfWeights) {
+        pheromones.get(currentNode).get(nextNode).setPheromone(sumOfWeights);
     }
 
     public ArrayList<Ant> getAnts() {
@@ -51,17 +89,18 @@ public class AntColony {
         }
     }
 
-    public Hashtable<Integer, Float> getPheromonesFromNode(int node) {
-        return pheromones.getPheromone(node);
-    }
-
-    public void setPheromones(ArrayList<Integer> path) {
-        pheromones.setPheromones(path, totalWeights);
+    public Hashtable<Integer, Miguel> getPheromonesFromNode(int node) {
+        return pheromones.get(node);
     }
 
     public Hashtable<Integer, Integer> getWeightsFromNode(int node) {
         return Grafo.getEdges(node);
     }
 
+    public void Simulate() {
+
+        MoveFormiga.GenerateQueue(colony);
+
+    }
 
 }

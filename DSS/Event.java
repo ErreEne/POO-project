@@ -1,10 +1,7 @@
 package DSS;
 
-import ACO.AntInterface;
+public interface Event<objeto> {
 
-import java.util.ArrayList;
+    public abstract objeto execute();
 
-public interface Event <Object> {
-    public abstract Object execute();
-    public void GenerateQueue(ArrayList<Object> obj);
 }
