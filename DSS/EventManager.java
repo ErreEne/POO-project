@@ -8,8 +8,6 @@ import ACO.AntInterface;
 import java.util.Queue;
 import java.util.Random;
 
-import javax.swing.text.html.HTMLDocument.Iterator;
-
 public class EventManager implements Event {
 
     double time;
@@ -22,6 +20,7 @@ public class EventManager implements Event {
     public EventManager() {
 
         PEC = new PriorityQueue<>();
+        this.eventoFormigas = new AntMove();
 
     }
 
@@ -30,8 +29,8 @@ public class EventManager implements Event {
         NextEvent<AntInterface> aux;
         double a_ij;
         aux = PEC.peek();
-        if (aux.GeralObject == null) {
 
+        if (aux.getObjeto() == null) {
             evaporation.execute(null);
             aux.SetTimeStamp(this.time + this.Constante);
             this.time = PEC.poll().getTime();
@@ -42,6 +41,7 @@ public class EventManager implements Event {
 
         a_ij = eventoFormigas.execute(aux.GeralObject);
         if (a_ij == 0) {
+            System.out.println("cheguei AQUI");
             return aux.GeralObject;
         } else {
             PEC.poll();
@@ -77,12 +77,10 @@ public class EventManager implements Event {
         PEC.add(aux);
         aux = new NextEvent<AntInterface>(150);
         PEC.add(aux);
-        this.PrintQueue();
 
     }
 
     public void PrintQueue() {
-
         while (!PEC.isEmpty()) {
             System.out.println(PEC.poll().TimeStampEvento);
         }

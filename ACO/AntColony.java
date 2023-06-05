@@ -85,7 +85,7 @@ public class AntColony {
     }
 
     public void createAnts() {
-        //Ant ant = new Ant(this);
+        // Ant ant = new Ant(this);
         Ant ant;
         for (int i = 0; i < ant_colony_size; i++) {
             ant = new Ant(this);
@@ -104,13 +104,30 @@ public class AntColony {
     public void Simulate() {
 
         ArrayList<AntInterface> NewArray = new ArrayList<>(colony);
-        /*for(AntInterface x: NewArray){
-            System.out.println(x);
-        }*/
+        /*
+         * for(AntInterface x: NewArray){
+         * System.out.println(x);
+         * }
+         */
 
         System.out.println(Grafo.getEdges(2));
         Grafo.MostrarVerticeInfo();
-        Evento.GenerateQueue(NewArray, (int)this.timelimit);
+        Evento.GenerateQueue(NewArray, (int) this.timelimit);
+        Ant aux;
+
+        while (Evento.getTime() < this.timelimit) {
+            aux = null;
+
+            aux = (Ant) Evento.execute();
+
+            if (aux != null) {
+            
+                aux.resetPath();
+                //ComparePath e ver qual o melhor caminho
+                
+            }
+
+        }
 
     }
 }

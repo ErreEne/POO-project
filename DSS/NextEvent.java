@@ -7,23 +7,31 @@ public class NextEvent<QueueObject> implements Comparable<NextEvent<QueueObject>
 
     QueueObject GeralObject;
     double TimeStampEvento;
+    boolean FlagObject;
 
     NextEvent(QueueObject o) {
         this(0);
         this.GeralObject = o;
-        
-    
+        this.FlagObject = true;
+
     }
 
     NextEvent(int time) {
 
         this.TimeStampEvento = time;
+        this.FlagObject = false;
 
     }
 
     public void SetTimeStamp(double newTime) {
 
         this.TimeStampEvento = newTime;
+
+    }
+
+    public boolean getInfoObject() {
+
+        return this.FlagObject;
 
     }
 
