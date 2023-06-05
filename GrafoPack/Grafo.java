@@ -23,10 +23,49 @@ public class Grafo implements GrafoInterface {
         this.GenerateGraphWHamiltonCycle(peso);
     }
 
-    public Grafo(int verticeNumero) {
+    public Grafo(int verticeNumero,int [][] matriz) {
         this.MaxVertices = verticeNumero;
         this.Vertices = new vertice[verticeNumero];
         this.verticenovo = 0;
+
+        for (int i = 0; i < this.MaxVertices; i++) {
+            this.CriarVertice(i + 1);
+        }
+        for (int i = 0; i < this.MaxVertices; i++) {
+            for (int j = i; j < this.MaxVertices; j++) { // diagonal superior
+                if (matriz[i][j] != 0) {
+                    this.AdicionarLiga(i + 1, j + 1, matriz[i][j]);
+                }
+            }
+        }
+    }
+
+    public Grafo(int flag, int e) {
+
+        if (flag == 0) {
+            // está vazio?????????
+        } else {
+            this.MaxVertices = 5;
+            this.Vertices = new vertice[this.MaxVertices];
+            this.verticenovo = 0;
+
+            this.CriarVertice(1);
+            this.CriarVertice(2);
+            this.CriarVertice(3);
+            this.CriarVertice(4);
+            this.CriarVertice(5);
+
+            this.AdicionarLiga(1, 3, 6);
+            this.AdicionarLiga(1, 2, 3);
+            this.AdicionarLiga(1, 4, 6);
+            this.AdicionarLiga(1, 5, 2);
+            this.AdicionarLiga(2, 3, 3);
+            this.AdicionarLiga(2, 5, 5);
+            this.AdicionarLiga(2, 4, 2);
+            this.AdicionarLiga(4, 5, 1);
+
+        }
+
     }
 
     @Override
@@ -189,7 +228,6 @@ public class Grafo implements GrafoInterface {
 
         }
     }
-
     public int GetCusto(int a, int b) {
         return Vertices[a - 1].GetCustoLig(Vertices[b - 1]);
     }

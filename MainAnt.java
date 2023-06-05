@@ -1,12 +1,14 @@
-import DSS.*;
-import ACO.*;
-import GrafoPack.*;
+import ACO.AntColony;
+import DSS.Event;
+import DSS.EventManager;
+import GrafoPack.Grafo;
+import GrafoPack.GrafoInterface;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class Main {
+public class MainAnt {
     public static void main(String[] args) {
         int nNodes = 0; // number of nodes in the graph
         int nest_node = 0; // the nest node
@@ -18,7 +20,7 @@ public class Main {
         float gamma = 0; // pheronome level
         int v = 0; // ant colony size
         float tao = 0; // final instant
-        int[][] matriz;
+        int[][] matriz = new int[0][];
         GrafoInterface grafo = null;
         Event Evento = new EventManager();
         String arg = args[0];
@@ -41,7 +43,7 @@ public class Main {
                 v = Integer.parseInt(args[9]);
                 tao = Integer.parseInt(args[10]);
             }
-            grafo = new Grafo(nNodes, nNodes + 3, 6); // edges e peso não são dadas no input
+            grafo = new Grafo(2, 2); // edges e peso não são dadas no input
 
         } else if (arg.equals("-f")) { // reads from file
             try {
@@ -67,19 +69,24 @@ public class Main {
                 v = Integer.parseInt(inputs[8]);
                 tao = Float.parseFloat(inputs[9]);
 
-
-                matriz = new int[nNodes][nNodes];
-                int j=0;
-                while (scanner.hasNextLine()) {
-                    String line = scanner.nextLine();
-                    String[] elements = line.split("[\\s\\t]+");
-                    for (int i=0; i < nNodes; i++){
-                        matriz[j][i]= Integer.parseInt(elements[i]);
-                    }
-                    j++;
-                }
-                grafo = new Grafo(nNodes, matriz); // usa o segundo construtor
-
+                /*
+                 * grafo = new Grafo(nNodes); // usa o segundo construtor
+                 *
+                 * for(int i=1; i <= nNodes; i++){
+                 * grafo.CriarVertice(i);
+                 * }
+                 * while (scanner.hasNextLine()) {
+                 * String line = scanner.nextLine();
+                 * String[] elements = line.split("[\\s\\t]+");
+                 * int k=0;
+                 * for (int i = 1; i <= nNodes; i++) {
+                 * for (int j = i+1; j <= nNodes; j++) {
+                 * grafo.AdicionarLiga(i, j, elements[k])
+                 * k++;
+                 * }
+                 * }
+                 * }
+                 */
                 scanner.close();
             } catch (FileNotFoundException e) {
                 System.out.println("File not found: " + e.getMessage());
@@ -90,7 +97,20 @@ public class Main {
 
         if (grafo != null) {
             colonia = new AntColony(grafo, nest_node, alfa, beta, gamma, delta, eta, v, ro, tao, Evento);
-            colonia.Simulate();
+            colonia.run();
+            colonia.run();
+            colonia.run();
+            colonia.run();
+            colonia.run();
+            colonia.run();
+            colonia.run();
+            colonia.run();
+            colonia.run();
+            colonia.run();
+            colonia.run();
+            colonia.run();
+            colonia.run();
+
 
         }
 

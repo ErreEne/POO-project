@@ -44,13 +44,17 @@ public class AntColony {
         this.Evento = evento;
         initializePheromones();
         createAnts();
+
     }
 
     public void initializePheromones() {
-        for (int i = 0; i < ant_colony_size - 1; i++) {
+        for (int i = 1; i <= totalVertex; i++) {
             Hashtable<Integer, Miguel> pheromonesFromNode = new Hashtable<>();
-            for (int j = 0; j < ant_colony_size - 1; j++) {
-                pheromonesFromNode.put(j, new Miguel(ant_colony_size, totalWeights, gamma, ro));
+            Hashtable<Integer, Integer> possibleNodes = Grafo.getEdges(i);
+            for (int j = 1; j <= totalVertex; j++) {
+                if (possibleNodes.containsKey(j)) {
+                    pheromonesFromNode.put(j, new Miguel(ant_colony_size, totalWeights, gamma, ro));
+                }
             }
             pheromones.put(i, pheromonesFromNode);
         }
@@ -129,5 +133,9 @@ public class AntColony {
 
         }
 
+    }
+
+    public void run() {
+        colony.get(0).move();
     }
 }

@@ -70,23 +70,40 @@ public class Ant implements AntInterface{
     public int move() {
         Random rand = new Random();
         int newNode;
+        int flag = 0;
         Hashtable<Integer, Float> NormalizedProbabilities = getNormalizedProbabilities(currentNode);
         if (NormalizedProbabilities == null) {
-            Hashtable<Integer, Integer> possibleWeights = getPossibleWeights();
-            newNode = possibleWeights.get(rand.nextInt(possibleWeights.size()));
-            removeLoop(newNode);
+            Hashtable<Integer, Integer> possibleWeights = getWeights();
+            Set<Integer> keys = possibleWeights.keySet();
+            //System.out.println("possibleWeights: " + possibleWeights);
+            // get a random key
+            newNode = (int) keys.toArray()[rand.nextInt(keys.size())];
+            if (!checkIfEndedPath(newNode)) {
+                removeLoop(newNode);
+            }
+            flag = 1;
+
         } else {
             newNode = chooseNode(NormalizedProbabilities);
         }
 
-        addToList(this.path, newNode);
-        currentNode = newNode;
-        if (checkIfEndedPath()) {
+
+        if (checkIfEndedPath(newNode)) {
+
+            System.out.println("ENDED PATH");
+            System.out.println("path: " + path);  // print path
+            System.out.println("path size: " + getSize(path));  // print path size
             // agendar evaporação para aqui a X tempo (X definido no input)
-            setPheromones(path);
+            //setPheromones(path);
             PathEnded = 1;
         }
+        if (flag == 0) {
+            addToList(this.path, newNode);
+        }
+        currentNode = newNode;
 
+
+        System.out.println(path);
         return 0;
     }
     
@@ -105,15 +122,18 @@ public class Ant implements AntInterface{
     public void removeLoop(int nodeToRemove) {
         int flag = 0;
         for (int i = 0; i < getSize(path); i++) {
-            if (i == nodeToRemove || flag == 1) {
+            if (getFromList(path, i) == nodeToRemove && flag == 0) {
                 flag = 1;
-                removeFromList(this.path, i);
+            }
+            else if (flag == 1) {
+                removeFromList(path, i);
+                i--;
             }
         }
     }
 
-    public Boolean checkIfEndedPath() {
-        return getSize(path) == colony.totalVertex && currentNode == colony.nest_node;
+    public Boolean checkIfEndedPath(int node) {
+        return getSize(path) == colony.totalVertex && node == colony.nest_node;
     }
 
     public Hashtable<Integer, Integer> getPossibleWeights() {
