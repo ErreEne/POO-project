@@ -30,6 +30,7 @@ public class EventManager implements Event {
         NextEvent<AntInterface> aux;
         double a_ij;
         aux = PEC.peek();
+        assert aux != null;
         if (aux.GeralObject == null) {
 
             evaporation.execute(null);

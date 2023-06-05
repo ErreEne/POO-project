@@ -15,4 +15,5 @@ public interface GrafoInterface {
     public int GetCusto(int a, int b);
 
     public void MostrarVerticeInfo();
+
 }
