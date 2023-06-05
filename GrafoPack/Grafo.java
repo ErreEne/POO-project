@@ -23,10 +23,21 @@ public class Grafo implements GrafoInterface {
         this.GenerateGraphWHamiltonCycle(peso);
     }
 
-    public Grafo(int verticeNumero) {
+    public Grafo(int verticeNumero,int [][] matriz) {
         this.MaxVertices = verticeNumero;
         this.Vertices = new vertice[verticeNumero];
         this.verticenovo = 0;
+
+        for (int i = 0; i < this.MaxVertices; i++) {
+            this.CriarVertice(i + 1);
+        }
+        for (int i = 0; i < this.MaxVertices; i++) {
+            for (int j = i; j < this.MaxVertices; j++) { // diagonal superior
+                if (matriz[i][j] != 0) {
+                    this.AdicionarLiga(i + 1, j + 1, matriz[i][j]);
+                }
+            }
+        }
     }
 
     @Override
@@ -189,7 +200,6 @@ public class Grafo implements GrafoInterface {
 
         }
     }
-
     public int GetCusto(int a, int b) {
         return Vertices[a - 1].GetCustoLig(Vertices[b - 1]);
     }

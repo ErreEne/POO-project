@@ -18,7 +18,7 @@ public class Main {
         float gamma = 0; // pheronome level
         int v = 0; // ant colony size
         float tao = 0; // final instant
-        int[][] matriz = new int[0][];
+        int[][] matriz;
         GrafoInterface grafo = null;
         Event Evento = new EventManager();
         String arg = args[0];
@@ -67,24 +67,19 @@ public class Main {
                 v = Integer.parseInt(inputs[8]);
                 tao = Float.parseFloat(inputs[9]);
 
-                /*
-                 * grafo = new Grafo(nNodes); // usa o segundo construtor
-                 * 
-                 * for(int i=1; i <= nNodes; i++){
-                 * grafo.CriarVertice(i);
-                 * }
-                 * while (scanner.hasNextLine()) {
-                 * String line = scanner.nextLine();
-                 * String[] elements = line.split("[\\s\\t]+");
-                 * int k=0;
-                 * for (int i = 1; i <= nNodes; i++) {
-                 * for (int j = i+1; j <= nNodes; j++) {
-                 * grafo.AdicionarLiga(i, j, elements[k])
-                 * k++;
-                 * }
-                 * }
-                 * }
-                 */
+
+                matriz = new int[nNodes][nNodes];
+                int j=0;
+                while (scanner.hasNextLine()) {
+                    String line = scanner.nextLine();
+                    String[] elements = line.split("[\\s\\t]+");
+                    for (int i=0; i < nNodes; i++){
+                        matriz[j][i]= Integer.parseInt(elements[i]);
+                    }
+                    j++;
+                }
+                grafo = new Grafo(nNodes, matriz); // usa o segundo construtor
+
                 scanner.close();
             } catch (FileNotFoundException e) {
                 System.out.println("File not found: " + e.getMessage());
