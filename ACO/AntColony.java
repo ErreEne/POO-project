@@ -21,12 +21,12 @@ public class AntColony {
     public HashMap<Integer, Hashtable<Integer, Miguel>> pheromones;
     public int totalWeights;
     public float ro;
-    public Event<Ant> Evento;
+    public Event Evento;
     public int totalVertex;
     public float timelimit;
 
     public AntColony(GrafoInterface Graph, int nest_node, float alpha, float beta, float gamma, float delta, float eta,
-            int ant_colony_size, float ro, float tao) {
+            int ant_colony_size, float ro, float tao, Event evento) {
         this.Grafo = Graph;
         this.nest_node = nest_node;
         this.beta = beta;
@@ -41,6 +41,7 @@ public class AntColony {
         this.totalVertex = Grafo.totalVertex();
         this.pheromones = new HashMap<>();
         this.timelimit = tao;
+        this.Evento = evento;
         initializePheromones();
         createAnts();
     }
@@ -84,8 +85,10 @@ public class AntColony {
     }
 
     public void createAnts() {
-        Ant ant = new Ant(this);
+        //Ant ant = new Ant(this);
+        Ant ant;
         for (int i = 0; i < ant_colony_size; i++) {
+            ant = new Ant(this);
             colony.add(ant);
         }
     }
@@ -100,24 +103,14 @@ public class AntColony {
 
     public void Simulate() {
 
-        Ant formiga;
+        ArrayList<AntInterface> NewArray = new ArrayList<>(colony);
+        /*for(AntInterface x: NewArray){
+            System.out.println(x);
+        }*/
 
-
-        Evento.GenerateQueue(colony,10);
-
-
-        while(this.Evento.getTime()<this.timelimit){
-
-            formiga = this.Evento.execute();
-            if(formiga==null){
-            }else{
-                formiga.resetPath();
-            }
-
-        }
-
-
+        System.out.println(Grafo.getEdges(2));
+        Grafo.MostrarVerticeInfo();
+        Evento.GenerateQueue(NewArray, (int)this.timelimit);
 
     }
-
 }

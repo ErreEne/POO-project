@@ -9,10 +9,16 @@ public class NextEvent<QueueObject> implements Comparable<NextEvent<QueueObject>
     double TimeStampEvento;
 
     NextEvent(QueueObject o) {
-
+        this(0);
         this.GeralObject = o;
-        this.TimeStampEvento = 0;
+        
     
+    }
+
+    NextEvent(int time) {
+
+        this.TimeStampEvento = time;
+
     }
 
     public void SetTimeStamp(double newTime) {

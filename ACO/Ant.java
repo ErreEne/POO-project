@@ -16,6 +16,10 @@ public class Ant implements AntInterface{
         this.PathEnded = 0;
     }
 
+    public int cuNode(){
+        return this.currentNode;
+    }
+
     public Hashtable<Integer, Float> getNormalizedProbabilities(int currentNode) {
         Hashtable<Integer, Float> probability = new Hashtable<>();
         float sum = 0;

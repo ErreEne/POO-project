@@ -107,12 +107,12 @@ public class Grafo implements GrafoInterface {
 
             aux = rand.nextInt(EdgeAux.size());
             ligFeitas.add(EdgeAux.get(aux));
-            this.AdicionarLiga(ligFeitas.get(i), ligFeitas.get(i - 1), rand.nextInt(peso));
+            this.AdicionarLiga(ligFeitas.get(i), ligFeitas.get(i - 1), rand.nextInt(peso) + 1);
             EdgeAux.remove(aux);
 
         }
         this.AdicionarLiga(ligFeitas.get(ligFeitas.size() - 1), ligFeitas.get(0), rand.nextInt(peso) + 1);
-
+        
         // resto do grafo
         for (; this.edges > 0;) {
 
@@ -122,7 +122,7 @@ public class Grafo implements GrafoInterface {
             if (aux != aux1 && !this.Vertices[aux].checkLig(this.Vertices[aux1])) {
                 flag = 0;
                 this.AdicionarLiga(this.Vertices[aux].GetVerticeInfo(), this.Vertices[aux1].GetVerticeInfo(),
-                        rand.nextInt(peso));
+                        rand.nextInt(peso) + 1);
                 this.edges--;
 
             }
@@ -181,7 +181,7 @@ public class Grafo implements GrafoInterface {
      * @param ab String identificadora do vertice
      */
 
-    public void MostrarVerticeInfo(int ab) {
+    public void MostrarVerticeInfo() {
 
         for (int i = 0; i < this.verticenovo; i++) {
 

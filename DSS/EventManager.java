@@ -1,11 +1,16 @@
 package DSS;
 
 import java.util.ArrayList;
+import java.util.PriorityQueue;
+import java.util.*;
+
 import ACO.AntInterface;
 import java.util.Queue;
 import java.util.Random;
 
-public class EventManager implements Event<AntInterface> {
+import javax.swing.text.html.HTMLDocument.Iterator;
+
+public class EventManager implements Event {
 
     double time;
     double Constante;
@@ -14,7 +19,10 @@ public class EventManager implements Event<AntInterface> {
     EvaporationEvent evaporation;
     Queue<NextEvent<AntInterface>> PEC;
 
-    EventManager() {
+    public EventManager() {
+
+        PEC = new PriorityQueue<>();
+
     }
 
     public AntInterface execute() {
@@ -55,13 +63,28 @@ public class EventManager implements Event<AntInterface> {
 
     public void GenerateQueue(ArrayList<AntInterface> obj, int Interval) {
 
-        NextEvent<AntInterface> aux;
+        NextEvent<AntInterface> aux = null;
 
         for (AntInterface x : obj) {
 
             aux = new NextEvent<AntInterface>(x);
             PEC.add(aux);
 
+        }
+
+        aux = new NextEvent<AntInterface>(Interval);
+
+        PEC.add(aux);
+        aux = new NextEvent<AntInterface>(150);
+        PEC.add(aux);
+        this.PrintQueue();
+
+    }
+
+    public void PrintQueue() {
+
+        while (!PEC.isEmpty()) {
+            System.out.println(PEC.poll().TimeStampEvento);
         }
 
     }

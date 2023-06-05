@@ -23,7 +23,7 @@ public class vertice extends VerticeSuper {
 
         for (Ponteiro x : ListaPonteiros) {
 
-            if (x == novo) {
+            if (x.GetVerticeInfo() == novo.GetVerticeInfo()) {
 
                 return true;
             }
@@ -45,7 +45,7 @@ public class vertice extends VerticeSuper {
 
         System.out.println("Elementos ligados a " + this.elemento + ":");
         for (Ponteiro l : ListaPonteiros) {
-            System.out.println(l.GetVerticeInfo());
+            System.out.println(l.GetVerticeInfo() + " " + l.getCusto());
         }
 
     }
