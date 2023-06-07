@@ -1,81 +1,68 @@
 package DSS;
 
-import java.util.ArrayList;
 import java.util.PriorityQueue;
-import java.util.*;
-
 import ACO.*;
 import java.util.Queue;
-import java.util.Random;
 
 public class EventManager implements Event {
 
-    double time;
-    double Constante;
+    double timelimit;
     int delta;
-    AntMove eventoFormigas;
-    EvaporationEvent evaporation;
-    Queue<NextEvent<AntInterface,MiguelInter>> PEC;
+    int constante;
+    Queue<EventTypes> PEC;
+    AntColonyInterface Colonia;
 
-    public EventManager() {
+    public EventManager(AntColonyInterface colonia,double maxTime) {
 
         PEC = new PriorityQueue<>();
-        this.eventoFormigas = new AntMove();
+        this.Colonia = colonia;
+        this.timelimit = maxTime;
+        
 
     }
 
-    public void AddPheromonesEvent(MiguelInter idk, int time){}
+    public void addQueueNewEvent(MiguelInter newFeromonas, int timestamp) {
 
-
-    public void execute() {
-
-        NextEvent<AntInterface,MiguelInter> aux;
-        double a_ij;
-        aux = PEC.peek();
-
-        if (aux.getObjeto() == null) {
-            evaporation.execute(null);
-            aux.SetTimeStamp(this.time + this.Constante);
-            this.time = PEC.poll().getTime();
-            PEC.add(aux);
-
-        }
-
-        a_ij = eventoFormigas.execute(aux.GeralObject);
-        if (a_ij == 0) {
-            System.out.println("cheguei AQUI");
-        } else {
-            PEC.poll();
-            this.time = aux.getTime();
-            Random random = new Random();
-            aux.SetTimeStamp(this.time + (1 - Math.exp(-random.nextDouble() / delta * a_ij)));
-
-            PEC.add(aux);
-        }
-    }
-
-    public double getTime() {
-
-        return this.time;
+        EventTypes aux = new EvaporationEvent(timestamp + constante, newFeromonas);
+        PEC.add(aux);
 
     }
 
-    public void GenerateQueue(ArrayList<AntInterface> obj) {
+    public void print() {
 
-        NextEvent<AntInterface,MiguelInter> aux = null;
+        System.out.println("AquiTensDeMeterOPRintcrazy");
 
-        for (AntInterface x : obj) {
+    }
 
-            aux = new NextEvent<AntInterface,MiguelInter>(x);
-            PEC.add(aux);
+    public void simular() {
+        double Timestamp = 0;
+        this.GenerateQueue();
+        EventTypes aux;
+        while (Timestamp < this.timelimit) {
+            System.out.println("alo");
+            aux = PEC.poll();
+            Timestamp = aux.getTime();
+            aux.execute();
+            if (aux.getTime() < this.timelimit) {
+                PEC.add(aux);
+            }
 
         }
 
     }
 
-    public void PrintQueue() {
-        while (!PEC.isEmpty()) {
-            System.out.println(PEC.poll().TimeStampEvento);
+    public void GenerateQueue() {
+
+        EventTypes aux;
+        EventTypes aux1 = new ObservationEvent(timelimit / 20, this);
+
+        PEC.add(aux1);
+
+        for (AntInterface x : Colonia.getAnts()) {
+
+            aux = new AntMove(0, x);
+            PEC.add(aux);
+
         }
 
     }

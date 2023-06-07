@@ -2,26 +2,24 @@ package DSS;
 
 import ACO.*;
 
-import java.util.Random;
-import java.util.PriorityQueue;
-import java.util.Queue;
-import java.util.ArrayList;
-
-public class AntMove implements EventTypes<AntInterface,Double>{
-    double timestamp;
+public class AntMove extends EventTypes {
+    AntInterface Fomiga;
     float delta;
 
-    public AntMove() {
-    }
-
-    public double GetEventTypeTime() { // current time
-        return this.timestamp;
+    public AntMove(double time, AntInterface formiga) {
+        super(time);
+        this.Fomiga = formiga;
     }
 
     @Override
-    public Double execute(AntInterface a) {
-        
-        return (double)a.move();
+    public void setTime(double newTime) {
+
+    }
+
+    @Override
+    public void execute() {
+        System.out.println("alo");
+        this.setTime(this.timestamp + this.Fomiga.move());
 
     };
 

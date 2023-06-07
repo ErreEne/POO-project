@@ -1,19 +1,25 @@
 package DSS;
 
-import ACO.Miguel;
 import ACO.MiguelInter;
 
-import java.util.*;
+public class EvaporationEvent extends EventTypes {
 
-public class EvaporationEvent implements EventTypes<MiguelInter, Void> {
-    double time;
+    MiguelInter feromonas;
+
+    EvaporationEvent(int time, MiguelInter newFeromona) {
+
+        super(time);
+        this.feromonas = newFeromona;
+
+    }
+
+    public void setTime(double newTime) {
+
+    }
 
     @Override
-    public Void execute(MiguelInter a) {
+    public void execute() {
 
-        
-
-        return null;
     }
 
 }
