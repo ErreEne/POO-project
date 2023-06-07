@@ -15,7 +15,6 @@ public class EventManager implements Event, EventForObserver, EventForAnt<AntInt
     AntColonyInterface Colonia;
 
     public EventManager(AntColonyInterface colonia, double maxTime) {
-
         PEC = new PriorityQueue<>();
         this.Colonia = colonia;
         this.timelimit = maxTime;

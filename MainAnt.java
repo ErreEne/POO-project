@@ -1,4 +1,5 @@
 import ACO.AntColony;
+import ACO.AntColonyInterface;
 import DSS.Event;
 import DSS.EventManager;
 import GrafoPack.Grafo;
@@ -22,7 +23,7 @@ public class MainAnt {
         float tao = 0; // final instant
         int[][] matriz = new int[0][];
         GrafoInterface grafo = null;
-        Event Evento = new EventManager();
+        Event Evento;
         String arg = args[0];
         // System.out.println(arg); // read the argument -r or -f
         AntColony colonia;
@@ -94,9 +95,8 @@ public class MainAnt {
         } else {
             System.out.println("Invalid argument, use -r or -f");
         }
-
         if (grafo != null) {
-            colonia = new AntColony(grafo, nest_node, alfa, beta, gamma, delta, eta, v, ro, tao, Evento);
+            colonia = new AntColony(grafo, nest_node, alfa, beta, gamma, delta, eta, v, ro, tao);
             colonia.run();
             colonia.run();
             colonia.run();
