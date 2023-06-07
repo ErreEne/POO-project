@@ -21,4 +21,4 @@ jarCreate:
 	jar cmf META-INF/MANIFEST.MF executavel.jar ACO/*.class Main.class DSS/*.class GrafoPack/*.class
 
 runJava:
-	java -jar executavel.jar
+	java -jar executavel.jar -f file.txt

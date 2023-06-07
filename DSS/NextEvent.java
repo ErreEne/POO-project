@@ -3,35 +3,33 @@ package DSS;
 import java.util.*;
 import ACO.MiguelInter;
 
-public class NextEvent<QueueObject> implements Comparable<NextEvent<QueueObject>> {
+public class NextEvent<QueueObject,QueueObject2> implements Comparable<NextEvent<QueueObject,QueueObject2>> {
 
     QueueObject GeralObject;
+    QueueObject2 GeralObject2;
     double TimeStampEvento;
-    boolean FlagObject;
 
     NextEvent(QueueObject o) {
         this(0);
         this.GeralObject = o;
-        this.FlagObject = true;
 
     }
 
     NextEvent(int time) {
 
         this.TimeStampEvento = time;
-        this.FlagObject = false;
+
+    }
+
+    NextEvent(int time, QueueObject2 o){
+
+
 
     }
 
     public void SetTimeStamp(double newTime) {
 
         this.TimeStampEvento = newTime;
-
-    }
-
-    public boolean getInfoObject() {
-
-        return this.FlagObject;
 
     }
 
@@ -44,7 +42,7 @@ public class NextEvent<QueueObject> implements Comparable<NextEvent<QueueObject>
     }
 
     @Override
-    public int compareTo(NextEvent<QueueObject> aux) {
+    public int compareTo(NextEvent<QueueObject,QueueObject2> aux) {
         return this.TimeStampEvento > aux.TimeStampEvento ? 1 : -1;
     }
 

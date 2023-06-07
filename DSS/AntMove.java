@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 public class AntMove implements EventTypes<AntInterface,Double>{
     double timestamp;
-    Queue<NextEvent<AntInterface>> PEC;
     float delta;
 
     public AntMove() {

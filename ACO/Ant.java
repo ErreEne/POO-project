@@ -2,7 +2,7 @@ package ACO;
 
 import java.util.*;
 
-public class Ant implements AntInterface{
+public class Ant implements AntInterface {
     public ArrayList<Integer> path;
     private AntColony colony;
     public int currentNode;
@@ -16,7 +16,7 @@ public class Ant implements AntInterface{
         this.PathEnded = 0;
     }
 
-    public int cuNode(){
+    public int cuNode() {
         return this.currentNode;
     }
 
@@ -66,16 +66,19 @@ public class Ant implements AntInterface{
         }
         return -1;
     }
+
     @Override
     public int move() {
         Random rand = new Random();
         int newNode;
         int flag = 0;
+        System.out.print(this);
+        System.out.println(path);
         Hashtable<Integer, Float> NormalizedProbabilities = getNormalizedProbabilities(currentNode);
         if (NormalizedProbabilities == null) {
             Hashtable<Integer, Integer> possibleWeights = getWeights();
             Set<Integer> keys = possibleWeights.keySet();
-            //System.out.println("possibleWeights: " + possibleWeights);
+            // System.out.println("possibleWeights: " + possibleWeights);
             // get a random key
             newNode = (int) keys.toArray()[rand.nextInt(keys.size())];
             if (!checkIfEndedPath(newNode)) {
@@ -87,26 +90,23 @@ public class Ant implements AntInterface{
             newNode = chooseNode(NormalizedProbabilities);
         }
 
-
         if (checkIfEndedPath(newNode)) {
 
             System.out.println("ENDED PATH");
-            System.out.println("path: " + path);  // print path
-            System.out.println("path size: " + getSize(path));  // print path size
+            System.out.println("path: " + path); // print path
+            System.out.println("path size: " + getSize(path)); // print path size
             // agendar evaporação para aqui a X tempo (X definido no input)
-            //setPheromones(path);
+            // setPheromones(path);
             PathEnded = 1;
+            return 0;
         }
         if (flag == 0) {
             addToList(this.path, newNode);
         }
         currentNode = newNode;
-
-
-        System.out.println(path);
-        return 0;
+        return 1;
     }
-    
+
     @Override
     public void resetPath() {
         path.clear();
@@ -124,8 +124,7 @@ public class Ant implements AntInterface{
         for (int i = 0; i < getSize(path); i++) {
             if (getFromList(path, i) == nodeToRemove && flag == 0) {
                 flag = 1;
-            }
-            else if (flag == 1) {
+            } else if (flag == 1) {
                 removeFromList(path, i);
                 i--;
             }

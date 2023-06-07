@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.PriorityQueue;
 import java.util.*;
 
-import ACO.AntInterface;
+import ACO.*;
 import java.util.Queue;
 import java.util.Random;
 
@@ -15,7 +15,7 @@ public class EventManager implements Event {
     int delta;
     AntMove eventoFormigas;
     EvaporationEvent evaporation;
-    Queue<NextEvent<AntInterface>> PEC;
+    Queue<NextEvent<AntInterface,MiguelInter>> PEC;
 
     public EventManager() {
 
@@ -24,9 +24,12 @@ public class EventManager implements Event {
 
     }
 
-    public AntInterface execute() {
+    public void AddPheromonesEvent(MiguelInter idk, int time){}
 
-        NextEvent<AntInterface> aux;
+
+    public void execute() {
+
+        NextEvent<AntInterface,MiguelInter> aux;
         double a_ij;
         aux = PEC.peek();
 
@@ -35,14 +38,12 @@ public class EventManager implements Event {
             aux.SetTimeStamp(this.time + this.Constante);
             this.time = PEC.poll().getTime();
             PEC.add(aux);
-            return null;
 
         }
 
         a_ij = eventoFormigas.execute(aux.GeralObject);
         if (a_ij == 0) {
             System.out.println("cheguei AQUI");
-            return aux.GeralObject;
         } else {
             PEC.poll();
             this.time = aux.getTime();
@@ -50,8 +51,6 @@ public class EventManager implements Event {
             aux.SetTimeStamp(this.time + (1 - Math.exp(-random.nextDouble() / delta * a_ij)));
 
             PEC.add(aux);
-
-            return null;
         }
     }
 
@@ -61,22 +60,16 @@ public class EventManager implements Event {
 
     }
 
-    public void GenerateQueue(ArrayList<AntInterface> obj, int Interval) {
+    public void GenerateQueue(ArrayList<AntInterface> obj) {
 
-        NextEvent<AntInterface> aux = null;
+        NextEvent<AntInterface,MiguelInter> aux = null;
 
         for (AntInterface x : obj) {
 
-            aux = new NextEvent<AntInterface>(x);
+            aux = new NextEvent<AntInterface,MiguelInter>(x);
             PEC.add(aux);
 
         }
-
-        aux = new NextEvent<AntInterface>(Interval);
-
-        PEC.add(aux);
-        aux = new NextEvent<AntInterface>(150);
-        PEC.add(aux);
 
     }
 
