@@ -64,11 +64,14 @@ public class AntColony {
         int currentNode;
         int nextNode;
         int sumOfWeights = sumOfWeightsPath(path);
+        System.out.println("Sum of weights: " + sumOfWeights);
+        System.out.println("totalweights: " + totalWeights);
         for (int i = 0; i < path.size() - 1; i++) {
             currentNode = path.get(i);
             nextNode = path.get(i + 1);
 
             setPheromone(currentNode, nextNode, sumOfWeights);
+            System.out.println("Pheromone from " + currentNode + " to " + nextNode + " is " + pheromones.get(currentNode).get(nextNode).getPheromone());
         }
     }
 
@@ -77,6 +80,7 @@ public class AntColony {
         for (int i = 0; i < path.size() - 1; i++) {
             sum += Grafo.GetCusto(path.get(i), path.get(i + 1));
         }
+        sum += Grafo.GetCusto(path.get(path.size() - 1), nest_node);
         return sum;
     }
 
@@ -97,6 +101,10 @@ public class AntColony {
         }
     }
 
+    int getCost(int node1, int node2) {
+        return Grafo.GetCusto(node1, node2);
+    }
+
     public Hashtable<Integer, Miguel> getPheromonesFromNode(int node) {
         return pheromones.get(node);
     }
@@ -106,9 +114,6 @@ public class AntColony {
     }
 
     public void Simulate() {
-
-        System.out.println(Grafo.getEdges(2));
-        Grafo.MostrarVerticeInfo();
 
         while (Evento.getTime() < this.timelimit) {
 

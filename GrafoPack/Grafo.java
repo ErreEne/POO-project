@@ -153,7 +153,7 @@ public class Grafo implements GrafoInterface {
         this.AdicionarLiga(ligFeitas.get(ligFeitas.size() - 1), ligFeitas.get(0), rand.nextInt(peso) + 1);
         
         // resto do grafo
-        for (; this.edges > 0;) {
+        while (this.edges > 0) {
 
             aux = rand.nextInt(this.MaxVertices);
             aux1 = rand.nextInt(this.MaxVertices);
@@ -176,7 +176,6 @@ public class Grafo implements GrafoInterface {
 
     /**
      * Criar uma ligação entre vertices
-     *
      *
      * @param a     vertice 1 ident
      * @param b     vertice 2 ident

@@ -20,7 +20,7 @@ public class Ant implements AntInterface {
         return this.currentNode;
     }
 
-    public Hashtable<Integer, Float> getNormalizedProbabilities(int currentNode) {
+    public Hashtable<Integer, Float> getNormalizedProbabilities() {
         Hashtable<Integer, Float> probability = new Hashtable<>();
         float sum = 0;
         float Ci = 0;
@@ -71,32 +71,26 @@ public class Ant implements AntInterface {
     public int move() {
         Random rand = new Random();
         int newNode;
+        int previousNode = currentNode;
         int flag = 0;
-        System.out.print(this);
-        System.out.println(path);
-        Hashtable<Integer, Float> NormalizedProbabilities = getNormalizedProbabilities(currentNode);
+
+        Hashtable<Integer, Float> NormalizedProbabilities = getNormalizedProbabilities();
         if (NormalizedProbabilities == null) {
             Hashtable<Integer, Integer> possibleWeights = getWeights();
             Set<Integer> keys = possibleWeights.keySet();
-            // System.out.println("possibleWeights: " + possibleWeights);
-            // get a random key
+
             newNode = (int) keys.toArray()[rand.nextInt(keys.size())];
             if (!checkIfEndedPath(newNode)) {
                 removeLoop(newNode);
             }
             flag = 1;
-
         } else {
             newNode = chooseNode(NormalizedProbabilities);
         }
 
         if (checkIfEndedPath(newNode)) {
-
-            System.out.println("ENDED PATH");
-            System.out.println("path: " + path); // print path
-            System.out.println("path size: " + getSize(path)); // print path size
             // agendar evaporação para aqui a X tempo (X definido no input)
-            // setPheromones(path);
+            setPheromones(path);
             PathEnded = 1;
             return 0;
         }
@@ -104,7 +98,7 @@ public class Ant implements AntInterface {
             addToList(this.path, newNode);
         }
         currentNode = newNode;
-        return 1;
+        return getCost(currentNode, previousNode);
     }
 
     @Override
@@ -121,8 +115,8 @@ public class Ant implements AntInterface {
 
     public void removeLoop(int nodeToRemove) {
         int flag = 0;
-        for (int i = 0; i < getSize(path); i++) {
-            if (getFromList(path, i) == nodeToRemove && flag == 0) {
+        for (int i = 0; i < path.size(); i++) {
+            if (nodeToRemove == getFromList(path, i) && flag == 0) {
                 flag = 1;
             } else if (flag == 1) {
                 removeFromList(path, i);
@@ -152,7 +146,9 @@ public class Ant implements AntInterface {
     }
 
     public Hashtable<Integer, Miguel> getPossiblePheromones() {
-        Hashtable<Integer, Miguel> possiblePheromones = getPheromones();
+        Hashtable<Integer, Miguel> pheromones = getPheromones();
+        Hashtable<Integer, Miguel> possiblePheromones = (Hashtable<Integer, Miguel>) pheromones.clone();
+
         for (Integer integer : path) {
             possiblePheromones.remove(integer);
         }
@@ -174,4 +170,8 @@ public class Ant implements AntInterface {
     public int getSize(ArrayList<Integer> listToCheck) {
         return listToCheck.size();
     }
+    public int getCost(int a, int b){
+        return colony.getCost(a,b);
+    }
 }
+

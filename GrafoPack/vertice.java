@@ -52,7 +52,7 @@ public class vertice extends VerticeSuper {
 
     public int GetCustoLig(VerticeSuper Vertice) {
         for (Ponteiro x : this.ListaPonteiros) {
-            if (x == Vertice) {
+            if (x.GetVerticeInfo() == Vertice.GetVerticeInfo()) {
                 return x.getCusto();
             }
         }
