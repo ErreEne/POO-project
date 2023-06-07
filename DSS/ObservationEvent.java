@@ -2,10 +2,10 @@ package DSS;
 
 public class ObservationEvent extends EventTypes {
 
-    Event Evento;
+    EventForObserver Evento;
     double maxTime;
 
-    ObservationEvent(double time, Event evento) {
+    ObservationEvent(double time, EventForObserver evento) {
         super(time);
         this.Evento = evento;
         this.maxTime = time*20;

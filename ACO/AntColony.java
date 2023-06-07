@@ -21,12 +21,11 @@ public class AntColony {
     public HashMap<Integer, Hashtable<Integer, Miguel>> pheromones;
     public int totalWeights;
     public float ro;
-    public Event Evento;
     public int totalVertex;
     public float timelimit;
 
     public AntColony(GrafoInterface Graph, int nest_node, float alpha, float beta, float gamma, float delta, float eta,
-            int ant_colony_size, float ro, float tao, Event evento) {
+            int ant_colony_size, float ro, float tao) {
         this.Grafo = Graph;
         this.nest_node = nest_node;
         this.beta = beta;
@@ -41,7 +40,6 @@ public class AntColony {
         this.totalVertex = Grafo.totalVertex();
         this.pheromones = new HashMap<>();
         this.timelimit = tao;
-        this.Evento = evento;
         initializePheromones();
         createAnts();
 
@@ -111,16 +109,6 @@ public class AntColony {
 
     public Hashtable<Integer, Integer> getWeightsFromNode(int node) {
         return Grafo.getEdges(node);
-    }
-
-    public void Simulate() {
-
-        while (Evento.getTime() < this.timelimit) {
-
-            Evento.execute();
-
-        }
-
     }
 
     public void run() {

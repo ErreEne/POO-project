@@ -5,10 +5,12 @@ import ACO.*;
 public class AntMove extends EventTypes {
     AntInterface Fomiga;
     float delta;
+    EventForAnt<AntInterface> teste;
 
-    public AntMove(double time, AntInterface formiga) {
+    public AntMove(double time, AntInterface formiga, EventForAnt<AntInterface> test) {
         super(time);
         this.Fomiga = formiga;
+        this.teste = test;
     }
 
     @Override
@@ -18,8 +20,14 @@ public class AntMove extends EventTypes {
 
     @Override
     public void execute() {
+        int aux = this.Fomiga.move();
         System.out.println("alo");
-        this.setTime(this.timestamp + this.Fomiga.move());
+        this.setTime(this.timestamp + aux);
+        if (aux == 0) {
+
+            teste.alterarPath(Fomiga.getPath());
+
+        }
 
     };
 

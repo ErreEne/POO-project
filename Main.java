@@ -20,7 +20,7 @@ public class Main {
         float tao = 0; // final instant
         int[][] matriz;
         GrafoInterface grafo = null;
-        Event Evento = new EventManager();
+        Event Evento;
         String arg = args[0];
         // System.out.println(arg); // read the argument -r or -f
         AntColony colonia;
@@ -89,8 +89,9 @@ public class Main {
         }
 
         if (grafo != null) {
-            colonia = new AntColony(grafo, nest_node, alfa, beta, gamma, delta, eta, v, ro, tao, Evento);
-            colonia.Simulate();
+            colonia = new AntColony(grafo, nest_node, alfa, beta, gamma, delta, eta, v, ro, tao);
+            Evento = new EventManager((AntColonyInterface)colonia, tao);
+            
 
         }
 

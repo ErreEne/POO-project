@@ -20,6 +20,10 @@ public class Ant implements AntInterface {
         return this.currentNode;
     }
 
+    public ArrayList<Integer> getPath() {
+        return this.path;
+    }
+
     public Hashtable<Integer, Float> getNormalizedProbabilities() {
         Hashtable<Integer, Float> probability = new Hashtable<>();
         float sum = 0;
@@ -170,8 +174,8 @@ public class Ant implements AntInterface {
     public int getSize(ArrayList<Integer> listToCheck) {
         return listToCheck.size();
     }
-    public int getCost(int a, int b){
-        return colony.getCost(a,b);
+
+    public int getCost(int a, int b) {
+        return colony.getCost(a, b);
     }
 }
-

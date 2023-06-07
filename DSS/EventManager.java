@@ -1,23 +1,24 @@
 package DSS;
 
+import java.util.ArrayList;
 import java.util.PriorityQueue;
 import ACO.*;
 import java.util.Queue;
 
-public class EventManager implements Event {
+public class EventManager implements Event, EventForObserver, EventForAnt<AntInterface> {
 
     double timelimit;
     int delta;
     int constante;
     Queue<EventTypes> PEC;
+    ArrayList<Integer> Bestpath;
     AntColonyInterface Colonia;
 
-    public EventManager(AntColonyInterface colonia,double maxTime) {
+    public EventManager(AntColonyInterface colonia, double maxTime) {
 
         PEC = new PriorityQueue<>();
         this.Colonia = colonia;
         this.timelimit = maxTime;
-        
 
     }
 
@@ -25,6 +26,12 @@ public class EventManager implements Event {
 
         EventTypes aux = new EvaporationEvent(timestamp + constante, newFeromonas);
         PEC.add(aux);
+
+    }
+
+    public void alterarPath(ArrayList<Integer> path) {
+
+        this.Bestpath = path;
 
     }
 
@@ -60,7 +67,7 @@ public class EventManager implements Event {
 
         for (AntInterface x : Colonia.getAnts()) {
 
-            aux = new AntMove(0, x);
+            aux = new AntMove(0, x, this);
             PEC.add(aux);
 
         }
