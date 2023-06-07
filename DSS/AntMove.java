@@ -26,7 +26,7 @@ public class AntMove extends EventTypes {
         System.out.println("alo");
         Random rand = new Random();
         double mean = delta*aij;
-        this.setTime(timestamp + (-1/mean)*Math.log(1-rand.nextDouble()));
+        this.setTime(timestamp + (-mean)*Math.log(1-rand.nextDouble()));
         if (aij == 0) {
 
             teste.alterarPath(Fomiga.getPath());
