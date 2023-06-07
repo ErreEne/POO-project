@@ -15,10 +15,12 @@ public class EvaporationEvent extends EventTypes {
 
     public void setTime(double newTime) {
 
+            this.timestamp = newTime;
     }
 
     @Override
     public void execute() {
+        this.setTime(timestamp);
 
     }
 

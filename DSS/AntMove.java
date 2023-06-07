@@ -23,7 +23,7 @@ public class AntMove extends EventTypes {
     @Override
     public void execute() {
         int aij = Fomiga.move();
-        System.out.println("alo");
+        System.out.println("aloooooooooo"+delta);
         Random rand = new Random();
         double mean = delta*aij;
         this.setTime(timestamp + (-mean)*Math.log(1-rand.nextDouble()));
