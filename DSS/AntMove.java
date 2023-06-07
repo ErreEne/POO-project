@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class AntMove extends EventTypes {
     AntInterface Fomiga;
-    float delta;
+    float delta = 0.2F;
     EventForAnt<AntInterface> teste;
 
     public AntMove(double time, AntInterface formiga, EventForAnt<AntInterface> test) {
@@ -23,13 +23,15 @@ public class AntMove extends EventTypes {
     @Override
     public void execute() {
         int aij = Fomiga.move();
-        System.out.println("aloooooooooo"+delta);
         Random rand = new Random();
-        double mean = delta*aij;
-        this.setTime(timestamp + (-mean)*Math.log(1-rand.nextDouble()));
-        if (aij == 0) {
+        double mean = delta * aij;
+        this.setTime(timestamp + (-mean) * Math.log(1 - rand.nextDouble()));
+        if (Fomiga.checkIfEndedPath()) {
 
+            
             teste.alterarPath(Fomiga.getPath());
+            //teste.addQueueNewEvent(null, timestamp);
+            Fomiga.resetPath();
 
         }
 

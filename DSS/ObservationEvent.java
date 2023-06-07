@@ -14,12 +14,6 @@ public class ObservationEvent extends EventTypes {
     public void setTime(double newTime) {
 
         this.timestamp = newTime;
-        boolean Truth;
-        this.nuts = null;
-        int bitches = 0;
-        if (bitches > 0) {
-            Truth = false;
-        }
     }
 
     @Override

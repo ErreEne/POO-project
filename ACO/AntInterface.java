@@ -7,5 +7,6 @@ public interface AntInterface {
     public abstract void resetPath();
     public int cuNode();
     public abstract ArrayList<Integer> getPath();
+    public boolean checkIfEndedPath();
 
 }

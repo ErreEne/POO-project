@@ -10,20 +10,29 @@ public class EventManager implements Event, EventForObserver, EventForAnt<AntInt
     double timelimit;
     int delta;
     int constante;
+    double timeconstant;
     Queue<EventTypes> PEC;
     ArrayList<Integer> Bestpath;
+    ArrayList<MiguelInter> TodasAsFeromonasCriadas;
     AntColonyInterface Colonia;
 
     public EventManager(AntColonyInterface colonia, double maxTime) {
         PEC = new PriorityQueue<>();
         this.Colonia = colonia;
         this.timelimit = maxTime;
+        TodasAsFeromonasCriadas = new ArrayList<>();
 
     }
 
     public void addQueueNewEvent(MiguelInter newFeromonas, int timestamp) {
 
-        EventTypes aux = new EvaporationEvent(timestamp + constante, newFeromonas);
+        for (MiguelInter x : this.TodasAsFeromonasCriadas) {
+            if (x == newFeromonas) {
+                return;
+            }
+        }
+        TodasAsFeromonasCriadas.add(newFeromonas);
+        EventTypes aux = new EvaporationEvent(timestamp + constante, newFeromonas, timeconstant);
         PEC.add(aux);
 
     }
@@ -31,6 +40,7 @@ public class EventManager implements Event, EventForObserver, EventForAnt<AntInt
     public void alterarPath(ArrayList<Integer> path) {
 
         this.Bestpath = path;
+        System.out.println(path);
 
     }
 
@@ -44,14 +54,17 @@ public class EventManager implements Event, EventForObserver, EventForAnt<AntInt
         double Timestamp = 0;
         this.GenerateQueue();
         EventTypes aux;
-        while (Timestamp < this.timelimit) {
-            System.out.println("alo");
-            aux = PEC.poll();
-            Timestamp = aux.getTime();
-            aux.execute();
-            if (aux.getTime() < this.timelimit) {
-                PEC.add(aux);
-            }
+        while (Timestamp <= this.timelimit) {
+            if (!PEC.isEmpty()) {
+
+                aux = PEC.poll();
+                Timestamp = aux.getTime();
+                aux.execute();
+                if (aux.getTime() <= this.timelimit) {
+                    PEC.add(aux);
+                }
+            } else
+                break;
 
         }
 

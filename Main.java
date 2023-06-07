@@ -90,7 +90,8 @@ public class Main {
 
         if (grafo != null) {
             colonia = new AntColony(grafo, nest_node, alfa, beta, gamma, delta, eta, v, ro, tao);
-            Evento = new EventManager((AntColonyInterface) colonia, tao);
+            Evento = new EventManager((AntColonyInterface)colonia, tao);
+            Evento.simular();
 
         }
 

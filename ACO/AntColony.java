@@ -8,7 +8,7 @@ import java.util.Random;
 import DSS.*;
 import GrafoPack.*;
 
-public class AntColony {
+public class AntColony implements AntColonyInterface{
     private ArrayList<Ant> colony;
     public int nest_node;
     public float beta;

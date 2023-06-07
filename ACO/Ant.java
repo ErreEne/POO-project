@@ -96,13 +96,19 @@ public class Ant implements AntInterface {
             // agendar evaporação para aqui a X tempo (X definido no input)
             setPheromones(path);
             PathEnded = 1;
-            return 0;
+            return getCost(currentNode, previousNode);
         }
         if (flag == 0) {
             addToList(this.path, newNode);
         }
         currentNode = newNode;
         return getCost(currentNode, previousNode);
+    }
+
+    public boolean checkIfEndedPath() {
+
+        return this.PathEnded == 1 ? true : false;
+
     }
 
     @Override
@@ -151,8 +157,10 @@ public class Ant implements AntInterface {
 
     public Hashtable<Integer, Miguel> getPossiblePheromones() {
         Hashtable<Integer, Miguel> pheromones = getPheromones();
-        Hashtable<Integer, Miguel> possiblePheromones = (Hashtable<Integer, Miguel>) pheromones.clone();
-
+        // Hashtable<Integer, Miguel> possiblePheromones = (Hashtable<Integer, Miguel>)
+        // pheromones.clone();
+        Hashtable<Integer, Miguel> possiblePheromones = new Hashtable<>();
+        possiblePheromones.putAll(pheromones);
         for (Integer integer : path) {
             possiblePheromones.remove(integer);
         }
