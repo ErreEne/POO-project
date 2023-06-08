@@ -139,11 +139,11 @@ public class Ant implements AntInterface {
         return this.PathEnded == 1 ? true : false;
 
     }
-    /*/////////// Este é preciso para alguma situação espedifica ou o de cima chega?///////////////
+    /*/////////// Este é preciso para alguma situação espedifica ou o de cima chega?///////////////*/
 
     public Boolean checkIfEndedPath(int node) {
         return getSize(path) == colony.totalVertex && node == colony.nest_node;
-    }*/
+    }
 
     /**
      * Reset the path of the ant, the ant can now start a new path?????????????????????
