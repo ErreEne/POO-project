@@ -5,6 +5,9 @@ import java.util.PriorityQueue;
 import ACO.*;
 import java.util.Queue;
 
+/**
+ * Class that represents the event manager
+ */
 public class EventManager implements Event, EventForObserver, EventForAnt<AntInterface> {
 
     double timelimit;
@@ -16,6 +19,10 @@ public class EventManager implements Event, EventForObserver, EventForAnt<AntInt
     ArrayList<MiguelInter> TodasAsFeromonasCriadas;
     AntColonyInterface Colonia;
 
+    /**
+     * @param colonia the ant colony
+     * @param maxTime the maximum time of simulation
+     */
     public EventManager(AntColonyInterface colonia, double maxTime) {
         PEC = new PriorityQueue<>();
         this.Colonia = colonia;
@@ -24,6 +31,11 @@ public class EventManager implements Event, EventForObserver, EventForAnt<AntInt
 
     }
 
+    /**
+     * Add to the Priority Queue the events of the simulation
+     * @param newFeromonas the new pheromones
+     * @param timestamp   the time of the event
+     */
     public void addQueueNewEvent(MiguelInter newFeromonas, int timestamp) {
 
         for (MiguelInter x : this.TodasAsFeromonasCriadas) {
@@ -37,6 +49,10 @@ public class EventManager implements Event, EventForObserver, EventForAnt<AntInt
 
     }
 
+    /**
+     * Set path to a better path discovered
+     * @param path the path to be altered
+     */
     public void alterarPath(ArrayList<Integer> path) {
 
         this.Bestpath = path;
@@ -50,6 +66,9 @@ public class EventManager implements Event, EventForObserver, EventForAnt<AntInt
 
     }
 
+    /**
+     * Simulate the events
+     */
     public void simular() {
         double Timestamp = 0;
         this.GenerateQueue();
@@ -70,6 +89,9 @@ public class EventManager implements Event, EventForObserver, EventForAnt<AntInt
 
     }
 
+    /**
+     * Generate the events of the simulation
+     */
     public void GenerateQueue() {
 
         EventTypes aux;
@@ -85,5 +107,4 @@ public class EventManager implements Event, EventForObserver, EventForAnt<AntInt
         }
 
     }
-
 }

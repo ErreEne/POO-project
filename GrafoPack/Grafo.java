@@ -4,6 +4,9 @@ import java.util.Hashtable;
 import java.util.Random;
 import java.util.ArrayList;
 
+/**
+ * Esta classe representa o grafo
+ */
 public class Grafo implements GrafoInterface {
 
     int MaxVertices;
@@ -13,6 +16,12 @@ public class Grafo implements GrafoInterface {
     int peso;
     int somarEdges;
 
+    /**
+     * Create a graph with a number of vertices and edges
+     * @param verticeNumero numero de vertices
+     * @param edges        numero de edges
+     * @param peso       peso maximo das edges
+     */
     public Grafo(int verticeNumero, int edges, int peso) {
         this.MaxVertices = verticeNumero;
         this.Vertices = new vertice[this.MaxVertices];
@@ -23,6 +32,11 @@ public class Grafo implements GrafoInterface {
         this.GenerateGraphWHamiltonCycle(peso);
     }
 
+    /**
+     * Create a graph with the information of a matrix
+     * @param verticeNumero numero de vertices
+     * @param matriz    matriz de adjacencia
+     */
     public Grafo(int verticeNumero,int [][] matriz) {
         this.MaxVertices = verticeNumero;
         this.Vertices = new vertice[verticeNumero];
@@ -68,6 +82,10 @@ public class Grafo implements GrafoInterface {
 
     }
 
+    /**
+     * @param vertice vertex to know
+     * @return  return all edges of a vertex
+     */
     @Override
     public Hashtable<Integer, Integer> getEdges(int vertice) {
         Hashtable<Integer, Integer> edges = new Hashtable<Integer, Integer>();
@@ -83,6 +101,10 @@ public class Grafo implements GrafoInterface {
 
     }
 
+    /**
+     * Get the total of vertex
+     * @return return all edges of a graph
+     */
     @Override
     public int totalVertex() {
         return this.MaxVertices;
@@ -102,6 +124,9 @@ public class Grafo implements GrafoInterface {
 
     }
 
+    /**
+     * @return return the sum of all edges
+     */
     @Override
     public int totalEdgesSum() {
 
@@ -113,18 +138,8 @@ public class Grafo implements GrafoInterface {
      * metodo que cria o graph com o hamilton cycle
      *
      * @param peso
-     */
-    /*
-     *
-     *
-     *
-     *
+
      * Talvez tenhamos de ver isto mais tarde
-     *
-     *
-     *
-     *
-     *
      */
     public void GenerateGraphWHamiltonCycle(int peso) {
 
@@ -208,6 +223,12 @@ public class Grafo implements GrafoInterface {
 
     }
 
+    /**
+     * Check the conection between two vertex
+     * @param a vertice 1
+     * @param b vertice 2
+     * @return  return if a vertex is connected to another
+     */
     public boolean CheckLiga(vertice a, vertice b) {
 
         return a.checkLig(b);
@@ -227,6 +248,13 @@ public class Grafo implements GrafoInterface {
 
         }
     }
+
+    /**
+     * get the cost of a edge between two vertex
+     * @param a  vertice 1
+     * @param b  vertice 2
+     * @return  return the cost of a edge between two vertex
+     */
     public int GetCusto(int a, int b) {
         return Vertices[a - 1].GetCustoLig(Vertices[b - 1]);
     }

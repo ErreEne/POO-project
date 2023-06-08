@@ -2,15 +2,26 @@ package GrafoPack;
 
 import java.util.ArrayList;
 
+/**
+ * Class that represents a vertex of a graph
+ */
 public class vertice extends VerticeSuper {
 
     public ArrayList<Ponteiro> ListaPonteiros;
 
-    vertice(int elementoNovo) {
+    /**
+     * @param elementoNovo Element that this vertex will have
+     */
+    public vertice(int elementoNovo) {
         super(elementoNovo);
         this.ListaPonteiros = new ArrayList<Ponteiro>();
     }
 
+    /**
+     * Creates a new pointer to a vertex
+     * @param id    ID of the vertex
+     * @param custo Cost of the pointer
+     */
     public void NovaLigação(int id, int custo) {
 
         Ponteiro NewPointer = new Ponteiro(id, custo);
@@ -19,6 +30,11 @@ public class vertice extends VerticeSuper {
 
     }
 
+    /**
+     * Checks if a vertex is connected to this vertex
+     * @param novo Vertex to be checked
+     * @return  True if the vertex is connected to this vertex
+     */
     public boolean checkLig(VerticeSuper novo) {
 
         for (Ponteiro x : ListaPonteiros) {
@@ -33,10 +49,16 @@ public class vertice extends VerticeSuper {
 
     }
 
+    /**
+     * @return Element of the vertex
+     */
     public int GetVerticeInfo() {
         return this.elemento;
     }
 
+    /**
+     * @return List of pointers of this vertex
+     */
     public ArrayList<Ponteiro> getPonteiros() {
         return this.ListaPonteiros;
     }
@@ -50,6 +72,11 @@ public class vertice extends VerticeSuper {
 
     }
 
+    /**
+     * Get the cost of a pointer to a vertex
+     * @param Vertice Vertex to be checked
+     * @return  Cost of the pointer to the vertex
+     */
     public int GetCustoLig(VerticeSuper Vertice) {
         for (Ponteiro x : this.ListaPonteiros) {
             if (x.GetVerticeInfo() == Vertice.GetVerticeInfo()) {
