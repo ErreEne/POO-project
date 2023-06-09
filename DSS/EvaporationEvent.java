@@ -2,6 +2,8 @@ package DSS;
 
 import ACO.MiguelInter;
 
+import java.util.Random;
+
 /**
  *  Class that presents the Evaporation Event of the pheromones
  */
@@ -36,8 +38,8 @@ public class EvaporationEvent extends EventTypes {
      */
     @Override
     public void execute() {
-        this.setTime(timestamp + timeconstant);
-
+        Random rand = new Random();
+        this.setTime(timestamp + (-timeconstant) * Math.log(1 - rand.nextDouble()));
     }
 
 }
