@@ -12,8 +12,8 @@ public class Miguel implements MiguelInter {
     /**
      * @param numberOfNodes total number of nodes
      * @param totalWeights  total number of weights
-     * @param gamma value for calculating the level of pheromone
-     * @param ro    value for decreasing pheromones
+     * @param gamma         value for calculating the level of pheromone
+     * @param ro            value for decreasing pheromones
      */
     public Miguel(int numberOfNodes, int totalWeights, float gamma, float ro) {
         this.pheromone = 0;
@@ -24,6 +24,7 @@ public class Miguel implements MiguelInter {
 
     /**
      * Set the pheromone level
+     * 
      * @param sumOfWeights sum of all weights
      */
     public void setPheromone(int sumOfWeights) {
@@ -46,5 +47,8 @@ public class Miguel implements MiguelInter {
         } else {
             this.pheromone = 0;
         }
+
+        if (this.pheromone < 0)
+            this.pheromone = 0;
     }
 }

@@ -2,6 +2,8 @@ package DSS;
 
 import ACO.*;
 
+import java.sql.Array;
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -13,9 +15,9 @@ public class AntMove extends EventTypes {
     EventForAnt<AntInterface> teste;
 
     /**
-     * @param time     time that the event will be executed??
-     * @param formiga   ant that will move
-     * @param test event that will be executed ??
+     * @param time    time that the event will be executed??
+     * @param formiga ant that will move
+     * @param test    event that will be executed ??
      */
     public AntMove(double time, AntInterface formiga, EventForAnt<AntInterface> test) {
         super(time);
@@ -39,15 +41,19 @@ public class AntMove extends EventTypes {
         int aij = Fomiga.move();
         Random rand = new Random();
         double mean = delta * aij;
-        this.setTime(timestamp + (-mean) * Math.log(1 - rand.nextDouble()));
         if (Fomiga.checkIfEndedPath()) {
+            teste.alterarPath(Fomiga.getPath(), Fomiga.PathCost());
+            for (int i = 0; i < Fomiga.getPath().size() - 1; i++) {
 
+                teste.addQueueNewEvent(timestamp, Fomiga.getPath().get(i), Fomiga.getPath().get(i + 1));
 
-            teste.alterarPath(Fomiga.getPath());
-            //teste.addQueueNewEvent(null, timestamp);
+            }
+            teste.addQueueNewEvent(timestamp, Fomiga.getPath().get(Fomiga.getPath().size() - 1),
+                    Fomiga.getPath().get(0));
             Fomiga.resetPath();
 
         }
+        this.setTime(timestamp + (-mean) * Math.log(1 - rand.nextDouble()));
 
     };
 

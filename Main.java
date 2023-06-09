@@ -10,6 +10,7 @@ public class Main {
     public static void main(String[] args) {
         int nNodes = 0; // number of nodes in the graph
         int nest_node = 0; // the nest node
+        int maxWeight = 0; // Max weight of graph (-r)
         float alfa = 0; // alpha, ant move event
         float beta = 0; // beta, ant move event
         float delta = 0; // delta, ant move event
@@ -24,24 +25,25 @@ public class Main {
         String arg = args[0];
         // System.out.println(arg); // read the argument -r or -f
         AntColony colonia;
-
+    
         if (arg.equals("-r")) { // reads from terminal
-            if (args.length != 11) {
+            if (args.length != 12) {
                 System.out.println("Invalid number of arguments");
                 System.exit(0); // terminates program ???
             } else {
                 nNodes = Integer.parseInt(args[1]);
                 nest_node = Integer.parseInt(args[2]);
-                alfa = Float.parseFloat(args[3]);
-                beta = Float.parseFloat(args[4]);
-                delta = Float.parseFloat(args[5]);
-                eta = Float.parseFloat(args[6]);
-                ro = Float.parseFloat(args[7]);
-                gamma = Float.parseFloat(args[8]);
-                v = Integer.parseInt(args[9]);
-                tao = Integer.parseInt(args[10]);
+                maxWeight = Integer.parseInt(args[3]);
+                alfa = Float.parseFloat(args[4]);
+                beta = Float.parseFloat(args[5]);
+                delta = Float.parseFloat(args[6]);
+                eta = Float.parseFloat(args[7]);
+                ro = Float.parseFloat(args[8]);
+                gamma = Float.parseFloat(args[9]);
+                v = Integer.parseInt(args[10]);
+                tao = Float.parseFloat(args[11]);
             }
-            grafo = new Grafo(nNodes, nNodes + 3, 6); // edges e peso não são dadas no input
+            grafo = new Grafo(nNodes, nNodes + 1, maxWeight); // edges e peso não são dadas no input
 
         } else if (arg.equals("-f")) { // reads from file
             try {
@@ -67,14 +69,13 @@ public class Main {
                 v = Integer.parseInt(inputs[8]);
                 tao = Float.parseFloat(inputs[9]);
 
-
                 matriz = new int[nNodes][nNodes];
-                int j=0;
+                int j = 0;
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();
                     String[] elements = line.split("[\\s\\t]+");
-                    for (int i=0; i < nNodes; i++){
-                        matriz[j][i]= Integer.parseInt(elements[i]);
+                    for (int i = 0; i < nNodes; i++) {
+                        matriz[j][i] = Integer.parseInt(elements[i]);
                     }
                     j++;
                 }
@@ -89,9 +90,10 @@ public class Main {
         }
 
         if (grafo != null) {
-            colonia = new AntColony(grafo, nest_node, alfa, beta, gamma, delta, eta, v, ro, tao);
-            Evento = new EventManager((AntColonyInterface)colonia, tao);
+            colonia = new AntColony(grafo, nest_node, alfa, beta, gamma, delta, v, ro);
+            Evento = new EventManager((AntColonyInterface) colonia, tao, eta);
             Evento.simular();
+            grafo.MostrarVerticeInfo();
 
         }
 

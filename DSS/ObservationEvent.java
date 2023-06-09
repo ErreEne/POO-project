@@ -33,7 +33,7 @@ public class ObservationEvent extends EventTypes {
     @Override
     public void execute() {
 
-        Evento.print();
+        Evento.print(this.timestamp);
         this.setTime(timestamp+maxTime/20);
 
     }
