@@ -17,7 +17,7 @@ public class EvaporationEvent extends EventTypes {
      * @param newFeromona pheromone that will be evaporated
      * @param teta time constant of the evaporation
      */
-    EvaporationEvent(int time, MiguelInter newFeromona, double teta) {
+    EvaporationEvent(double time, MiguelInter newFeromona, double teta) {
 
         super(time);
         this.feromonas = newFeromona;
