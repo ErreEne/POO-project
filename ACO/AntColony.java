@@ -3,58 +3,53 @@ package ACO;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
-import java.util.Random;
-
-import DSS.*;
 import GrafoPack.*;
 
 /**
  * Class that represents the ant colony
  */
-public class AntColony implements AntColonyInterface{
+public class AntColony implements AntColonyInterface {
     private ArrayList<Ant> colony;
     public int nest_node;
     public float beta;
     public float alpha;
     public float gamma;
     public float delta;
-    public float eta;
     public int ant_colony_size;
     public GrafoInterface Grafo;
     public HashMap<Integer, Hashtable<Integer, Miguel>> pheromones;
     public int totalWeights;
     public float ro;
     public int totalVertex;
-    public float timelimit;
 
     /**
-     * @param Graph - graph to be used
-     * @param nest_node - node to be used as nest
-     * @param alpha - value for calculating the probability of choosing a node
-     * @param beta  - value for calculating the probability of choosing a node
-     * @param gamma - value for calculating the level of pheromone
-     * @param delta - value for calculating next time to move the ant
-     * @param eta   - time between the evaporation events
-     * @param ant_colony_size   - number of ants in the colony
-     * @param ro    - value for decreasing pheromones
-     * @param tao   - time of simulation
+     * @param Graph           - graph to be used
+     * @param nest_node       - node to be used as nest
+     * @param alpha           - value for calculating the probability of choosing a
+     *                        node
+     * @param beta            - value for calculating the probability of choosing a
+     *                        node
+     * @param gamma           - value for calculating the level of pheromone
+     * @param delta           - value for calculating next time to move the ant
+     * @param eta             - time between the evaporation events
+     * @param ant_colony_size - number of ants in the colony
+     * @param ro              - value for decreasing pheromones
+     * @param tao             - time of simulation
      */
-    public AntColony(GrafoInterface Graph, int nest_node, float alpha, float beta, float gamma, float delta, float eta,
-            int ant_colony_size, float ro, float tao) {
+    public AntColony(GrafoInterface Graph, int nest_node, float alpha, float beta, float gamma, float delta,
+            int ant_colony_size, float ro) {
         this.Grafo = Graph;
         this.nest_node = nest_node;
         this.beta = beta;
         this.alpha = alpha;
         this.gamma = gamma;
         this.delta = delta;
-        this.eta = eta;
         this.ant_colony_size = ant_colony_size;
         this.colony = new ArrayList<>();
         this.ro = ro;
         this.totalWeights = Grafo.totalEdgesSum();
         this.totalVertex = Grafo.totalVertex();
         this.pheromones = new HashMap<>();
-        this.timelimit = tao;
         initializePheromones();
         createAnts();
 
@@ -76,8 +71,14 @@ public class AntColony implements AntColonyInterface{
         }
     }
 
+    public HashMap<Integer, Hashtable<Integer, Miguel>> getPheromones() {
+
+        return this.pheromones;
+    }
+
     /**
      * Set the level of pheromones in the edges that the ant took
+     * 
      * @param path - path that the ant took
      */
     public void setPheromones(ArrayList<Integer> path) {
@@ -91,12 +92,17 @@ public class AntColony implements AntColonyInterface{
             nextNode = path.get(i + 1);
 
             setPheromone(currentNode, nextNode, sumOfWeights);
-            System.out.println("Pheromone from " + currentNode + " to " + nextNode + " is " + pheromones.get(currentNode).get(nextNode).getPheromone());
+            System.out.println("Pheromone from " + currentNode + " to " + nextNode + " is "
+                    + pheromones.get(currentNode).get(nextNode).getPheromone());
         }
+        System.out.println("Pheromone from " + path.get(path.size() - 1) + " to " + nest_node + " is "
+                    + pheromones.get(path.get(path.size() - 1)).get(nest_node).getPheromone());
+        setPheromone(path.get(path.size() - 1), nest_node, sumOfWeights);
     }
 
     /**
      * Get the sum of weights of a path
+     * 
      * @param path - path to calculate the sum of weights
      * @return the sum of weights of the path
      */
@@ -111,9 +117,10 @@ public class AntColony implements AntColonyInterface{
 
     /**
      * Set the level of pheromones in the edge between two nodes
+     * 
      * @param currentNode  - current node
-     * @param nextNode   - next node
-     * @param sumOfWeights  - sum of weights of the path
+     * @param nextNode     - next node
+     * @param sumOfWeights - sum of weights of the path
      */
     public void setPheromone(int currentNode, int nextNode, int sumOfWeights) {
         pheromones.get(currentNode).get(nextNode).setPheromone(sumOfWeights);
@@ -121,6 +128,7 @@ public class AntColony implements AntColonyInterface{
 
     /**
      * Get the ants in the colony
+     * 
      * @return the ants in the colony
      */
     public ArrayList<Ant> getAnts() {
@@ -141,9 +149,10 @@ public class AntColony implements AntColonyInterface{
 
     /**
      * Get the cost between two nodes in the graph
+     * 
      * @param node1 - first node
      * @param node2 - second node
-     * @return  the cost of the edge between node1 and node2
+     * @return the cost of the edge between node1 and node2
      */
     int getCost(int node1, int node2) {
         return Grafo.GetCusto(node1, node2);
@@ -151,6 +160,7 @@ public class AntColony implements AntColonyInterface{
 
     /**
      * Get the leve of pheromone in edge of node
+     * 
      * @param node - node to get the pheromones from
      * @return the pheromones from the node
      */
@@ -160,6 +170,7 @@ public class AntColony implements AntColonyInterface{
 
     /**
      * Get the weights for the adjacent nodes of a node
+     * 
      * @param node - node to get the weights from
      * @return the weights from the adjacent nodes of the node
      */

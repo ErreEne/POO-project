@@ -7,11 +7,13 @@ public class Ant implements AntInterface {
     private AntColony colony;
     public int currentNode;
     public int PathEnded;
+    public int PathCost;
 
     /**
      * Constructor of the Ant class
+     * 
      * @param Antcolony - AntColony object that contains all the information about
-     * */
+     */
     public Ant(AntColony Antcolony) {
         this.colony = Antcolony;
         this.path = new ArrayList<>();
@@ -22,14 +24,16 @@ public class Ant implements AntInterface {
 
     /**
      * Get the current node of the ant
+     * 
      * @return int - the current node of the ant
      */
-    public int cuNode() {
-        return this.currentNode;
+    public int PathCost() {
+        return this.PathCost;
     }
 
     /**
      * Get the path of the ant
+     * 
      * @return ArrayList<Integer> - the path of the ant
      */
     public ArrayList<Integer> getPath() {
@@ -38,7 +42,9 @@ public class Ant implements AntInterface {
 
     /**
      * Calculate the normalized probabilities to go to the adjacent nodes
-     * @return Hashtable<Integer, Float> - the normalized probabilities to go to another Node
+     * 
+     * @return Hashtable<Integer, Float> - the normalized probabilities to go to
+     *         another Node
      */
     public Hashtable<Integer, Float> getNormalizedProbabilities() {
         Hashtable<Integer, Float> probability = new Hashtable<>();
@@ -75,8 +81,11 @@ public class Ant implements AntInterface {
 
     /**
      * Choose the next node to go to
-     * @param probability - Hashtable<Integer, Float> with the probabilities to go to another Node
-     * @return  int - the node that the ant will go to or -1 if probability hashmap is empty ????????????????????????????????????????????????????
+     * 
+     * @param probability - Hashtable<Integer, Float> with the probabilities to go
+     *                    to another Node
+     * @return int - the node that the ant will go to or -1 if probability hashmap
+     *         is empty ????????????????????????????????????????????????????
      */
     public int chooseNode(Hashtable<Integer, Float> probability) {
         Random rand = new Random();
@@ -94,6 +103,7 @@ public class Ant implements AntInterface {
 
     /**
      * Move the ant to the next node
+     * 
      * @return int - the cost of the ant's path
      */
     @Override
@@ -121,17 +131,21 @@ public class Ant implements AntInterface {
             // agendar evaporação para aqui a X tempo (X definido no input)
             setPheromones(path);
             PathEnded = 1;
+            currentNode = newNode;
+            this.PathCost = colony.sumOfWeightsPath(path);
             return getCost(currentNode, previousNode);
         }
         if (flag == 0) {
             addToList(this.path, newNode);
         }
         currentNode = newNode;
+        
         return getCost(currentNode, previousNode);
     }
 
     /**
      * Get the confiration if the ant ended the Hamiltonian cycle
+     * 
      * @return boolean - true if the ant has ended the path, false otherwise
      */
     public boolean checkIfEndedPath() {
@@ -139,33 +153,42 @@ public class Ant implements AntInterface {
         return this.PathEnded == 1 ? true : false;
 
     }
-    /*/////////// Este é preciso para alguma situação espedifica ou o de cima chega?///////////////*/
+    /*
+     * /////////// Este é preciso para alguma situação espedifica ou o de cima
+     * chega?///////////////
+     */
 
     public Boolean checkIfEndedPath(int node) {
         return getSize(path) == colony.totalVertex && node == colony.nest_node;
     }
 
     /**
-     * Reset the path of the ant, the ant can now start a new path?????????????????????
+     * Reset the path of the ant, the ant can now start a new
+     * path?????????????????????
      */
     @Override
     public void resetPath() {
         path.clear();
         path.add(colony.nest_node);
         currentNode = colony.nest_node;
+        PathCost = 0;
         PathEnded = 0;
     }
 
     /**
      * Set the pheromones in the path that the and finished
-     * @param path - ArrayList<Integer> with the path of the ant where the pheremones will be added
+     * 
+     * @param path - ArrayList<Integer> with the path of the ant where the
+     *             pheremones will be added
      */
     public void setPheromones(ArrayList<Integer> path) {
         colony.setPheromones(path);
     }
 
     /**
-     * Remove loops that the ant might has done in the graph trying to find the Hamiltonian cycle
+     * Remove loops that the ant might has done in the graph trying to find the
+     * Hamiltonian cycle
+     * 
      * @param nodeToRemove - int with the node to remove from the path
      */
     public void removeLoop(int nodeToRemove) {
@@ -182,6 +205,7 @@ public class Ant implements AntInterface {
 
     /**
      * Get the weights of the adjacent nodes
+     * 
      * @return Hashtable<Integer, Integer> - the weights of the adjacent nodes
      */
     public Hashtable<Integer, Integer> getPossibleWeights() {
@@ -194,7 +218,8 @@ public class Ant implements AntInterface {
 
     /**
      * Get the weights of the adjacent nodes
-     * @return  Hashtable<Integer, Integer> - the weights of the adjacent nodes
+     * 
+     * @return Hashtable<Integer, Integer> - the weights of the adjacent nodes
      */
     public Hashtable<Integer, Integer> getWeights() { // não podemos juntar com o de cima??????
         return colony.getWeightsFromNode(currentNode);
@@ -202,6 +227,7 @@ public class Ant implements AntInterface {
 
     /**
      * Get the pheromones in the nodes
+     * 
      * @return Hashtable<Integer, Miguel> - level of the pheromones in the nodes
      */
     public Hashtable<Integer, Miguel> getPheromones() {
@@ -210,7 +236,9 @@ public class Ant implements AntInterface {
 
     /**
      * Get the pheromones in the nodes that the ant can go to
-     * @return Hashtable<Integer, Miguel> - level of the pheromones in the nodes that the ant can go to
+     * 
+     * @return Hashtable<Integer, Miguel> - level of the pheromones in the nodes
+     *         that the ant can go to
      */
     public Hashtable<Integer, Miguel> getPossiblePheromones() {
         Hashtable<Integer, Miguel> pheromones = getPheromones();
@@ -226,8 +254,9 @@ public class Ant implements AntInterface {
 
     /**
      * Get the node in some position of the path
+     * 
      * @param getFrom path of nodes that the ant has gone through
-     * @param index  index of the node to get
+     * @param index   index of the node to get
      * @return int - the node that the ant has gone through
      */
     public int getFromList(ArrayList<Integer> getFrom, int index) {
@@ -236,8 +265,9 @@ public class Ant implements AntInterface {
 
     /**
      * Remove a node from the path
+     * 
      * @param listToRemove - ArrayList<Integer> with the path of the ant
-     * @param nodeToRemove  - int with the node to remove from the path
+     * @param nodeToRemove - int with the node to remove from the path
      */
     public void removeFromList(ArrayList<Integer> listToRemove, int nodeToRemove) {
         listToRemove.remove(nodeToRemove);
@@ -245,6 +275,7 @@ public class Ant implements AntInterface {
 
     /**
      * Add a node to the path
+     * 
      * @param listToAdd - ArrayList<Integer> with the path of the ant
      * @param nodeToAdd - int with the node to add to the path
      */
@@ -254,7 +285,7 @@ public class Ant implements AntInterface {
 
     /**
      * @param listToCheck - ArrayList<Integer> with the path of the ant
-     * @return  int - the size of the path
+     * @return int - the size of the path
      */
     public int getSize(ArrayList<Integer> listToCheck) {
         return listToCheck.size();
@@ -262,9 +293,10 @@ public class Ant implements AntInterface {
 
     /**
      * Get the cost between two nodes (a and b)
+     * 
      * @param a - int with the node to check
      * @param b - int with the node to check
-     * @return  int - the cost between the nodes
+     * @return int - the cost between the nodes
      */
     public int getCost(int a, int b) {
         return colony.getCost(a, b);

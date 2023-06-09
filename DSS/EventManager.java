@@ -1,9 +1,7 @@
 package DSS;
 
-import java.util.ArrayList;
-import java.util.PriorityQueue;
 import ACO.*;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * Class that represents the event manager
@@ -12,10 +10,13 @@ public class EventManager implements Event, EventForObserver, EventForAnt<AntInt
 
     double timelimit;
     int delta;
-    int constante;
+    double constante;
+    int eevents;
+    int mevents;
     double timeconstant;
     Queue<EventTypes> PEC;
     ArrayList<Integer> Bestpath;
+    int BestPrice;
     ArrayList<MiguelInter> TodasAsFeromonasCriadas;
     AntColonyInterface Colonia;
 
@@ -23,46 +24,64 @@ public class EventManager implements Event, EventForObserver, EventForAnt<AntInt
      * @param colonia the ant colony
      * @param maxTime the maximum time of simulation
      */
-    public EventManager(AntColonyInterface colonia, double maxTime) {
+    public EventManager(AntColonyInterface colonia, double maxTime, double timeconstant) {
         PEC = new PriorityQueue<>();
+        this.timeconstant = timeconstant;
         this.Colonia = colonia;
         this.timelimit = maxTime;
         TodasAsFeromonasCriadas = new ArrayList<>();
+        this.mevents = 0;
+        this.eevents = 0;
 
     }
 
     /**
      * Add to the Priority Queue the events of the simulation
+     * 
      * @param newFeromonas the new pheromones
-     * @param timestamp   the time of the event
+     * @param timestamp    the time of the event
      */
-    public void addQueueNewEvent(MiguelInter newFeromonas, int timestamp) {
+    public void addQueueNewEvent(double timestamp, int id1, int id2) {
+
+        MiguelInter aux1 = Colonia.getPheromones().get(id1).get(id2);
 
         for (MiguelInter x : this.TodasAsFeromonasCriadas) {
-            if (x == newFeromonas) {
+            if (x == aux1) {
                 return;
             }
         }
-        TodasAsFeromonasCriadas.add(newFeromonas);
-        EventTypes aux = new EvaporationEvent(timestamp + constante, newFeromonas, timeconstant);
+        TodasAsFeromonasCriadas.add(aux1);
+        EventTypes aux = new EvaporationEvent(timestamp + constante, aux1, timeconstant);
         PEC.add(aux);
-
+        System.out.println("d");
     }
 
     /**
      * Set path to a better path discovered
+     * 
      * @param path the path to be altered
      */
-    public void alterarPath(ArrayList<Integer> path) {
+    public void alterarPath(ArrayList<Integer> path, int TotalPrice) {
+        if (this.BestPrice > TotalPrice) {
+            this.BestPrice = TotalPrice;
+            try {
+                this.Bestpath = (ArrayList<Integer>) path.clone();
 
-        this.Bestpath = path;
-        System.out.println(path);
+            } catch (Exception e) {
+            }
+            System.out.println(path);
+        } else if (this.BestPrice == 0) {
+            this.BestPrice = TotalPrice;
+            this.Bestpath = (ArrayList<Integer>) path.clone();
 
+        }
     }
 
-    public void print() {
-
-        System.out.println("AquiTensDeMeterOPRintcrazy");
+    public void print(double PresentTime) {
+        System.out.println("Present instant: " + PresentTime);
+        System.out.println("mevents: " + mevents);
+        System.out.println("eevents: " + eevents);
+        System.out.println("Best hamilton Cycle: " + Bestpath + " - " + BestPrice);
 
     }
 
@@ -77,6 +96,11 @@ public class EventManager implements Event, EventForObserver, EventForAnt<AntInt
             if (!PEC.isEmpty()) {
 
                 aux = PEC.poll();
+                if (aux instanceof AntMove) {
+                    mevents++;
+                } else if (aux instanceof EvaporationEvent) {
+                    eevents++;
+                }
                 Timestamp = aux.getTime();
                 aux.execute();
                 if (aux.getTime() <= this.timelimit) {

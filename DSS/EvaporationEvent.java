@@ -5,7 +5,7 @@ import ACO.MiguelInter;
 import java.util.Random;
 
 /**
- *  Class that presents the Evaporation Event of the pheromones
+ * Class that presents the Evaporation Event of the pheromones
  */
 public class EvaporationEvent extends EventTypes {
 
@@ -13,9 +13,9 @@ public class EvaporationEvent extends EventTypes {
     double timeconstant;
 
     /**
-     * @param time time that the event will be executed
+     * @param time        time that the event will be executed
      * @param newFeromona pheromone that will be evaporated
-     * @param teta time constant of the evaporation
+     * @param teta        time constant of the evaporation
      */
     EvaporationEvent(double time, MiguelInter newFeromona, double teta) {
 
@@ -40,6 +40,10 @@ public class EvaporationEvent extends EventTypes {
     public void execute() {
         Random rand = new Random();
         this.setTime(timestamp + (-timeconstant) * Math.log(1 - rand.nextDouble()));
+        if (feromonas.getPheromone() > 1){
+            System.out.println("Pheromones:" + feromonas.getPheromone());
+            feromonas.evaporationOfPheromone();
+        }
     }
 
 }
