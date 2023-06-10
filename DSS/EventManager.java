@@ -9,7 +9,6 @@ import java.util.*;
 public class EventManager implements Event, EventForObserver, EventForAnt<AntInterface> {
 
     double timelimit;
-    int delta;
     double constante;
     int eevents;
     int mevents;
@@ -32,13 +31,11 @@ public class EventManager implements Event, EventForObserver, EventForAnt<AntInt
         TodasAsFeromonasCriadas = new ArrayList<>();
         this.mevents = 0;
         this.eevents = 0;
-
     }
 
     /**
      * Add to the Priority Queue the events of the simulation
-     * 
-     * @param newFeromonas the new pheromones
+     *
      * @param timestamp    the time of the event
      */
     public void addQueueNewEvent(double timestamp, int id1, int id2) {
@@ -53,7 +50,6 @@ public class EventManager implements Event, EventForObserver, EventForAnt<AntInt
         TodasAsFeromonasCriadas.add(aux1);
         EventTypes aux = new EvaporationEvent(timestamp + constante, aux1, timeconstant);
         PEC.add(aux);
-        System.out.println("d");
     }
 
     /**
@@ -67,13 +63,12 @@ public class EventManager implements Event, EventForObserver, EventForAnt<AntInt
             try {
                 this.Bestpath = (ArrayList<Integer>) path.clone();
 
-            } catch (Exception e) {
+            } catch (Exception ignored) {
             }
             System.out.println(path);
         } else if (this.BestPrice == 0) {
             this.BestPrice = TotalPrice;
             this.Bestpath = (ArrayList<Integer>) path.clone();
-
         }
     }
 

@@ -31,10 +31,8 @@ public class AntColony implements AntColonyInterface {
      *                        node
      * @param gamma           - value for calculating the level of pheromone
      * @param delta           - value for calculating next time to move the ant
-     * @param eta             - time between the evaporation events
      * @param ant_colony_size - number of ants in the colony
      * @param ro              - value for decreasing pheromones
-     * @param tao             - time of simulation
      */
     public AntColony(GrafoInterface Graph, int nest_node, float alpha, float beta, float gamma, float delta,
             int ant_colony_size, float ro) {
@@ -52,7 +50,6 @@ public class AntColony implements AntColonyInterface {
         this.pheromones = new HashMap<>();
         initializePheromones();
         createAnts();
-
     }
 
     /**
@@ -61,18 +58,20 @@ public class AntColony implements AntColonyInterface {
     public void initializePheromones() {
         for (int i = 1; i <= totalVertex; i++) {
             Hashtable<Integer, Miguel> pheromonesFromNode = new Hashtable<>();
-            Hashtable<Integer, Integer> possibleNodes = Grafo.getEdges(i);
+            Hashtable<Integer, Integer> possibleNodes = getWeightsFromNode(i);
             for (int j = 1; j <= totalVertex; j++) {
                 if (possibleNodes.containsKey(j)) {
-                    pheromonesFromNode.put(j, new Miguel(ant_colony_size, totalWeights, gamma, ro));
+                    pheromonesFromNode.put(j, new Miguel(totalWeights, gamma, ro));
                 }
             }
             pheromones.put(i, pheromonesFromNode);
         }
     }
 
+    /**
+     * get the pheromone map
+     */
     public HashMap<Integer, Hashtable<Integer, Miguel>> getPheromones() {
-
         return this.pheromones;
     }
 
@@ -109,9 +108,9 @@ public class AntColony implements AntColonyInterface {
     public int sumOfWeightsPath(ArrayList<Integer> path) {
         int sum = 0;
         for (int i = 0; i < path.size() - 1; i++) {
-            sum += Grafo.GetCusto(path.get(i), path.get(i + 1));
+            sum += getCost(path.get(i), path.get(i + 1));
         }
-        sum += Grafo.GetCusto(path.get(path.size() - 1), nest_node);
+        sum += getCost(path.get(path.size() - 1), nest_node);
         return sum;
     }
 
@@ -139,7 +138,6 @@ public class AntColony implements AntColonyInterface {
      * Create all ants in the colony
      */
     public void createAnts() {
-        // Ant ant = new Ant(this);
         Ant ant;
         for (int i = 0; i < ant_colony_size; i++) {
             ant = new Ant(this);
@@ -176,12 +174,5 @@ public class AntColony implements AntColonyInterface {
      */
     public Hashtable<Integer, Integer> getWeightsFromNode(int node) {
         return Grafo.getEdges(node);
-    }
-
-    /**
-     * Run the simulation
-     */
-    public void run() {
-        colony.get(0).move();
     }
 }

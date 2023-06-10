@@ -14,7 +14,7 @@ public class vertice extends VerticeSuper {
      */
     public vertice(int elementoNovo) {
         super(elementoNovo);
-        this.ListaPonteiros = new ArrayList<Ponteiro>();
+        this.ListaPonteiros = new ArrayList<>();
     }
 
     /**
@@ -22,12 +22,9 @@ public class vertice extends VerticeSuper {
      * @param id    ID of the vertex
      * @param custo Cost of the pointer
      */
-    public void NovaLigação(int id, int custo) {
-
+    public void NovaLigacao(int id, int custo) {
         Ponteiro NewPointer = new Ponteiro(id, custo);
-
         ListaPonteiros.add(NewPointer);
-
     }
 
     /**
@@ -36,17 +33,12 @@ public class vertice extends VerticeSuper {
      * @return  True if the vertex is connected to this vertex
      */
     public boolean checkLig(VerticeSuper novo) {
-
         for (Ponteiro x : ListaPonteiros) {
-
             if (x.GetVerticeInfo() == novo.GetVerticeInfo()) {
-
                 return true;
             }
         }
-
         return false;
-
     }
 
     /**
@@ -63,7 +55,7 @@ public class vertice extends VerticeSuper {
         return this.ListaPonteiros;
     }
 
-    public void PrintLigações() {
+    public void printLigacoes() {
 
         System.out.println("Elementos ligados a " + this.elemento + ":");
         for (Ponteiro l : ListaPonteiros) {

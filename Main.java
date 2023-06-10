@@ -80,7 +80,6 @@ public class Main {
                     j++;
                 }
                 grafo = new Grafo(nNodes, matriz); // usa o segundo construtor
-
                 scanner.close();
             } catch (FileNotFoundException e) {
                 System.out.println("File not found: " + e.getMessage());
@@ -91,11 +90,9 @@ public class Main {
 
         if (grafo != null) {
             colonia = new AntColony(grafo, nest_node, alfa, beta, gamma, delta, v, ro);
-            Evento = new EventManager((AntColonyInterface) colonia, tao, eta);
+            Evento = new EventManager((AntColonyInterface) colonia, tao, eta); // esta mesmo a usar a interface??????????
             Evento.simular();
             grafo.MostrarVerticeInfo();
-
         }
-
     }
 }

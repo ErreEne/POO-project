@@ -77,9 +77,7 @@ public class Grafo implements GrafoInterface {
             this.AdicionarLiga(2, 5, 5);
             this.AdicionarLiga(2, 4, 2);
             this.AdicionarLiga(4, 5, 1);
-
         }
-
     }
 
     /**
@@ -88,8 +86,8 @@ public class Grafo implements GrafoInterface {
      */
     @Override
     public Hashtable<Integer, Integer> getEdges(int vertice) {
-        Hashtable<Integer, Integer> edges = new Hashtable<Integer, Integer>();
-        ArrayList<Ponteiro> edgesaux = new ArrayList<Ponteiro>();
+        Hashtable<Integer, Integer> edges = new Hashtable<>();
+        ArrayList<Ponteiro> edgesaux;
         vertice aux = this.Vertices[vertice - 1];
         edgesaux = aux.getPonteiros();
 
@@ -108,7 +106,7 @@ public class Grafo implements GrafoInterface {
     @Override
     public int totalVertex() {
         return this.MaxVertices;
-    };
+    }
 
     /**
      * Este metodo cria um vertice e guarda-o na estrutura dos grafos
@@ -144,21 +142,19 @@ public class Grafo implements GrafoInterface {
     public void GenerateGraphWHamiltonCycle(int peso) {
 
         int aux, aux1, flag = 0;
-        ArrayList<Integer> EdgeAux = new ArrayList<Integer>();
-        ArrayList<Integer> ligFeitas = new ArrayList<Integer>();
+        ArrayList<Integer> EdgeAux = new ArrayList<>();
+        ArrayList<Integer> ligFeitas = new ArrayList<>();
         Random rand = new Random();
 
         for (int i = 0; i < this.MaxVertices; i++) {
-
             this.CriarVertice(i + 1);
             EdgeAux.add(i + 1);
-
         }
+
         ligFeitas.add(1);
         EdgeAux.remove(0);
         // hamiltonCycle
         for (int i = 1; i < this.MaxVertices; i++, this.edges--) {
-
             aux = rand.nextInt(EdgeAux.size());
             ligFeitas.add(EdgeAux.get(aux));
             this.AdicionarLiga(ligFeitas.get(i), ligFeitas.get(i - 1), rand.nextInt(peso) + 1);
@@ -169,7 +165,6 @@ public class Grafo implements GrafoInterface {
         
         // resto do grafo
         while (this.edges > 0) {
-
             aux = rand.nextInt(this.MaxVertices);
             aux1 = rand.nextInt(this.MaxVertices);
             flag++;
@@ -180,13 +175,10 @@ public class Grafo implements GrafoInterface {
                 this.edges--;
 
             }
-
             if (flag == 50) {
                 break;
             }
-
         }
-
     }
 
     /**
@@ -198,7 +190,6 @@ public class Grafo implements GrafoInterface {
      */
 
     public void AdicionarLiga(int a, int b, int custo) {
-
         vertice v1 = null;
         vertice v2 = null;
 
@@ -207,53 +198,34 @@ public class Grafo implements GrafoInterface {
             if (this.Vertices[i].GetVerticeInfo() == a) {
                 v1 = this.Vertices[i];
             }
+
             if (this.Vertices[i].GetVerticeInfo() == b) {
                 v2 = this.Vertices[i];
             }
-
         }
-
         if (v1 != null && v2 != null) {
-
-            v1.NovaLigação(b, custo);
-            v2.NovaLigação(a, custo);
+            v1.NovaLigacao(b, custo);
+            v2.NovaLigacao(a, custo);
         }
-
         this.somarEdges += custo;
-
-    }
-
-    /**
-     * Check the conection between two vertex
-     * @param a vertice 1
-     * @param b vertice 2
-     * @return  return if a vertex is connected to another
-     */
-    public boolean CheckLiga(vertice a, vertice b) {
-
-        return a.checkLig(b);
     }
 
     /**
      * Print da informação sobre um vertice especifico
      *
-     * @param ab String identificadora do vertice
      */
-
     public void MostrarVerticeInfo() {
 
         for (int i = 0; i < this.verticenovo; i++) {
-
-            Vertices[i].PrintLigações();
-
+            Vertices[i].printLigacoes();
         }
     }
 
     /**
-     * get the cost of a edge between two vertex
+     * get the cost of an edge between two vertex
      * @param a  vertice 1
      * @param b  vertice 2
-     * @return  return the cost of a edge between two vertex
+     * @return  return the cost of an edge between two vertex
      */
     public int GetCusto(int a, int b) {
         return Vertices[a - 1].GetCustoLig(Vertices[b - 1]);

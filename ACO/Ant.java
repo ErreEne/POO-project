@@ -128,11 +128,10 @@ public class Ant implements AntInterface {
         }
 
         if (checkIfEndedPath(newNode)) {
-            // agendar evaporação para aqui a X tempo (X definido no input)
             setPheromones(path);
             PathEnded = 1;
             currentNode = newNode;
-            this.PathCost = colony.sumOfWeightsPath(path);
+            this.PathCost = sumOfWeightsPath();
             return getCost(currentNode, previousNode);
         }
         if (flag == 0) {
@@ -144,19 +143,24 @@ public class Ant implements AntInterface {
     }
 
     /**
+     * Get the cost of the path of the ant
+     *
+     * @return int - the cost of the path of the ant
+     */
+    public int sumOfWeightsPath() {
+        return colony.sumOfWeightsPath(path);
+    }
+
+    /**
      * Get the confiration if the ant ended the Hamiltonian cycle
      * 
      * @return boolean - true if the ant has ended the path, false otherwise
      */
     public boolean checkIfEndedPath() {
 
-        return this.PathEnded == 1 ? true : false;
+        return this.PathEnded == 1;
 
     }
-    /*
-     * /////////// Este é preciso para alguma situação espedifica ou o de cima
-     * chega?///////////////
-     */
 
     public Boolean checkIfEndedPath(int node) {
         return getSize(path) == colony.totalVertex && node == colony.nest_node;
@@ -164,7 +168,7 @@ public class Ant implements AntInterface {
 
     /**
      * Reset the path of the ant, the ant can now start a new
-     * path?????????????????????
+     *
      */
     @Override
     public void resetPath() {
@@ -193,7 +197,7 @@ public class Ant implements AntInterface {
      */
     public void removeLoop(int nodeToRemove) {
         int flag = 0;
-        for (int i = 0; i < path.size(); i++) {
+        for (int i = 0; i < getSize(path); i++) {
             if (nodeToRemove == getFromList(path, i) && flag == 0) {
                 flag = 1;
             } else if (flag == 1) {
@@ -242,10 +246,8 @@ public class Ant implements AntInterface {
      */
     public Hashtable<Integer, Miguel> getPossiblePheromones() {
         Hashtable<Integer, Miguel> pheromones = getPheromones();
-        // Hashtable<Integer, Miguel> possiblePheromones = (Hashtable<Integer, Miguel>)
-        // pheromones.clone();
-        Hashtable<Integer, Miguel> possiblePheromones = new Hashtable<>();
-        possiblePheromones.putAll(pheromones);
+
+        Hashtable<Integer, Miguel> possiblePheromones = new Hashtable<>(pheromones);
         for (Integer integer : path) {
             possiblePheromones.remove(integer);
         }

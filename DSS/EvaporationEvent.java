@@ -10,7 +10,7 @@ import java.util.Random;
 public class EvaporationEvent extends EventTypes {
 
     MiguelInter feromonas;
-    double timeconstant;
+    double timeConstant;
 
     /**
      * @param time        time that the event will be executed
@@ -21,7 +21,7 @@ public class EvaporationEvent extends EventTypes {
 
         super(time);
         this.feromonas = newFeromona;
-        this.timeconstant = teta;
+        this.timeConstant = teta;
 
     }
 
@@ -39,7 +39,7 @@ public class EvaporationEvent extends EventTypes {
     @Override
     public void execute() {
         Random rand = new Random();
-        this.setTime(timestamp + (-timeconstant) * Math.log(1 - rand.nextDouble()));
+        this.setTime(timestamp + (-timeConstant) * Math.log(1 - rand.nextDouble()));
         if (feromonas.getPheromone() > 1){
             System.out.println("Pheromones:" + feromonas.getPheromone());
             feromonas.evaporationOfPheromone();

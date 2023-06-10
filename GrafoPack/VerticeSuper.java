@@ -11,10 +11,4 @@ public class VerticeSuper {
     public int GetVerticeInfo() {
         return this.elemento;
     }
-
-    public void PrintInfo() {
-
-        System.out.println(this.elemento);
-
-    }
 }
