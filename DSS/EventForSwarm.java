@@ -2,9 +2,7 @@ package DSS;
 
 import java.util.ArrayList;
 
-import ACO.MiguelInter;
-
-public interface EventForAnt<Swarm> {
+public interface EventForSwarm<Swarm> {
 
     void alterarPath(ArrayList<Integer> path, int totalCost);
 

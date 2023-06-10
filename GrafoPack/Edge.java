@@ -3,7 +3,7 @@ package GrafoPack;
 /**
  * Class that represents a pointer to a vertex in a graph.
  */
-public class Ponteiro extends VerticeSuper {
+public class Edge extends VerticeSuper {
 
     int custo;
 
@@ -11,7 +11,7 @@ public class Ponteiro extends VerticeSuper {
      * @param elementoLig - element to which the pointer points
      * @param weight    - weight of the pointer
      */
-    Ponteiro(int elementoLig, int weight) {
+    Edge(int elementoLig, int weight) {
 
         super(elementoLig);
         this.custo = weight;

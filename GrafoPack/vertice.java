@@ -7,14 +7,14 @@ import java.util.ArrayList;
  */
 public class vertice extends VerticeSuper {
 
-    public ArrayList<Ponteiro> ListaPonteiros;
+    public ArrayList<Edge> ListaEdges;
 
     /**
      * @param elementoNovo Element that this vertex will have
      */
     public vertice(int elementoNovo) {
         super(elementoNovo);
-        this.ListaPonteiros = new ArrayList<>();
+        this.ListaEdges = new ArrayList<>();
     }
 
     /**
@@ -23,8 +23,8 @@ public class vertice extends VerticeSuper {
      * @param custo Cost of the pointer
      */
     public void NovaLigacao(int id, int custo) {
-        Ponteiro NewPointer = new Ponteiro(id, custo);
-        ListaPonteiros.add(NewPointer);
+        Edge NewPointer = new Edge(id, custo);
+        ListaEdges.add(NewPointer);
     }
 
     /**
@@ -33,7 +33,7 @@ public class vertice extends VerticeSuper {
      * @return  True if the vertex is connected to this vertex
      */
     public boolean checkLig(VerticeSuper novo) {
-        for (Ponteiro x : ListaPonteiros) {
+        for (Edge x : ListaEdges) {
             if (x.GetVerticeInfo() == novo.GetVerticeInfo()) {
                 return true;
             }
@@ -51,14 +51,14 @@ public class vertice extends VerticeSuper {
     /**
      * @return List of pointers of this vertex
      */
-    public ArrayList<Ponteiro> getPonteiros() {
-        return this.ListaPonteiros;
+    public ArrayList<Edge> getPonteiros() {
+        return this.ListaEdges;
     }
 
     public void printLigacoes() {
 
         System.out.println("Elementos ligados a " + this.elemento + ":");
-        for (Ponteiro l : ListaPonteiros) {
+        for (Edge l : ListaEdges) {
             System.out.println(l.GetVerticeInfo() + " " + l.getCusto());
         }
 
@@ -70,7 +70,7 @@ public class vertice extends VerticeSuper {
      * @return  Cost of the pointer to the vertex
      */
     public int GetCustoLig(VerticeSuper Vertice) {
-        for (Ponteiro x : this.ListaPonteiros) {
+        for (Edge x : this.ListaEdges) {
             if (x.GetVerticeInfo() == Vertice.GetVerticeInfo()) {
                 return x.getCusto();
             }

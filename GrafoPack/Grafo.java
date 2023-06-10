@@ -12,32 +12,34 @@ public class Grafo implements GrafoInterface {
     int MaxVertices;
     vertice[] Vertices;
     int verticenovo;
-    int edges;
+    int Totaledges;
     int peso;
     int somarEdges;
 
     /**
      * Create a graph with a number of vertices and edges
+     * 
      * @param verticeNumero numero de vertices
-     * @param edges        numero de edges
-     * @param peso       peso maximo das edges
+     * @param edges         numero de edges
+     * @param peso          peso maximo das edges
      */
     public Grafo(int verticeNumero, int edges, int peso) {
         this.MaxVertices = verticeNumero;
         this.Vertices = new vertice[this.MaxVertices];
         this.verticenovo = 0;
-        this.edges = edges;
+        this.Totaledges = 0;
         this.peso = peso;
 
-        this.GenerateGraphWHamiltonCycle(peso);
+        this.GenerateGraphWHamiltonCycle(peso, edges);
     }
 
     /**
      * Create a graph with the information of a matrix
+     * 
      * @param verticeNumero numero de vertices
-     * @param matriz    matriz de adjacencia
+     * @param matriz        matriz de adjacencia
      */
-    public Grafo(int verticeNumero,int [][] matriz) {
+    public Grafo(int verticeNumero, int[][] matriz) {
         this.MaxVertices = verticeNumero;
         this.Vertices = new vertice[verticeNumero];
         this.verticenovo = 0;
@@ -52,6 +54,10 @@ public class Grafo implements GrafoInterface {
                 }
             }
         }
+    }
+
+    public int totalEdges() {
+        return this.Totaledges;
     }
 
     public Grafo(int flag, int e) {
@@ -82,16 +88,16 @@ public class Grafo implements GrafoInterface {
 
     /**
      * @param vertice vertex to know
-     * @return  return all edges of a vertex
+     * @return return all edges of a vertex
      */
     @Override
     public Hashtable<Integer, Integer> getEdges(int vertice) {
         Hashtable<Integer, Integer> edges = new Hashtable<>();
-        ArrayList<Ponteiro> edgesaux;
+        ArrayList<Edge> edgesaux;
         vertice aux = this.Vertices[vertice - 1];
         edgesaux = aux.getPonteiros();
 
-        for (Ponteiro x : edgesaux) {
+        for (Edge x : edgesaux) {
             edges.put(x.GetVerticeInfo(), x.getCusto());
         }
 
@@ -101,6 +107,7 @@ public class Grafo implements GrafoInterface {
 
     /**
      * Get the total of vertex
+     * 
      * @return return all edges of a graph
      */
     @Override
@@ -136,10 +143,10 @@ public class Grafo implements GrafoInterface {
      * metodo que cria o graph com o hamilton cycle
      *
      * @param peso
-
-     * Talvez tenhamos de ver isto mais tarde
+     * 
+     *             Talvez tenhamos de ver isto mais tarde
      */
-    public void GenerateGraphWHamiltonCycle(int peso) {
+    public void GenerateGraphWHamiltonCycle(int peso, int edges) {
 
         int aux, aux1, flag = 0;
         ArrayList<Integer> EdgeAux = new ArrayList<>();
@@ -154,7 +161,7 @@ public class Grafo implements GrafoInterface {
         ligFeitas.add(1);
         EdgeAux.remove(0);
         // hamiltonCycle
-        for (int i = 1; i < this.MaxVertices; i++, this.edges--) {
+        for (int i = 1; i < this.MaxVertices; i++, edges--) {
             aux = rand.nextInt(EdgeAux.size());
             ligFeitas.add(EdgeAux.get(aux));
             this.AdicionarLiga(ligFeitas.get(i), ligFeitas.get(i - 1), rand.nextInt(peso) + 1);
@@ -162,9 +169,9 @@ public class Grafo implements GrafoInterface {
 
         }
         this.AdicionarLiga(ligFeitas.get(ligFeitas.size() - 1), ligFeitas.get(0), rand.nextInt(peso) + 1);
-        
+
         // resto do grafo
-        while (this.edges > 0) {
+        while (edges > 0) {
             aux = rand.nextInt(this.MaxVertices);
             aux1 = rand.nextInt(this.MaxVertices);
             flag++;
@@ -172,7 +179,7 @@ public class Grafo implements GrafoInterface {
                 flag = 0;
                 this.AdicionarLiga(this.Vertices[aux].GetVerticeInfo(), this.Vertices[aux1].GetVerticeInfo(),
                         rand.nextInt(peso) + 1);
-                this.edges--;
+                edges--;
 
             }
             if (flag == 50) {
@@ -208,6 +215,7 @@ public class Grafo implements GrafoInterface {
             v2.NovaLigacao(a, custo);
         }
         this.somarEdges += custo;
+        this.Totaledges += 1;
     }
 
     /**
@@ -223,9 +231,10 @@ public class Grafo implements GrafoInterface {
 
     /**
      * get the cost of an edge between two vertex
-     * @param a  vertice 1
-     * @param b  vertice 2
-     * @return  return the cost of an edge between two vertex
+     * 
+     * @param a vertice 1
+     * @param b vertice 2
+     * @return return the cost of an edge between two vertex
      */
     public int GetCusto(int a, int b) {
         return Vertices[a - 1].GetCustoLig(Vertices[b - 1]);

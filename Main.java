@@ -21,11 +21,11 @@ public class Main {
         float tao = 0; // final instant
         int[][] matriz;
         GrafoInterface grafo = null;
-        Event Evento;
+        EventSimulation Evento;
         String arg = args[0];
         // System.out.println(arg); // read the argument -r or -f
         AntColony colonia;
-    
+
         if (arg.equals("-r")) { // reads from terminal
             if (args.length != 12) {
                 System.out.println("Invalid number of arguments");
@@ -43,7 +43,7 @@ public class Main {
                 v = Integer.parseInt(args[10]);
                 tao = Float.parseFloat(args[11]);
             }
-            grafo = new Grafo(nNodes, nNodes + 1, maxWeight); // edges e peso não são dadas no input
+            grafo = new Grafo(nNodes, nNodes * (nNodes - 1), maxWeight); // edges e peso não são dadas no input
 
         } else if (arg.equals("-f")) { // reads from file
             try {
@@ -90,8 +90,8 @@ public class Main {
 
         if (grafo != null) {
             colonia = new AntColony(grafo, nest_node, alfa, beta, gamma, delta, v, ro);
-            Evento = new EventManager((AntColonyInterface) colonia, tao, eta); // esta mesmo a usar a interface??????????
-            Evento.simular();
+            Evento = new EventManager(colonia, tao, eta);
+            Evento.simular(v + 1 + grafo.totalEdges());
             grafo.MostrarVerticeInfo();
         }
     }

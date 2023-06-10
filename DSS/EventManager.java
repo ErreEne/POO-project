@@ -6,7 +6,7 @@ import java.util.*;
 /**
  * Class that represents the event manager
  */
-public class EventManager implements Event, EventForObserver, EventForAnt<AntInterface> {
+public class EventManager implements EventSimulation, EventForObserver, EventForSwarm<AntInterface> {
 
     double timelimit;
     double constante;
@@ -36,7 +36,7 @@ public class EventManager implements Event, EventForObserver, EventForAnt<AntInt
     /**
      * Add to the Priority Queue the events of the simulation
      *
-     * @param timestamp    the time of the event
+     * @param timestamp the time of the event
      */
     public void addQueueNewEvent(double timestamp, int id1, int id2) {
 
@@ -83,9 +83,9 @@ public class EventManager implements Event, EventForObserver, EventForAnt<AntInt
     /**
      * Simulate the events
      */
-    public void simular() {
+    public void simular(int PQueueSize) {
         double Timestamp = 0;
-        this.GenerateQueue();
+        this.GenerateQueue(PQueueSize);
         EventTypes aux;
         while (Timestamp <= this.timelimit) {
             if (!PEC.isEmpty()) {
@@ -111,8 +111,8 @@ public class EventManager implements Event, EventForObserver, EventForAnt<AntInt
     /**
      * Generate the events of the simulation
      */
-    public void GenerateQueue() {
-
+    public void GenerateQueue(int QueueSize) {
+        PEC = new PriorityQueue<>(QueueSize);
         EventTypes aux;
         EventTypes aux1 = new ObservationEvent(timelimit / 20, this);
 
