@@ -14,8 +14,8 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
     int mevents;
     double timeconstant;
     Queue<EventTypes> PEC;
-    ArrayList<Integer> Bestpath;
-    int BestPrice;
+    ArrayList<Integer>[] Bestpath = new ArrayList[5];
+    int[] BestPrice = new int[5];
     ArrayList<MiguelInter> TodasAsFeromonasCriadas;
     AntColonyInterface Colonia;
 
@@ -39,7 +39,7 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
      * @param timestamp the time of the event
      */
     public void addQueueNewEvent(double timestamp, int id1, int id2) {
-
+        Random rand = new Random();
         MiguelInter aux1 = Colonia.getPheromones().get(id1).get(id2);
 
         for (MiguelInter x : this.TodasAsFeromonasCriadas) {
@@ -48,7 +48,7 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
             }
         }
         TodasAsFeromonasCriadas.add(aux1);
-        EventTypes aux = new EvaporationEvent(timestamp + constante, aux1, timeconstant);
+        EventTypes aux = new EvaporationEvent(timestamp + (-timeconstant) * Math.log(1 - rand.nextDouble()), aux1, timeconstant);
         PEC.add(aux);
     }
 
@@ -57,27 +57,39 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
      * 
      * @param path the path to be altered
      */
-    public void alterarPath(ArrayList<Integer> path, int TotalPrice) {
-        if (this.BestPrice > TotalPrice) {
-            this.BestPrice = TotalPrice;
-            try {
-                this.Bestpath = (ArrayList<Integer>) path.clone();
+    public void alterarPath(int flag, ArrayList<Integer> path, int TotalPrice) {
 
-            } catch (Exception ignored) {
-            }
-            System.out.println(path);
-        } else if (this.BestPrice == 0) {
-            this.BestPrice = TotalPrice;
-            this.Bestpath = (ArrayList<Integer>) path.clone();
+        for (int l = 0; l < 5; l++) {
+            if (this.Bestpath[l] != null)
+                if (this.Bestpath[l].equals(path))
+                    return;
         }
+
+        for (int i = flag; i < 5; i++) {
+
+            if (this.BestPrice[i] == 0 || this.BestPrice[i] > TotalPrice) {
+
+                if (this.Bestpath[i] != null) {
+                    alterarPath(i, this.Bestpath[i], BestPrice[i]);
+                }
+                this.Bestpath[i] = (ArrayList<Integer>) path.clone();
+                this.BestPrice[i] = TotalPrice;
+
+                break;
+            }
+        }
+
     }
 
     public void print(double PresentTime) {
         System.out.println("Present instant: " + PresentTime);
         System.out.println("mevents: " + mevents);
         System.out.println("eevents: " + eevents);
-        System.out.println("Best hamilton Cycle: " + Bestpath + " - " + BestPrice);
+        System.out.println("Best hamilton Cycle: " + Bestpath[0] + " - " + BestPrice[0]);
+        for (int i = 1; i < 5; i++)
+            System.out.println("OldCycle: " + Bestpath[i] + " - " + BestPrice[i]);
 
+        System.out.println(TodasAsFeromonasCriadas);
     }
 
     /**
@@ -92,9 +104,9 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
 
                 aux = PEC.poll();
                 if (aux instanceof AntMove) {
-                    mevents++;
+                    mevents = aux.eventTypeIncrase(mevents);
                 } else if (aux instanceof EvaporationEvent) {
-                    eevents++;
+                    eevents = aux.eventTypeIncrase(eevents);
                 }
                 Timestamp = aux.getTime();
                 aux.execute();

@@ -33,10 +33,17 @@ public abstract class EventTypes implements Comparable<EventTypes> {
      */
     public abstract void setTime(double newTime);
 
+    public int eventTypeIncrase(int eventNumber) {
+        return eventNumber + 1;
+    }
+
     /**
-     * Compare the timestamp of the object with the timestamp of the object to be compared
+     * Compare the timestamp of the object with the timestamp of the object to be
+     * compared
+     * 
      * @param aux the object to be compared.
-     * @return 1 if the timestamp of the object is bigger than the timestamp of the object to be compared, -1 otherwise
+     * @return 1 if the timestamp of the object is bigger than the timestamp of the
+     *         object to be compared, -1 otherwise
      */
     @Override
     public int compareTo(EventTypes aux) {

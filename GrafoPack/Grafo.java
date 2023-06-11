@@ -224,9 +224,26 @@ public class Grafo implements GrafoInterface {
      */
     public void MostrarVerticeInfo() {
 
-        for (int i = 0; i < this.verticenovo; i++) {
-            Vertices[i].printLigacoes();
+        int[][] matriz = new int[MaxVertices][MaxVertices];
+
+        /*
+         * for (int i = 0; i < this.verticenovo; i++) {
+         * Vertices[i].printLigacoes();
+         * }
+         */
+
+        for (int i = 0; i < MaxVertices; i++) {
+
+            for (int l = 0; l < MaxVertices; l++) {
+
+                matriz[i][l] = Vertices[i].GetCustoLig(Vertices[l]);
+                System.out.print(" " + matriz[i][l]);
+
+            }
+            System.out.println("");
+
         }
+
     }
 
     /**

@@ -40,7 +40,7 @@ public class AntMove extends EventTypes {
         Random rand = new Random();
         double mean = delta * aij;
         if (formiga.checkIfEndedPath()) {
-            test.alterarPath(formiga.getPath(), formiga.PathCost());
+            test.alterarPath(0, formiga.getPath(), formiga.PathCost());
             for (int i = 0; i < formiga.getPath().size() - 1; i++) {
 
                 test.addQueueNewEvent(timestamp, formiga.getPath().get(i), formiga.getPath().get(i + 1));

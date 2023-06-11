@@ -56,15 +56,23 @@ public class AntColony implements AntColonyInterface {
      * Initialize the pheromones for each edge in the graph
      */
     public void initializePheromones() {
+
         for (int i = 1; i <= totalVertex; i++) {
             Hashtable<Integer, Miguel> pheromonesFromNode = new Hashtable<>();
+            pheromones.put(i, pheromonesFromNode);
+        }
+
+        for (int i = 1; i <= totalVertex; i++) {
             Hashtable<Integer, Integer> possibleNodes = getWeightsFromNode(i);
             for (int j = 1; j <= totalVertex; j++) {
                 if (possibleNodes.containsKey(j)) {
-                    pheromonesFromNode.put(j, new Miguel(totalWeights, gamma, ro));
+                    if (pheromones.get(j).get(i) == null) {
+                        Miguel aux = new Miguel(totalWeights, gamma, ro);
+                        pheromones.get(i).put(j, aux);
+                        pheromones.get(j).put(i, aux);
+                    }
                 }
             }
-            pheromones.put(i, pheromonesFromNode);
         }
     }
 
@@ -84,19 +92,26 @@ public class AntColony implements AntColonyInterface {
         int currentNode;
         int nextNode;
         int sumOfWeights = sumOfWeightsPath(path);
-        System.out.println("Sum of weights: " + sumOfWeights);
-        System.out.println("totalweights: " + totalWeights);
+        // System.out.println("Sum of weights: " + sumOfWeights);
+        // System.out.println("totalweights: " + totalWeights);
         for (int i = 0; i < path.size() - 1; i++) {
             currentNode = path.get(i);
             nextNode = path.get(i + 1);
 
             setPheromone(currentNode, nextNode, sumOfWeights);
-            System.out.println("Pheromone from " + currentNode + " to " + nextNode + " is "
-                    + pheromones.get(currentNode).get(nextNode).getPheromone());
+            /*
+             * System.out.println("Pheromone from " + currentNode + " to " + nextNode +
+             * " is "
+             * + pheromones.get(currentNode).get(nextNode).getPheromone());
+             */
         }
-        System.out.println("Pheromone from " + path.get(path.size() - 1) + " to " + nest_node + " is "
-                    + pheromones.get(path.get(path.size() - 1)).get(nest_node).getPheromone());
+
         setPheromone(path.get(path.size() - 1), nest_node, sumOfWeights);
+        /*
+         * System.out.println("Pheromone from " + path.get(path.size() - 1) + " to " +
+         * nest_node + " is "
+         * + pheromones.get(path.get(path.size() - 1)).get(nest_node).getPheromone());
+         */
     }
 
     /**

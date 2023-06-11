@@ -33,15 +33,24 @@ public class EvaporationEvent extends EventTypes {
         this.timestamp = newTime;
     }
 
+    public int eventTypeIncrase(int eventNumber) {
+        if (feromonas.getPheromone() > 1)
+            return eventNumber + 1;
+
+        return eventNumber;
+    }
+
     /**
      * Method that executes the event
      */
     @Override
     public void execute() {
         Random rand = new Random();
+        //System.out.println("TimeStamp antes: " + timestamp);
         this.setTime(timestamp + (-timeConstant) * Math.log(1 - rand.nextDouble()));
-        if (feromonas.getPheromone() > 1){
-            System.out.println("Pheromones:" + feromonas.getPheromone());
+        //System.out.println("TimeStamp depois: " + timestamp);
+        if (feromonas.getPheromone() > 1) {
+            // System.out.println("Pheromones:" + feromonas.getPheromone());
             feromonas.evaporationOfPheromone();
         }
     }

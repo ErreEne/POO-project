@@ -1,1 +1,2 @@
 -Visibilidade variaveis;
+-Verificar feromonas;
