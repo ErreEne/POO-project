@@ -1,3 +1,5 @@
 -Visibilidade variaveis;
 -Verificar feromonas;
 -Forms;
+-Mudar vertices para ArrayList
+-Mudar tudo para float/double
