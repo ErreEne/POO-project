@@ -2,7 +2,7 @@ package DSS;
 
 import java.util.ArrayList;
 
-public interface EventForSwarm<Swarm> {
+public interface EventForSwarm {
 
     void alterarPath(int flag, ArrayList<Integer> path, int totalCost);
 

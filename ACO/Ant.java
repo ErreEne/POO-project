@@ -114,6 +114,7 @@ public class Ant implements AntInterface {
         int flag = 0;
 
         Hashtable<Integer, Float> NormalizedProbabilities = getNormalizedProbabilities();
+
         if (NormalizedProbabilities == null) {
             Hashtable<Integer, Integer> possibleWeights = getWeights();
             Set<Integer> keys = possibleWeights.keySet();

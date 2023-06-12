@@ -10,14 +10,14 @@ import java.util.Random;
 public class AntMove extends EventTypes {
     AntInterface formiga;
     float delta = 0.2F;
-    EventForSwarm<AntInterface> test;
+    EventForSwarm test;
 
     /**
      * @param time    time that the event will be executed??
      * @param formiga ant that will move
      * @param test    event that will be executed ??
      */
-    public AntMove(double time, AntInterface formiga, EventForSwarm<AntInterface> test) {
+    public AntMove(double time, AntInterface formiga, EventForSwarm test) {
         super(time);
         this.formiga = formiga;
         this.test = test;
@@ -40,6 +40,7 @@ public class AntMove extends EventTypes {
         Random rand = new Random();
         double mean = delta * aij;
         if (formiga.checkIfEndedPath()) {
+            System.out.println("Formiga " + formiga.getPath() + " " + formiga.PathCost());
             test.alterarPath(0, formiga.getPath(), formiga.PathCost());
             for (int i = 0; i < formiga.getPath().size() - 1; i++) {
 

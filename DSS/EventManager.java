@@ -6,10 +6,10 @@ import java.util.*;
 /**
  * Class that represents the event manager
  */
-public class EventManager implements EventSimulation, EventForObserver, EventForSwarm<AntInterface> {
+public class EventManager implements EventSimulation, EventForObserver, EventForSwarm {
 
     double timelimit;
-    double constante;
+
     int eevents;
     int mevents;
     double timeconstant;
@@ -88,8 +88,15 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
         System.out.println("Best hamilton Cycle: " + Bestpath[0] + " - " + BestPrice[0]);
         for (int i = 1; i < 5; i++)
             System.out.println("OldCycle: " + Bestpath[i] + " - " + BestPrice[i]);
+        HashMap <Integer, Hashtable<Integer, Miguel>> aux = new HashMap<>();
+        aux = Colonia.getPheromones();
 
-        System.out.println(TodasAsFeromonasCriadas);
+        for (Map.Entry<Integer, Hashtable<Integer, Miguel>> entry : aux.entrySet()) {
+            for (Map.Entry<Integer, Miguel> entry1 : entry.getValue().entrySet()) {
+                System.out.println("Pheromone: " + entry.getKey() + " - " + entry1.getKey() + " - " + entry1.getValue().getPheromone());
+            }
+
+        }
     }
 
     /**

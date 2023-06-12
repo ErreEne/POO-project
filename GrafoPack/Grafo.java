@@ -60,31 +60,6 @@ public class Grafo implements GrafoInterface {
         return this.Totaledges;
     }
 
-    public Grafo(int flag, int e) {
-
-        if (flag == 0) {
-            // está vazio?????????
-        } else {
-            this.MaxVertices = 5;
-            this.Vertices = new vertice[this.MaxVertices];
-            this.verticenovo = 0;
-
-            this.CriarVertice(1);
-            this.CriarVertice(2);
-            this.CriarVertice(3);
-            this.CriarVertice(4);
-            this.CriarVertice(5);
-
-            this.AdicionarLiga(1, 3, 6);
-            this.AdicionarLiga(1, 2, 3);
-            this.AdicionarLiga(1, 4, 6);
-            this.AdicionarLiga(1, 5, 2);
-            this.AdicionarLiga(2, 3, 3);
-            this.AdicionarLiga(2, 5, 5);
-            this.AdicionarLiga(2, 4, 2);
-            this.AdicionarLiga(4, 5, 1);
-        }
-    }
 
     /**
      * @param vertice vertex to know
@@ -240,7 +215,7 @@ public class Grafo implements GrafoInterface {
                 System.out.print(" " + matriz[i][l]);
 
             }
-            System.out.println("");
+            System.out.println();
 
         }
 

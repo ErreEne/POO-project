@@ -32,8 +32,8 @@ public class Main {
                 System.exit(0); // terminates program ???
             } else {
                 nNodes = Integer.parseInt(args[1]);
-                nest_node = Integer.parseInt(args[2]);
-                maxWeight = Integer.parseInt(args[3]);
+                maxWeight = Integer.parseInt(args[2]);
+                nest_node = Integer.parseInt(args[3]);
                 alfa = Float.parseFloat(args[4]);
                 beta = Float.parseFloat(args[5]);
                 delta = Float.parseFloat(args[6]);
@@ -43,7 +43,7 @@ public class Main {
                 v = Integer.parseInt(args[10]);
                 tao = Float.parseFloat(args[11]);
             }
-            grafo = new Grafo(nNodes, nNodes * (nNodes - 1), maxWeight); // edges e peso não são dadas no input
+            grafo = new Grafo(nNodes, nNodes + nNodes/2, maxWeight); // MUDAR PARA NUMERO RANDOM DE PONTEIROS
 
         } else if (arg.equals("-f")) { // reads from file
             try {
