@@ -14,8 +14,8 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
     int mevents;
     double timeconstant;
     Queue<EventTypes> PEC;
-    ArrayList<Integer>[] Bestpath = new ArrayList[5];
-    int[] BestPrice = new int[5];
+    ArrayList<Integer>[] Bestpath = new ArrayList[6];
+    int[] BestPrice = new int[6];
     ArrayList<MiguelInter> TodasAsFeromonasCriadas;
     AntColonyInterface Colonia;
 
@@ -59,13 +59,13 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
      */
     public void alterarPath(int flag, ArrayList<Integer> path, int TotalPrice) {
 
-        for (int l = 0; l < 5; l++) {
+        for (int l = 0; l < 6; l++) {
             if (this.Bestpath[l] != null)
                 if (this.Bestpath[l].equals(path))
                     return;
         }
 
-        for (int i = flag; i < 5; i++) {
+        for (int i = flag; i < 6; i++) {
 
             if (this.BestPrice[i] == 0 || this.BestPrice[i] > TotalPrice) {
 
@@ -82,21 +82,18 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
     }
 
     public void print(double PresentTime) {
+        System.out.println("Observation number:");
         System.out.println("Present instant: " + PresentTime);
-        System.out.println("mevents: " + mevents);
-        System.out.println("eevents: " + eevents);
-        System.out.println("Best hamilton Cycle: " + Bestpath[0] + " - " + BestPrice[0]);
-        for (int i = 1; i < 5; i++)
-            System.out.println("OldCycle: " + Bestpath[i] + " - " + BestPrice[i]);
-        HashMap <Integer, Hashtable<Integer, Miguel>> aux = new HashMap<>();
-        aux = Colonia.getPheromones();
-
-        for (Map.Entry<Integer, Hashtable<Integer, Miguel>> entry : aux.entrySet()) {
-            for (Map.Entry<Integer, Miguel> entry1 : entry.getValue().entrySet()) {
-                System.out.println("Pheromone: " + entry.getKey() + " - " + entry1.getKey() + " - " + entry1.getValue().getPheromone());
+        System.out.println("Number of move events: " + mevents);
+        System.out.println("Number of evaporation events: " + eevents);
+        System.out.println("Top candidate cycles:");
+        for (int i = 1; i < 6; i++)
+            if (Bestpath[i] != null){
+                System.out.println(Bestpath[i] + ":" + BestPrice[i]);
+            } else {
+                System.out.println("{}");
             }
-
-        }
+        System.out.println("Best Hamiltonian cycle:" + Bestpath[0] + ":" + BestPrice[0]);
     }
 
     /**

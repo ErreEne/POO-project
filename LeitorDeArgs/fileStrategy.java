@@ -10,12 +10,10 @@ import java.util.Scanner;
 public class fileStrategy implements stratsInterface {
 
     private Grafo grafo;
-    private ArrayList<Number> constants;
-    private int[][] matriz;
+    private ArrayList<Number> constantes;
 
     public fileStrategy() {
-        matriz = new int[100][100];
-        constants = new ArrayList<>();
+        constantes = new ArrayList<>();
     }
 
     @Override
@@ -34,34 +32,36 @@ public class fileStrategy implements stratsInterface {
                 System.exit(0); // terminates program ???
             }
 
-            constants.add(Integer.parseInt(inputs[1]));
-            constants.add(Integer.parseInt(inputs[2]));
-            constants.add(Float.parseFloat(inputs[3]));
-            constants.add(Float.parseFloat(inputs[4]));
-            constants.add(Float.parseFloat(inputs[5]));
-            constants.add(Float.parseFloat(inputs[6]));
-            constants.add(Float.parseFloat(inputs[7]));
-            constants.add(Float.parseFloat(inputs[8]));
-            constants.add(Integer.parseInt(inputs[9]));
-            constants.add(Float.parseFloat(inputs[10]));
+            constantes.add(Integer.parseInt(inputs[0]));
+            constantes.add(Integer.parseInt(inputs[1]));
+            constantes.add(Float.parseFloat(inputs[2]));
+            constantes.add(Float.parseFloat(inputs[3]));
+            constantes.add(Float.parseFloat(inputs[4]));
+            constantes.add(Float.parseFloat(inputs[5]));
+            constantes.add(Float.parseFloat(inputs[6]));
+            constantes.add(Float.parseFloat(inputs[7]));
+            constantes.add(Integer.parseInt(inputs[8]));
+            constantes.add(Float.parseFloat(inputs[9]));
+
+            int[][] matriz = new int[(int) constantes.get(0)][(int) constantes.get(0)];
 
             int j = 0;
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] elements = line.split("[\\s\\t]+");
-                System.out.println((int) constants.get(0));
-                for (int i = 0; i < (int) constants.get(0); i++) {
+                for (int i = 0; i < (int) constantes.get(0); i++) {
                     matriz[j][i] = Integer.parseInt(elements[i]);
                 }
                 j++;
             }
-            grafo = new Grafo((int) constants.get(0), matriz);
+            grafo = new Grafo((int) constantes.get(0), matriz);
             scanner.close();
         } catch (FileNotFoundException e) {
             System.out.println("File not found: " + e.getMessage());
             System.exit(0);
         }
-        constants.remove(0);
+        printInputs();
+        constantes.remove(0);
     }
 
     public Grafo getGrafo() {
@@ -69,7 +69,21 @@ public class fileStrategy implements stratsInterface {
     }
 
     public ArrayList<Number> getConstants() {
-        return constants;
+        return constantes;
     }
 
+    public void printInputs() {
+        System.out.println("Input parameters: ");
+        System.out.println(constantes.get(0) + ": Number of nodes in the graph");
+        System.out.println(constantes.get(1) + ": The nest node");
+        System.out.println(constantes.get(2) + ": alpha, ant move event");
+        System.out.println(constantes.get(3) + ": beta, ant move event");
+        System.out.println(constantes.get(4) + ": delta, ant move event");
+        System.out.println(constantes.get(5) + ": eta, pheromone evaporation event");
+        System.out.println(constantes.get(6) + ": rho, pheromone evaporation event");
+        System.out.println(constantes.get(7) + ": pheromone level");
+        System.out.println(constantes.get(8) + ": ant colony size");
+        System.out.println(constantes.get(9) + ": final instant");
+    }
+    
 }

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public interface stratsInterface {
 
-    public void readArgs(String[] args);
+    void readArgs(String[] args);
 
     GrafoInterface getGrafo();
 

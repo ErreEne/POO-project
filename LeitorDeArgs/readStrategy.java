@@ -36,7 +36,7 @@ public class readStrategy implements stratsInterface {
         int max = (Integer) constantes.get(0) * ((Integer) constantes.get(0) - 1);
         int min = (Integer) constantes.get(0);
         grafo = new Grafo((Integer) constantes.get(0), rand.nextInt(max - min + 1) + min, (Integer) constantes.get(1));
-
+        printInputs();
         constantes.remove(0);
         constantes.remove(0);
     }
@@ -51,4 +51,18 @@ public class readStrategy implements stratsInterface {
         return constantes;
     }
 
+
+    public void printInputs() {
+        System.out.println("Input parameters: ");
+        System.out.println(constantes.get(0) + ": Number of nodes in the graph");
+        System.out.println(constantes.get(2) + ": The nest node");
+        System.out.println(constantes.get(3) + ": alpha, ant move event");
+        System.out.println(constantes.get(4) + ": beta, ant move event");
+        System.out.println(constantes.get(5) + ": delta, ant move event");
+        System.out.println(constantes.get(6) + ": eta, pheromone evaporation event");
+        System.out.println(constantes.get(7) + ": rho, pheromone evaporation event");
+        System.out.println(constantes.get(8) + ": pheromone level");
+        System.out.println(constantes.get(9) + ": ant colony size");
+        System.out.println(constantes.get(10) + ": final instant");
+    }
 }

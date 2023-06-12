@@ -8,6 +8,9 @@ public class stratChooser {
     private stratsInterface FinalStrategy;
     HashMap<String, stratsInterface> strategies;
 
+    public stratChooser() {
+        strategies = new HashMap<>();
+    }
     public void setStrategy(String stratString, stratsInterface strat) {
         strategies.put(stratString, strat);
     }
