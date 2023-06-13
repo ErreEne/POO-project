@@ -1,10 +1,18 @@
+/**
+ * The DSS package contains classes and interfaces related to Discrete Stochastic Simulation (DSS).
+ * DSS is a simulation method that is used to analyze the behavior of a system over time.
+ *
+ */
 package DSS;
 
 /**
  * Class that represents the types of events that can happen
  */
-public abstract class EventTypes implements Comparable<EventTypes> {
+abstract class EventTypes implements Comparable<EventTypes> {
 
+    /**
+     * Time of the event
+     */
     double timestamp;
 
     /**
@@ -17,12 +25,12 @@ public abstract class EventTypes implements Comparable<EventTypes> {
     /**
      * Execute the event
      */
-    public abstract void execute();
+    abstract void execute();
 
     /**
      * @return the time of the event
      */
-    public double getTime() {
+    double getTime() {
 
         return this.timestamp;
 
@@ -31,9 +39,9 @@ public abstract class EventTypes implements Comparable<EventTypes> {
     /**
      * @param newTime new time of the event
      */
-    public abstract void setTime(double newTime);
+    abstract void setTime(double newTime);
 
-    public int eventTypeIncrase(int eventNumber) {
+    int eventTypeIncrase(int eventNumber) {
         return eventNumber + 1;
     }
 

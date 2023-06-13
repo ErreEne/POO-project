@@ -1,3 +1,8 @@
+/**
+ * The DSS package contains classes and interfaces related to Discrete Stochastic Simulation (DSS).
+ * DSS is a simulation method that is used to analyze the behavior of a system over time.
+ *
+ */
 package DSS;
 
 import ACO.*;
@@ -6,21 +11,33 @@ import java.util.Random;
 
 /**
  * Class that represents the event of an ant move
+ * @see EventTypes
  */
-public class AntMove extends EventTypes {
-    AntInterface formiga;
-    float delta = 0.2F;
-    EventForSwarm test;
+class AntMove extends EventTypes {
+
+    /**
+     * The ant interface
+     */
+    private final AntInterface formiga;
+    /**
+     * The time that the event will be executed
+     */
+    private final float delta;
+    /**
+     * The event that will be executed
+     */
+    private final EventForSwarm test;
 
     /**
      * @param time    time that the event will be executed??
      * @param formiga ant that will move
-     * @param test    event that will be executed ??
+     * @param test    event that will be executed
      */
-    public AntMove(double time, AntInterface formiga, EventForSwarm test) {
+    AntMove(double time, AntInterface formiga, EventForSwarm test) {
         super(time);
         this.formiga = formiga;
         this.test = test;
+        this.delta = formiga.getDelta();
     }
 
     /**

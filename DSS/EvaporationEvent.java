@@ -1,3 +1,8 @@
+/**
+ * The DSS package contains classes and interfaces related to Discrete Stochastic Simulation (DSS).
+ * DSS is a simulation method that is used to analyze the behavior of a system over time.
+ *
+ */
 package DSS;
 
 import ACO.MiguelInter;
@@ -7,10 +12,16 @@ import java.util.Random;
 /**
  * Class that presents the Evaporation Event of the pheromones
  */
-public class EvaporationEvent extends EventTypes {
+class EvaporationEvent extends EventTypes {
 
-    MiguelInter feromonas;
-    double timeConstant;
+    /**
+     * The pheromone that will be evaporated
+     */
+    private final MiguelInter feromonas;
+    /**
+     * The time constant of the evaporation
+     */
+    private final double timeConstant;
 
     /**
      * @param time        time that the event will be executed
@@ -33,6 +44,12 @@ public class EvaporationEvent extends EventTypes {
         this.timestamp = newTime;
     }
 
+    /**
+     * Method that increases the number of events
+     *
+     * @param eventNumber number of events
+     * @return the number of events
+     */
     public int eventTypeIncrase(int eventNumber) {
         if (feromonas.getPheromone() > 1)
             return eventNumber + 1;
@@ -46,11 +63,9 @@ public class EvaporationEvent extends EventTypes {
     @Override
     public void execute() {
         Random rand = new Random();
-        //System.out.println("TimeStamp antes: " + timestamp);
         this.setTime(timestamp + (-timeConstant) * Math.log(1 - rand.nextDouble()));
-        //System.out.println("TimeStamp depois: " + timestamp);
+
         if (feromonas.getPheromone() > 1) {
-            // System.out.println("Pheromones:" + feromonas.getPheromone());
             feromonas.evaporationOfPheromone();
         }
     }

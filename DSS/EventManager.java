@@ -1,3 +1,8 @@
+/**
+ * The DSS package contains classes and interfaces related to Discrete Stochastic Simulation (DSS).
+ * DSS is a simulation method that is used to analyze the behavior of a system over time.
+ *
+ */
 package DSS;
 
 import ACO.*;
@@ -8,20 +13,49 @@ import java.util.*;
  */
 public class EventManager implements EventSimulation, EventForObserver, EventForSwarm {
 
-    double timelimit;
-
-    int eevents;
-    int mevents;
-    double timeconstant;
-    Queue<EventTypes> PEC;
-    ArrayList<Integer>[] Bestpath = new ArrayList[6];
-    int[] BestPrice = new int[6];
-    ArrayList<MiguelInter> TodasAsFeromonasCriadas;
-    AntColonyInterface Colonia;
+    /**
+     * The maximum time of simulation
+     */
+    private final double timelimit;
 
     /**
+     * The number of events of evaporation
+     */
+    private int eevents;
+    /**
+     * The number of events of ant move
+     */
+    private int mevents;
+    /**
+     * The time constant
+     */
+    private final double timeconstant;
+    /**
+     * The priority queue of events
+     */
+    private Queue<EventTypes> PEC;
+    /**
+     * The best path of the simulation
+     */
+    private final ArrayList<Integer>[] Bestpath = new ArrayList[6];
+    /**
+     * The best price of the simulation
+     */
+    private final int[] BestPrice = new int[6];
+    /**
+     * All the pheromones created
+     */
+    private final ArrayList<MiguelInter> TodasAsFeromonasCriadas;
+    /**
+     * The ant colony
+     */
+    private final AntColonyInterface Colonia;
+
+    /**
+     * The constructor of the event manager
      * @param colonia the ant colony
      * @param maxTime the maximum time of simulation
+     * @param timeconstant the time constant
      */
     public EventManager(AntColonyInterface colonia, double maxTime, double timeconstant) {
         PEC = new PriorityQueue<>();
@@ -37,6 +71,8 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
      * Add to the Priority Queue the events of the simulation
      *
      * @param timestamp the time of the event
+     * @param id1      the id of the first ant
+     * @param id2      the id of the second ant
      */
     public void addQueueNewEvent(double timestamp, int id1, int id2) {
         Random rand = new Random();
@@ -54,8 +90,10 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
 
     /**
      * Set path to a better path discovered
-     * 
+     *
+     * @param flag what path will be changed
      * @param path the path to be altered
+     * @param TotalPrice the total price of the path
      */
     public void alterarPath(int flag, ArrayList<Integer> path, int TotalPrice) {
 
@@ -81,6 +119,10 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
 
     }
 
+    /**
+     * Print the results of the simulation
+     * @param PresentTime the present time
+     */
     public void print(double PresentTime) {
         System.out.println("Observation number:");
         System.out.println("Present instant: " + PresentTime);
@@ -98,6 +140,7 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
 
     /**
      * Simulate the events
+     * @param PQueueSize the size of the priority queue
      */
     public void simular(int PQueueSize) {
         double Timestamp = 0;
@@ -126,8 +169,9 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
 
     /**
      * Generate the events of the simulation
+     * @param QueueSize the size of the priority queue
      */
-    public void GenerateQueue(int QueueSize) {
+    private void GenerateQueue(int QueueSize) {
         PEC = new PriorityQueue<>(QueueSize);
         EventTypes aux;
         EventTypes aux1 = new ObservationEvent(timelimit / 20, this);

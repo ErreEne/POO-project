@@ -1,3 +1,9 @@
+/**
+ * The ACO package contains classes and interfaces related to Ant Colony Optimization (ACO) algorithm.
+ * ACO is an algorithm inspired by the foraging behavior of ants that can be used to solve optimization problems in
+ * path finding and graph traversal.
+ *
+ */
 package ACO;
 
 import java.util.ArrayList;
@@ -7,19 +13,67 @@ import GrafoPack.*;
 
 /**
  * Class that represents the ant colony
+ * Implements the AntColonyInterface
  */
 public class AntColony implements AntColonyInterface {
+    /**
+     * The colony of ants use in the Ant Colony Optimization algorithm.
+     */
     private ArrayList<Ant> colony;
+
+    /**
+     * The node index representing the nest in the graph.
+     */
     public int nest_node;
+
+    /**
+     * The parameter controlling the influence of pheromone trails in the ACO algorithm.
+     */
     public float beta;
+
+    /**
+     * The parameter controlling the influence of weight information in the ACO algorithm.
+     */
     public float alpha;
+
+    /**
+     * The parameter controlling the influence of pheromone updates in the ACO algorithm.
+     */
     public float gamma;
+
+    /**
+     * The parameter controlling the time between ant movement
+     */
     public float delta;
+
+    /**
+     * The size of the ant colony.
+     */
     public int ant_colony_size;
+
+    /**
+     * The graph interface used in the ACO algorithm.
+     */
     public GrafoInterface Grafo;
+
+    /**
+     * The pheromone levels on the edges of the graph.
+     */
     public HashMap<Integer, Hashtable<Integer, Miguel>> pheromones;
+
+    /**
+     * The total weights of the graph edges.
+     */
     public int totalWeights;
+
+    /**
+     * The evaporation rate of pheromones in the ACO algorithm.
+     */
     public float ro;
+
+    /**
+     * The total number of vertices in the graph.
+     */
     public int totalVertex;
 
     /**
@@ -48,14 +102,14 @@ public class AntColony implements AntColonyInterface {
         this.totalWeights = Grafo.totalEdgesSum();
         this.totalVertex = Grafo.totalVertex();
         this.pheromones = new HashMap<>();
-        initializePheromones();
-        createAnts();
+        initializePheromones(); // initialize the pheromones for each edge of the graph with 0
+        createAnts(); // create all the ants
     }
 
     /**
      * Initialize the pheromones for each edge in the graph
      */
-    public void initializePheromones() {
+    private void initializePheromones() {
 
         for (int i = 1; i <= totalVertex; i++) {
             Hashtable<Integer, Miguel> pheromonesFromNode = new Hashtable<>();
@@ -77,7 +131,8 @@ public class AntColony implements AntColonyInterface {
     }
 
     /**
-     * get the pheromone map
+     *  get the pheromone map
+     *  @return the pheromone map
      */
     public HashMap<Integer, Hashtable<Integer, Miguel>> getPheromones() {
         return this.pheromones;
@@ -88,30 +143,19 @@ public class AntColony implements AntColonyInterface {
      * 
      * @param path - path that the ant took
      */
-    public void setPheromones(ArrayList<Integer> path) {
+    void setPheromones(ArrayList<Integer> path) {
         int currentNode;
         int nextNode;
         int sumOfWeights = sumOfWeightsPath(path);
-        // System.out.println("Sum of weights: " + sumOfWeights);
-        // System.out.println("totalweights: " + totalWeights);
+
         for (int i = 0; i < path.size() - 1; i++) {
             currentNode = path.get(i);
             nextNode = path.get(i + 1);
 
             setPheromone(currentNode, nextNode, sumOfWeights);
-            /*
-             * System.out.println("Pheromone from " + currentNode + " to " + nextNode +
-             * " is "
-             * + pheromones.get(currentNode).get(nextNode).getPheromone());
-             */
         }
 
         setPheromone(path.get(path.size() - 1), nest_node, sumOfWeights);
-        /*
-         * System.out.println("Pheromone from " + path.get(path.size() - 1) + " to " +
-         * nest_node + " is "
-         * + pheromones.get(path.get(path.size() - 1)).get(nest_node).getPheromone());
-         */
     }
 
     /**
@@ -120,7 +164,7 @@ public class AntColony implements AntColonyInterface {
      * @param path - path to calculate the sum of weights
      * @return the sum of weights of the path
      */
-    public int sumOfWeightsPath(ArrayList<Integer> path) {
+    int sumOfWeightsPath(ArrayList<Integer> path) {
         int sum = 0;
         for (int i = 0; i < path.size() - 1; i++) {
             sum += getCost(path.get(i), path.get(i + 1));
@@ -136,8 +180,9 @@ public class AntColony implements AntColonyInterface {
      * @param nextNode     - next node
      * @param sumOfWeights - sum of weights of the path
      */
-    public void setPheromone(int currentNode, int nextNode, int sumOfWeights) {
+    private void setPheromone(int currentNode, int nextNode, int sumOfWeights) {
         pheromones.get(currentNode).get(nextNode).setPheromone(sumOfWeights);
+        pheromones.get(nextNode).get(currentNode).setPheromone(sumOfWeights);
     }
 
     /**
@@ -152,7 +197,7 @@ public class AntColony implements AntColonyInterface {
     /**
      * Create all ants in the colony
      */
-    public void createAnts() {
+    private void createAnts() {
         Ant ant;
         for (int i = 0; i < ant_colony_size; i++) {
             ant = new Ant(this);
@@ -177,7 +222,7 @@ public class AntColony implements AntColonyInterface {
      * @param node - node to get the pheromones from
      * @return the pheromones from the node
      */
-    public Hashtable<Integer, Miguel> getPheromonesFromNode(int node) {
+    Hashtable<Integer, Miguel> getPheromonesFromNode(int node) {
         return pheromones.get(node);
     }
 
@@ -187,7 +232,7 @@ public class AntColony implements AntColonyInterface {
      * @param node - node to get the weights from
      * @return the weights from the adjacent nodes of the node
      */
-    public Hashtable<Integer, Integer> getWeightsFromNode(int node) {
+    Hashtable<Integer, Integer> getWeightsFromNode(int node) {
         return Grafo.getEdges(node);
     }
 }

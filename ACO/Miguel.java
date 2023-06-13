@@ -1,20 +1,42 @@
+/**
+ * The ACO package contains classes and interfaces related to Ant Colony Optimization (ACO) algorithm.
+ * ACO is an algorithm inspired by the foraging behavior of ants that can be used to solve optimization problems in
+ * path finding and graph traversal.
+ *
+ */
 package ACO;
 
 /**
  * Class that represents the pheromone
  */
-public class Miguel implements MiguelInter {
-    float pheromone;
-    int totalWeights;
-    float gamma;
-    float ro;
+class Miguel implements MiguelInter {
+
+    /**
+     * The pheromone level
+     */
+    private float pheromone;
+
+    /**
+     * The total number of weights
+     */
+    private final int totalWeights;
+
+    /**
+     * The value for calculating the level of pheromone
+     */
+    private final float gamma;
+
+    /**
+     * The value for decreasing pheromones
+     */
+    private final float ro;
 
     /**
      * @param totalWeights  total number of weights
      * @param gamma         value for calculating the level of pheromone
      * @param ro            value for decreasing pheromones
      */
-    public Miguel(int totalWeights, float gamma, float ro) {
+    Miguel(int totalWeights, float gamma, float ro) {
         this.pheromone = 0;
         this.totalWeights = totalWeights;
         this.gamma = gamma;
@@ -26,7 +48,7 @@ public class Miguel implements MiguelInter {
      * 
      * @param sumOfWeights sum of all weights
      */
-    public void setPheromone(int sumOfWeights) {
+    void setPheromone(int sumOfWeights) {
         this.pheromone += gamma * totalWeights / sumOfWeights;
     }
 
@@ -46,7 +68,5 @@ public class Miguel implements MiguelInter {
         } else {
             this.pheromone = 0;
         }
-        if (this.pheromone < 0)
-            this.pheromone = 0;
     }
 }
