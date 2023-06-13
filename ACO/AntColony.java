@@ -212,7 +212,7 @@ public class AntColony implements AntColonyInterface {
      * @param node2 - second node
      * @return the cost of the edge between node1 and node2
      */
-    int getCost(int node1, int node2) {
+    int getCost(int node1, int node2) {             // é para estar visibilidade=Package ???
         return Grafo.GetCusto(node1, node2);
     }
 

@@ -34,10 +34,4 @@ public interface AntInterface {
      * @return true if the ant has ended the path, false if not
      */
     boolean checkIfEndedPath();
-
-    /**
-     * @return the delta
-     */
-    float getDelta();
-
 }

@@ -33,11 +33,11 @@ class AntMove extends EventTypes {
      * @param formiga ant that will move
      * @param test    event that will be executed
      */
-    AntMove(double time, AntInterface formiga, EventForSwarm test) {
+    AntMove(double time, AntInterface formiga, EventForSwarm test,float delta) {
         super(time);
         this.formiga = formiga;
         this.test = test;
-        this.delta = formiga.getDelta();
+        this.delta = delta;
     }
 
     /**

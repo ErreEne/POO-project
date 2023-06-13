@@ -339,9 +339,5 @@ class Ant implements AntInterface {
     private int getCost(int a, int b) {
         return colony.getCost(a, b);
     }
-
-    @Override
-    public float getDelta() {
-        return colony.delta;
-    }
+    
 }

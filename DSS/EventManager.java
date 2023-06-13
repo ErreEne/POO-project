@@ -50,6 +50,10 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
      * The ant colony
      */
     private final AntColonyInterface Colonia;
+    /**
+     * The observer
+     */
+    private float delta;
 
     /**
      * The constructor of the event manager
@@ -57,7 +61,7 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
      * @param maxTime the maximum time of simulation
      * @param timeconstant the time constant
      */
-    public EventManager(AntColonyInterface colonia, double maxTime, double timeconstant) {
+    public EventManager(AntColonyInterface colonia, double maxTime, double timeconstant, float delta) {
         PEC = new PriorityQueue<>();
         this.timeconstant = timeconstant;
         this.Colonia = colonia;
@@ -65,6 +69,7 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
         TodasAsFeromonasCriadas = new ArrayList<>();
         this.mevents = 0;
         this.eevents = 0;
+        this.delta = delta;
     }
 
     /**
@@ -180,7 +185,7 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
 
         for (AntInterface x : Colonia.getAnts()) {
 
-            aux = new AntMove(0, x, this);
+            aux = new AntMove(0, x, this,delta);
             PEC.add(aux);
 
         }
