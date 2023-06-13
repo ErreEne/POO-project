@@ -1,3 +1,7 @@
+/**
+ * The LeitorDeArgs package provides classes for reading and parsing command-line arguments.
+ * It allows developers to easily handle command-line arguments passed to a Java application.
+ */
 package LeitorDeArgs;
 
 import GrafoPack.Grafo;
@@ -5,9 +9,15 @@ import java.util.*;
 
 public class readStrategy implements stratsInterface {
 
-    ArrayList<Number> constantes;
-    Grafo grafo;
+    /**
+     * the input parameters
+     */
+    private final ArrayList<Number> constantes;
+    private Grafo grafo;
 
+    /**
+     * Constructor the strategy that reads from the command line
+     */
     public readStrategy() {
         constantes = new ArrayList<>();
     }
@@ -51,8 +61,10 @@ public class readStrategy implements stratsInterface {
         return constantes;
     }
 
-
-    public void printInputs() {
+    /**
+     * Prints the input parameters
+     */
+    private void printInputs() {
         System.out.println("Input parameters: ");
         System.out.println(constantes.get(0) + ": Number of nodes in the graph");
         System.out.println(constantes.get(2) + ": The nest node");

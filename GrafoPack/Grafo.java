@@ -1,3 +1,7 @@
+/**
+ * This package contains classes related to graph operations.
+ * It provides functionality for creating, graphs.
+ */
 package GrafoPack;
 
 import java.util.Hashtable;
@@ -9,12 +13,12 @@ import java.util.ArrayList;
  */
 public class Grafo implements GrafoInterface {
 
-    int MaxVertices;
+    private final int MaxVertices;
     vertice[] Vertices;
-    int verticenovo;
-    int Totaledges;
+    private int verticenovo;
+    private int Totaledges;
     int peso;
-    int somarEdges;
+    private int somarEdges;
 
     /**
      * Create a graph with a number of vertices and edges
@@ -56,10 +60,13 @@ public class Grafo implements GrafoInterface {
         }
     }
 
+    /**
+     *
+     * @return return the total of edges
+     */
     public int totalEdges() {
         return this.Totaledges;
     }
-
 
     /**
      * @param vertice vertex to know
@@ -96,8 +103,7 @@ public class Grafo implements GrafoInterface {
      * @param verticeInfo String que identifica o vertice (isto talvez se muda para
      *                    um inteiro)
      */
-
-    public void CriarVertice(int verticeInfo) {
+    private void CriarVertice(int verticeInfo) {
 
         this.Vertices[this.verticenovo] = new vertice(verticeInfo);
         this.verticenovo++;
@@ -121,7 +127,7 @@ public class Grafo implements GrafoInterface {
      * 
      *             Talvez tenhamos de ver isto mais tarde
      */
-    public void GenerateGraphWHamiltonCycle(int peso, int edges) {
+     private void GenerateGraphWHamiltonCycle(int peso, int edges) {
 
         int aux, aux1, flag = 0;
         ArrayList<Integer> EdgeAux = new ArrayList<>();

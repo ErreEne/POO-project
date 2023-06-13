@@ -1,3 +1,7 @@
+/**
+ * This package contains classes related to graph operations.
+ * It provides functionality for creating, graphs.
+ */
 package GrafoPack;
 
 import java.util.ArrayList;
@@ -5,9 +9,12 @@ import java.util.ArrayList;
 /**
  * Class that represents a vertex of a graph
  */
-public class vertice extends VerticeSuper {
+class vertice extends VerticeSuper {
 
-    public ArrayList<Edge> ListaEdges;
+    /**
+     * List of pointers of this vertex
+     */
+    private final ArrayList<Edge> ListaEdges;
 
     /**
      * @param elementoNovo Element that this vertex will have
@@ -22,7 +29,7 @@ public class vertice extends VerticeSuper {
      * @param id    ID of the vertex
      * @param custo Cost of the pointer
      */
-    public void NovaLigacao(int id, int custo) {
+    void NovaLigacao(int id, int custo) {
         Edge NewPointer = new Edge(id, custo);
         ListaEdges.add(NewPointer);
     }
@@ -32,7 +39,7 @@ public class vertice extends VerticeSuper {
      * @param novo Vertex to be checked
      * @return  True if the vertex is connected to this vertex
      */
-    public boolean checkLig(VerticeSuper novo) {
+    boolean checkLig(VerticeSuper novo) {
         for (Edge x : ListaEdges) {
             if (x.GetVerticeInfo() == novo.GetVerticeInfo()) {
                 return true;
@@ -51,17 +58,8 @@ public class vertice extends VerticeSuper {
     /**
      * @return List of pointers of this vertex
      */
-    public ArrayList<Edge> getPonteiros() {
+    ArrayList<Edge> getPonteiros() {
         return this.ListaEdges;
-    }
-
-    public void printLigacoes() {
-
-        System.out.println("Elementos ligados a " + this.elemento + ":");
-        for (Edge l : ListaEdges) {
-            System.out.println(l.GetVerticeInfo() + " " + l.getCusto());
-        }
-
     }
 
     /**
@@ -69,7 +67,7 @@ public class vertice extends VerticeSuper {
      * @param Vertice Vertex to be checked
      * @return  Cost of the pointer to the vertex
      */
-    public int GetCustoLig(VerticeSuper Vertice) {
+    int GetCustoLig(VerticeSuper Vertice) {
         for (Edge x : this.ListaEdges) {
             if (x.GetVerticeInfo() == Vertice.GetVerticeInfo()) {
                 return x.getCusto();

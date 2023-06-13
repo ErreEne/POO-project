@@ -1,11 +1,18 @@
+/**
+ * This package contains classes related to graph operations.
+ * It provides functionality for creating, graphs.
+ */
 package GrafoPack;
 
 /**
  * Class that represents a pointer to a vertex in a graph.
  */
-public class Edge extends VerticeSuper {
+class Edge extends VerticeSuper {
 
-    int custo;
+    /**
+     * Weight of the pointer
+     */
+    private final int custo;
 
     /**
      * @param elementoLig - element to which the pointer points
@@ -22,7 +29,7 @@ public class Edge extends VerticeSuper {
      * Get of the weight of the pointer
      * @return weight of the pointer
      */
-    public int getCusto() {
+    int getCusto() {
         return this.custo;
     }
 

@@ -53,7 +53,7 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
     /**
      * The observer
      */
-    private float delta;
+    private final float delta;
 
     /**
      * The constructor of the event manager
@@ -176,7 +176,7 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
      * Generate the events of the simulation
      * @param QueueSize the size of the priority queue
      */
-    private void GenerateQueue(int QueueSize) {
+    void GenerateQueue(int QueueSize) {
         PEC = new PriorityQueue<>(QueueSize);
         EventTypes aux;
         EventTypes aux1 = new ObservationEvent(timelimit / 20, this);

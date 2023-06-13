@@ -5,6 +5,13 @@ import LeitorDeArgs.*;
 
 import java.util.*;
 
+/**
+ * The main class of the program that runs everything
+ * It uses the ACO package to manage the ant colony optimization algorithm
+ * It uses the DSS package to manage the event simulation
+ * It uses the GrafoPack package to manage the graph
+ * It uses the LeitorDeArgs package to manage the command-line arguments
+ */
 public class Main {
     public static void main(String[] args) {
 
