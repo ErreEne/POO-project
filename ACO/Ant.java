@@ -198,7 +198,7 @@ class Ant implements AntInterface {
      * @param node - the node that the ant is in
      * @return boolean - true if the ant has ended the path, false otherwise
      */
-    private Boolean checkIfEndedPath(int node) {
+    private boolean checkIfEndedPath(int node) {
         return getSize(path) == colony.totalVertex && node == colony.nest_node;
     }
 
