@@ -33,9 +33,11 @@ public class Main {
                 (Float) constantes.get(1), (Float) constantes.get(2), (Float) constantes.get(6),
                 (Float) constantes.get(3), (Integer) constantes.get(7), (Float) constantes.get(5));
 
-        Simulacao = new EventManager(colonia, (float) constantes.get(8), (float) constantes.get(4),(float) constantes.get(3));
+        Simulacao = new EventManager(colonia, (float) constantes.get(8), (float) constantes.get(4),
+                (float) constantes.get(3));
 
         Simulacao.simular(Grafo.totalEdges() + 1 + (Integer) constantes.get(7));
+        Grafo.MostrarVerticeInfo();
 
     }
 }

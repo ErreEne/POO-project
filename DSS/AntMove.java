@@ -11,6 +11,7 @@ import java.util.Random;
 
 /**
  * Class that represents the event of an ant move
+ * 
  * @see EventTypes
  */
 class AntMove extends EventTypes {
@@ -33,7 +34,7 @@ class AntMove extends EventTypes {
      * @param formiga ant that will move
      * @param test    event that will be executed
      */
-    AntMove(double time, AntInterface formiga, EventForSwarm test,float delta) {
+    AntMove(double time, AntInterface formiga, EventForSwarm test, float delta) {
         super(time);
         this.formiga = formiga;
         this.test = test;
@@ -56,8 +57,9 @@ class AntMove extends EventTypes {
         int aij = formiga.move();
         Random rand = new Random();
         double mean = delta * aij;
+        this.setTime(timestamp + (-mean) * Math.log(1 - rand.nextDouble()));
         if (formiga.checkIfEndedPath()) {
-
+            System.out.println(formiga.getPath() + " - " + formiga.PathCost());
             test.alterarPath(0, formiga.getPath(), formiga.PathCost());
             for (int i = 0; i < formiga.getPath().size() - 1; i++) {
 
@@ -68,7 +70,7 @@ class AntMove extends EventTypes {
                     formiga.getPath().get(0));
             formiga.resetPath();
         }
-        this.setTime(timestamp + (-mean) * Math.log(1 - rand.nextDouble()));
+        test.changeAntEventNumber();
     }
 
 }

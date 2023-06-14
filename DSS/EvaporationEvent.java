@@ -23,16 +23,19 @@ class EvaporationEvent extends EventTypes {
      */
     private final double timeConstant;
 
+    private final EventForEvap Simulate;
+
     /**
      * @param time        time that the event will be executed
      * @param newFeromona pheromone that will be evaporated
      * @param teta        time constant of the evaporation
      */
-    EvaporationEvent(double time, MiguelInter newFeromona, double teta) {
+    EvaporationEvent(double time, MiguelInter newFeromona, double teta, EventForEvap eventMain) {
 
         super(time);
         this.feromonas = newFeromona;
         this.timeConstant = teta;
+        this.Simulate = eventMain;
 
     }
 
@@ -67,6 +70,7 @@ class EvaporationEvent extends EventTypes {
 
         if (feromonas.getPheromone() > 1) {
             feromonas.evaporationOfPheromone();
+            Simulate.changeEvapEventNumber();
         }
     }
 

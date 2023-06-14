@@ -48,7 +48,7 @@ public class readStrategy implements stratsInterface {
         grafo = new Grafo((Integer) constantes.get(0), rand.nextInt(max - min + 1) + min, (Integer) constantes.get(1));
         printInputs();
         constantes.remove(0);
-        constantes.remove(0);   
+        constantes.remove(0);
     }
 
     public Grafo getGrafo() {

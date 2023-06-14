@@ -15,10 +15,10 @@ ChangeFile:
 	echo "Main-Class: Main" >> META-INF/MANIFEST.MF
 
 java:
-	javac ACO/*.java Main.java DSS/*.java GrafoPack/*.java
+	javac ACO/*.java Main.java DSS/*.java GrafoPack/*.java LeitorDeArgs/*.java
 
 jarCreate:
-	jar cmf META-INF/MANIFEST.MF executavel.jar ACO/*.class Main.class DSS/*.class GrafoPack/*.class
+	jar cmf META-INF/MANIFEST.MF executavel.jar ACO/*.class Main.class DSS/*.class GrafoPack/*.class LeitorDeArgs/*.class 
 
 runJava:
 	java -jar executavel.jar -f file.txt

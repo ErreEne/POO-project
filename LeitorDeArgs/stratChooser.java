@@ -8,7 +8,8 @@ import java.util.*;
 import GrafoPack.GrafoInterface;
 
 /**
- * This class is responsible for choosing the strategy to be used to read the arguments
+ * This class is responsible for choosing the strategy to be used to read the
+ * arguments
  */
 public class stratChooser {
 
@@ -24,8 +25,9 @@ public class stratChooser {
 
     /**
      * Adds a strategy to the strategy chooser
+     * 
      * @param stratString the name of the strategy
-     * @param strat the strategy
+     * @param strat       the strategy
      */
     public void setStrategy(String stratString, stratsInterface strat) {
         strategies.put(stratString, strat);
@@ -33,17 +35,21 @@ public class stratChooser {
 
     /**
      * Reads the arguments
+     * 
      * @param args the arguments
      */
     public void readArgs(String[] args) {
-
-        FinalStrategy = strategies.get(args[0]);
-        FinalStrategy.readArgs(args);
-
+        try {
+            FinalStrategy = strategies.get(args[0]);
+            FinalStrategy.readArgs(args);
+        } catch (Exception e) {
+            System.out.print(e);
+        }
     }
 
     /**
      * Gets the graph
+     * 
      * @return the graph
      */
     public GrafoInterface getGrafo() {
@@ -52,6 +58,7 @@ public class stratChooser {
 
     /**
      * Gets the constants
+     * 
      * @return the constants
      */
     public ArrayList<Number> getConstantes() {

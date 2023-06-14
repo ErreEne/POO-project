@@ -11,7 +11,7 @@ import java.util.*;
 /**
  * Class that represents the event manager
  */
-public class EventManager implements EventSimulation, EventForObserver, EventForSwarm {
+public class EventManager implements EventSimulation, EventForObserver, EventForSwarm, EventForEvap {
 
     /**
      * The maximum time of simulation
@@ -57,8 +57,9 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
 
     /**
      * The constructor of the event manager
-     * @param colonia the ant colony
-     * @param maxTime the maximum time of simulation
+     * 
+     * @param colonia      the ant colony
+     * @param maxTime      the maximum time of simulation
      * @param timeconstant the time constant
      */
     public EventManager(AntColonyInterface colonia, double maxTime, double timeconstant, float delta) {
@@ -76,8 +77,8 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
      * Add to the Priority Queue the events of the simulation
      *
      * @param timestamp the time of the event
-     * @param id1      the id of the first ant
-     * @param id2      the id of the second ant
+     * @param id1       the id of the first ant
+     * @param id2       the id of the second ant
      */
     public void addQueueNewEvent(double timestamp, int id1, int id2) {
         Random rand = new Random();
@@ -89,15 +90,16 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
             }
         }
         TodasAsFeromonasCriadas.add(aux1);
-        EventTypes aux = new EvaporationEvent(timestamp + (-timeconstant) * Math.log(1 - rand.nextDouble()), aux1, timeconstant);
+        EventTypes aux = new EvaporationEvent(timestamp + (-timeconstant) * Math.log(1 - rand.nextDouble()), aux1,
+                timeconstant,this);
         PEC.add(aux);
     }
 
     /**
      * Set path to a better path discovered
      *
-     * @param flag what path will be changed
-     * @param path the path to be altered
+     * @param flag       what path will be changed
+     * @param path       the path to be altered
      * @param TotalPrice the total price of the path
      */
     public void alterarPath(int flag, ArrayList<Integer> path, int TotalPrice) {
@@ -126,6 +128,7 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
 
     /**
      * Print the results of the simulation
+     * 
      * @param PresentTime the present time
      */
     public void print(double PresentTime) {
@@ -135,16 +138,30 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
         System.out.println("Number of evaporation events: " + eevents);
         System.out.println("Top candidate cycles:");
         for (int i = 1; i < 6; i++)
-            if (Bestpath[i] != null){
+            if (Bestpath[i] != null) {
                 System.out.println(Bestpath[i] + ":" + BestPrice[i]);
             } else {
                 System.out.println("{}");
             }
-        System.out.println("Best Hamiltonian cycle:" + Bestpath[0] + ":" + BestPrice[0]);
+
+        if (Bestpath[0] != null) {
+            System.out.println("Best Hamiltonian cycle:" + Bestpath[0] + ":" + BestPrice[0]);
+        } else {
+            System.out.println("Best Hamiltonian cycle: {}");
+        }
+    }
+
+    public void changeAntEventNumber() {
+        this.mevents++;
+    }
+
+    public void changeEvapEventNumber() {
+        this.eevents++;
     }
 
     /**
      * Simulate the events
+     * 
      * @param PQueueSize the size of the priority queue
      */
     public void simular(int PQueueSize) {
@@ -155,11 +172,6 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
             if (!PEC.isEmpty()) {
 
                 aux = PEC.poll();
-                if (aux instanceof AntMove) {
-                    mevents = aux.eventTypeIncrase(mevents);
-                } else if (aux instanceof EvaporationEvent) {
-                    eevents = aux.eventTypeIncrase(eevents);
-                }
                 Timestamp = aux.getTime();
                 aux.execute();
                 if (aux.getTime() <= this.timelimit) {
@@ -174,6 +186,7 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
 
     /**
      * Generate the events of the simulation
+     * 
      * @param QueueSize the size of the priority queue
      */
     void GenerateQueue(int QueueSize) {
@@ -185,7 +198,7 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
 
         for (AntInterface x : Colonia.getAnts()) {
 
-            aux = new AntMove(0, x, this,delta);
+            aux = new AntMove(0, x, this, delta);
             PEC.add(aux);
 
         }
