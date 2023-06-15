@@ -156,13 +156,21 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
         }
     }
 
+    /**
+     * Increase the number of events of ant move
+     */
     public void changeAntEventNumber() {
         this.mevents++;
     }
-
+    /**
+     * Increase the number of events of evaporation
+     */
     public void changeEvapEventNumber() {
         this.eevents++;
     }
+    /**
+     * Increase the number of events of observer
+     */
     public void changeObservationNumber() {
         this.oevents++;
     }
