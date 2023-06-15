@@ -27,7 +27,7 @@ class ObservationEvent extends EventTypes {
      * Set the time of the next event
      * @param newTime new time of the event
      */
-    void setTime(double newTime) {
+    public void setTime(double newTime) {
 
         this.timestamp = newTime;
     }

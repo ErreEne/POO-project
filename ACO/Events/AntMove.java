@@ -3,9 +3,11 @@
  * DSS is a simulation method that is used to analyze the behavior of a system over time.
  *
  */
-package DSS;
+package ACO.Events;
 
 import ACO.*;
+import DSS.EventForSwarm;
+import DSS.EventTypes;
 
 import java.util.Random;
 
@@ -14,7 +16,7 @@ import java.util.Random;
  * 
  * @see EventTypes
  */
-class AntMove extends EventTypes {
+public class AntMove extends EventTypes {
 
     /**
      * The ant interface
@@ -34,7 +36,7 @@ class AntMove extends EventTypes {
      * @param formiga ant that will move
      * @param test    event that will be executed
      */
-    AntMove(double time, AntInterface formiga, EventForSwarm test, float delta) {
+    public AntMove(double time, AntInterface formiga, EventForSwarm test, float delta) {
         super(time);
         this.formiga = formiga;
         this.test = test;

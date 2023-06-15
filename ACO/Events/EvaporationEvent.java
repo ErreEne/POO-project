@@ -3,16 +3,18 @@
  * DSS is a simulation method that is used to analyze the behavior of a system over time.
  *
  */
-package DSS;
+package ACO.Events;
 
 import ACO.FeromonaInter;
+import DSS.EventForEvap;
+import DSS.EventTypes;
 
 import java.util.Random;
 
 /**
  * Class that presents the Evaporation Event of the pheromones
  */
-class EvaporationEvent extends EventTypes {
+public class EvaporationEvent extends EventTypes {
 
     /**
      * The pheromone that will be evaporated
@@ -30,7 +32,7 @@ class EvaporationEvent extends EventTypes {
      * @param newFeromona pheromone that will be evaporated
      * @param teta        time constant of the evaporation
      */
-    EvaporationEvent(double time, FeromonaInter newFeromona, double teta, EventForEvap eventMain) {
+    public EvaporationEvent(double time, FeromonaInter newFeromona, double teta, EventForEvap eventMain) {
 
         super(time);
         this.feromonas = newFeromona;

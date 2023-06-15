@@ -72,6 +72,10 @@ public class stratChooser {
      */
     static int VerifyInt(String input){
         try{
+            if (Integer.parseInt(input)<0){
+                System.out.println("Negative number input");
+                System.exit(0);
+            }
             return Integer.parseInt(input);
         }
         catch (NumberFormatException e){
@@ -88,7 +92,13 @@ public class stratChooser {
      */
     static float VerifyFloat(String input){
         try{
-            return Float.parseFloat(input);
+            if(input.contains(",")){
+                input = input.replace(",", ".");
+            }
+            if (Float.parseFloat(input)<0){
+                System.out.println("Negative number input");
+                System.exit(0);
+            }
         }
         catch (NumberFormatException e){
             System.out.println("Some input value is not Float as should be");

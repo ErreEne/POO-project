@@ -8,24 +8,24 @@ package DSS;
 /**
  * Class that represents the types of events that can happen
  */
-abstract class EventTypes implements Comparable<EventTypes> {
+public abstract class EventTypes implements Comparable<EventTypes> {
 
     /**
      * Time of the event
      */
-    double timestamp;
+    public double timestamp;
 
     /**
      * @param time time of the event
      */
-    EventTypes(double time) {
+    public EventTypes(double time) {
         this.timestamp = time;
     }
 
     /**
      * Execute the event
      */
-    abstract void execute();
+    public abstract void execute();
 
     /**
      * @return the time of the event
@@ -39,11 +39,7 @@ abstract class EventTypes implements Comparable<EventTypes> {
     /**
      * @param newTime new time of the event
      */
-    abstract void setTime(double newTime);
-
-    int eventTypeIncrase(int eventNumber) {////////////////////////////////////////////////////////////////////////
-        return eventNumber + 1;
-    }
+    public abstract void setTime(double newTime);
 
     /**
      * Compare the timestamp of the object with the timestamp of the object to be

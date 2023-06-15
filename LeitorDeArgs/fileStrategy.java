@@ -65,14 +65,31 @@ public class fileStrategy implements stratsInterface {
 
             int[][] matriz = new int[(int) constantes.get(0)][(int) constantes.get(0)];
 
-            int j = 0;
+            int j = 0, i = 0;
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] elements = line.split("[\\s\\t]+");
-                for (int i = 0; i < (int) constantes.get(0); i++) {
-                    matriz[j][i] = VerifyInt(elements[i]);
+                for (i = 0; i < (int) constantes.get(0); i++) {
+                    try{
+                        matriz[j][i] = VerifyInt(elements[i]);}
+                    catch (Exception e){
+                        System.out.println("Invalid file matrix format");
+                        System.exit(0);
+                    }
                 }
                 j++;
+                for (i = 0; i < (int) constantes.get(0); i++) {
+                    for (j=i; j < (int) constantes.get(0); j++){
+                        if (matriz[i][j]!=matriz[j][i]){
+                            System.out.println("Invalid file matrix format");
+                            System.exit(0);
+                        }
+                    }
+                }
+            }
+            if (j != (int) constantes.get(0) || i != (int) constantes.get(0)) {
+                System.out.println("Invalid number of nodes");
+                System.exit(0);
             }
             grafo = new Grafo((int) constantes.get(0), matriz);
             scanner.close();

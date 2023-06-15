@@ -5,7 +5,10 @@
  */
 package DSS;
 
-import ACO.*;
+import ACO.AntInterface;
+import ACO.Events.*;
+import ACO.AntColonyInterface;
+import ACO.FeromonaInter;
 import java.util.*;
 
 /**
@@ -137,6 +140,7 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
      * @param PresentTime the present time
      */
     public void print(double PresentTime) {
+        int auxInit;
         System.out.println("Observation number:"+oevents);
         System.out.println("Present instant: " + PresentTime);
         System.out.println("Number of move events: " + mevents);
@@ -144,13 +148,23 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
         System.out.println("Top candidate cycles:");
         for (int i = 1; i < 6; i++)
             if (Bestpath[i] != null) {
-                System.out.println(Bestpath[i] + ":" + BestPrice[i]);
-            } else {
-                System.out.println("{}");
+                System.out.print("{"+ (auxInit = Bestpath[i].get(0)));
+                for(Integer aux: Bestpath[i]){
+                    if (aux != auxInit)
+                    System.out.print("," + aux);
+                }
+                System.out.print("}"+ " : " + BestPrice[i]);
+                System.out.println();
             }
 
         if (Bestpath[0] != null) {
-            System.out.println("Best Hamiltonian cycle:" + Bestpath[0] + ":" + BestPrice[0]);
+            System.out.print("Best Hamiltonian cycle: {"+ (auxInit = Bestpath[0].get(0)));
+            for(Integer aux: Bestpath[0]){
+                if (aux != auxInit)
+                    System.out.print("," + aux);
+            }
+            System.out.print("}"+ " : " + BestPrice[0]);
+            System.out.println();
         } else {
             System.out.println("Best Hamiltonian cycle: {}");
         }
