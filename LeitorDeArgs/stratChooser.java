@@ -65,4 +65,36 @@ public class stratChooser {
         return FinalStrategy.getConstants();
     }
 
+    /**
+     * Verifies if the input is an integer
+     * @param input the input to be verified
+     * @return the input as int if it is an integer
+     */
+    static int VerifyInt(String input){
+        try{
+            return Integer.parseInt(input);
+        }
+        catch (NumberFormatException e){
+            System.out.println("Some input value is not Integer as should be");
+            System.exit(0);
+        }
+        return Integer.parseInt(input);
+    }
+
+    /**
+     * Verifies if the input is a float
+     * @param input the input to be verified
+     * @return the input as float if it is a float
+     */
+    static float VerifyFloat(String input){
+        try{
+            return Float.parseFloat(input);
+        }
+        catch (NumberFormatException e){
+            System.out.println("Some input value is not Float as should be");
+            System.exit(0);
+        }
+        return Float.parseFloat(input);
+    }
+
 }

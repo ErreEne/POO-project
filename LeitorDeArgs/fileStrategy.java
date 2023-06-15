@@ -11,6 +11,9 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static LeitorDeArgs.stratChooser.VerifyFloat;
+import static LeitorDeArgs.stratChooser.VerifyInt;
+
 public class fileStrategy implements stratsInterface {
 
     /**
@@ -49,17 +52,16 @@ public class fileStrategy implements stratsInterface {
                 System.out.println("Invalid number of input values");
                 System.exit(0);
             }
-
-            constantes.add(Integer.parseInt(inputs[0]));
-            constantes.add(Integer.parseInt(inputs[1]));
-            constantes.add(Float.parseFloat(inputs[2]));
-            constantes.add(Float.parseFloat(inputs[3]));
-            constantes.add(Float.parseFloat(inputs[4]));
-            constantes.add(Float.parseFloat(inputs[5]));
-            constantes.add(Float.parseFloat(inputs[6]));
-            constantes.add(Float.parseFloat(inputs[7]));
-            constantes.add(Integer.parseInt(inputs[8]));
-            constantes.add(Float.parseFloat(inputs[9]));
+            constantes.add(VerifyInt(inputs[0]));
+            constantes.add(VerifyInt(inputs[1]));
+            constantes.add(VerifyFloat(inputs[2]));
+            constantes.add(VerifyFloat(inputs[3]));
+            constantes.add(VerifyFloat(inputs[4]));
+            constantes.add(VerifyFloat(inputs[5]));
+            constantes.add(VerifyFloat(inputs[6]));
+            constantes.add(VerifyFloat(inputs[7]));
+            constantes.add(VerifyInt(inputs[8]));
+            constantes.add(VerifyFloat(inputs[9]));
 
             int[][] matriz = new int[(int) constantes.get(0)][(int) constantes.get(0)];
 
@@ -68,7 +70,7 @@ public class fileStrategy implements stratsInterface {
                 String line = scanner.nextLine();
                 String[] elements = line.split("[\\s\\t]+");
                 for (int i = 0; i < (int) constantes.get(0); i++) {
-                    matriz[j][i] = Integer.parseInt(elements[i]);
+                    matriz[j][i] = VerifyInt(elements[i]);
                 }
                 j++;
             }
@@ -112,5 +114,4 @@ public class fileStrategy implements stratsInterface {
         System.out.println(constantes.get(8) + ": ant colony size");
         System.out.println(constantes.get(9) + ": final instant");
     }
-    
 }

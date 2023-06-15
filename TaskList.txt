@@ -1,9 +1,6 @@
--Visibilidade variaveis;
 -Verificar feromonas;
 -Forms;
 -Mudar vertices para ArrayList
 -Mudar tudo para float/double
 
-UML:
--metodos nas interfaces são abstract??
--é preciso ter as relações de import no UML? (entre packages ou entre classes e packages?)
+Perguntar se o Import das funções de leitura de ficheiros é fixe ou é melhor ter duas vezes as mesmas
