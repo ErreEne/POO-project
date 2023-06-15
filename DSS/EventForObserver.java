@@ -17,4 +17,5 @@ public interface EventForObserver {
      */
     void print(double PresentTime);
 
+    void changeObservationNumber();
 }

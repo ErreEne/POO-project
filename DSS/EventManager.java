@@ -27,6 +27,10 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
      */
     private int mevents;
     /**
+     * The number of events of observer
+     */
+    private int oevents;
+    /**
      * The time constant
      */
     private final double timeconstant;
@@ -70,6 +74,7 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
         TodasAsFeromonasCriadas = new ArrayList<>();
         this.mevents = 0;
         this.eevents = 0;
+        this.oevents = 0;
         this.delta = delta;
     }
 
@@ -132,7 +137,7 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
      * @param PresentTime the present time
      */
     public void print(double PresentTime) {
-        System.out.println("Observation number:");
+        System.out.println("Observation number:"+oevents);
         System.out.println("Present instant: " + PresentTime);
         System.out.println("Number of move events: " + mevents);
         System.out.println("Number of evaporation events: " + eevents);
@@ -157,6 +162,9 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
 
     public void changeEvapEventNumber() {
         this.eevents++;
+    }
+    public void changeObservationNumber() {
+        this.oevents++;
     }
 
     /**
