@@ -41,7 +41,7 @@ abstract class EventTypes implements Comparable<EventTypes> {
      */
     abstract void setTime(double newTime);
 
-    int eventTypeIncrase(int eventNumber) {
+    int eventTypeIncrase(int eventNumber) {////////////////////////////////////////////////////////////////////////
         return eventNumber + 1;
     }
 
@@ -55,7 +55,13 @@ abstract class EventTypes implements Comparable<EventTypes> {
      */
     @Override
     public int compareTo(EventTypes aux) {
-        return this.timestamp > aux.timestamp ? 1 : -1;
+        if (this.timestamp > aux.timestamp) {
+            return 1;
+        } else if (this.timestamp < aux.timestamp) {
+            return -1;
+        } else {
+            return 0;
+        }
     }
 
 }
