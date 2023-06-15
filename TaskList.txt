@@ -5,3 +5,4 @@
 
 Perguntar se o Import das funções de leitura de ficheiros é fixe ou é melhor ter duas vezes as mesmas
 Testar rebustês para -r
+É preciso asscossiação de StratChoose com Read e File por cauda das verificações??
