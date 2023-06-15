@@ -9,7 +9,7 @@ package ACO;
 /**
  * Interface that represents the pheromone
  */
-public interface MiguelInter {
+public interface FeromonaInter {
 
     /**
      * Computes the evaporation of pheromone

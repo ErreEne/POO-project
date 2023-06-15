@@ -45,7 +45,7 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
     /**
      * All the pheromones created
      */
-    private final ArrayList<MiguelInter> TodasAsFeromonasCriadas;
+    private final ArrayList<FeromonaInter> TodasAsFeromonasCriadas;
     /**
      * The ant colony
      */
@@ -82,9 +82,9 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
      */
     public void addQueueNewEvent(double timestamp, int id1, int id2) {
         Random rand = new Random();
-        MiguelInter aux1 = Colonia.getPheromones().get(id1).get(id2);
+        FeromonaInter aux1 = Colonia.getPheromones().get(id1).get(id2);
 
-        for (MiguelInter x : this.TodasAsFeromonasCriadas) {
+        for (FeromonaInter x : this.TodasAsFeromonasCriadas) {
             if (x == aux1) {
                 return;
             }

@@ -47,7 +47,7 @@ public class fileStrategy implements stratsInterface {
             String[] inputs = inputLine.split(" "); // split the line into an array of strings
             if (inputs.length != 10) {
                 System.out.println("Invalid number of input values");
-                System.exit(0); // terminates program ???
+                System.exit(0);
             }
 
             constantes.add(Integer.parseInt(inputs[0]));

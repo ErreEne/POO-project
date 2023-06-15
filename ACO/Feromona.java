@@ -9,7 +9,7 @@ package ACO;
 /**
  * Class that represents the pheromone
  */
-class Miguel implements MiguelInter {
+class Feromona implements FeromonaInter {
 
     /**
      * The pheromone level
@@ -36,7 +36,7 @@ class Miguel implements MiguelInter {
      * @param gamma         value for calculating the level of pheromone
      * @param ro            value for decreasing pheromones
      */
-    Miguel(int totalWeights, float gamma, float ro) {
+    Feromona(int totalWeights, float gamma, float ro) {
         this.pheromone = 0;
         this.totalWeights = totalWeights;
         this.gamma = gamma;

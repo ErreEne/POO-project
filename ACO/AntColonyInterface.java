@@ -21,5 +21,5 @@ import java.util.*;
     /**
      * @return the pheromone map
      */
-    HashMap<Integer, Hashtable<Integer, Miguel>> getPheromones();
+    HashMap<Integer, Hashtable<Integer, Feromona>> getPheromones();
 }

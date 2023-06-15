@@ -5,7 +5,7 @@
  */
 package DSS;
 
-import ACO.MiguelInter;
+import ACO.FeromonaInter;
 
 import java.util.Random;
 
@@ -17,7 +17,7 @@ class EvaporationEvent extends EventTypes {
     /**
      * The pheromone that will be evaporated
      */
-    private final MiguelInter feromonas;
+    private final FeromonaInter feromonas;
     /**
      * The time constant of the evaporation
      */
@@ -30,7 +30,7 @@ class EvaporationEvent extends EventTypes {
      * @param newFeromona pheromone that will be evaporated
      * @param teta        time constant of the evaporation
      */
-    EvaporationEvent(double time, MiguelInter newFeromona, double teta, EventForEvap eventMain) {
+    EvaporationEvent(double time, FeromonaInter newFeromona, double teta, EventForEvap eventMain) {
 
         super(time);
         this.feromonas = newFeromona;

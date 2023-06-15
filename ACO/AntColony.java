@@ -59,7 +59,7 @@ public class AntColony implements AntColonyInterface {
     /**
      * The pheromone levels on the edges of the graph.
      */
-    public HashMap<Integer, Hashtable<Integer, Miguel>> pheromones;
+    public HashMap<Integer, Hashtable<Integer, Feromona>> pheromones;
 
     /**
      * The total weights of the graph edges.
@@ -112,7 +112,7 @@ public class AntColony implements AntColonyInterface {
     private void initializePheromones() {
 
         for (int i = 1; i <= totalVertex; i++) {
-            Hashtable<Integer, Miguel> pheromonesFromNode = new Hashtable<>();
+            Hashtable<Integer, Feromona> pheromonesFromNode = new Hashtable<>();
             pheromones.put(i, pheromonesFromNode);
         }
 
@@ -121,7 +121,7 @@ public class AntColony implements AntColonyInterface {
             for (int j = 1; j <= totalVertex; j++) {
                 if (possibleNodes.containsKey(j)) {
                     if (pheromones.get(j).get(i) == null) {
-                        Miguel aux = new Miguel(totalWeights, gamma, ro);
+                        Feromona aux = new Feromona(totalWeights, gamma, ro);
                         pheromones.get(i).put(j, aux);
                         pheromones.get(j).put(i, aux);
                     }
@@ -134,7 +134,7 @@ public class AntColony implements AntColonyInterface {
      *  get the pheromone map
      *  @return the pheromone map
      */
-    public HashMap<Integer, Hashtable<Integer, Miguel>> getPheromones() {
+    public HashMap<Integer, Hashtable<Integer, Feromona>> getPheromones() {
         return this.pheromones;
     }
 
@@ -222,7 +222,7 @@ public class AntColony implements AntColonyInterface {
      * @param node - node to get the pheromones from
      * @return the pheromones from the node
      */
-    Hashtable<Integer, Miguel> getPheromonesFromNode(int node) {
+    Hashtable<Integer, Feromona> getPheromonesFromNode(int node) {
         return pheromones.get(node);
     }
 

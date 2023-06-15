@@ -87,7 +87,7 @@ class Ant implements AntInterface {
             return null;
         }
 
-        Hashtable<Integer, Miguel> pheromone = getPossiblePheromones(); // get the pheromones of the adjacent nodes that
+        Hashtable<Integer, Feromona> pheromone = getPossiblePheromones(); // get the pheromones of the adjacent nodes that
         if (pheromone.isEmpty()) {                                      // the ant can go to
             return null;
         }
@@ -268,22 +268,22 @@ class Ant implements AntInterface {
     /**
      * Get the pheromones in the nodes
      * 
-     * @return Hashtable<Integer, Miguel> - level of the pheromones in the nodes
+     * @return Hashtable<Integer, Feromona> - level of the pheromones in the nodes
      */
-    private Hashtable<Integer, Miguel> getPheromones() {
+    private Hashtable<Integer, Feromona> getPheromones() {
         return colony.getPheromonesFromNode(currentNode);
     }
 
     /**
      * Get the pheromones in the nodes that the ant can go to
      * 
-     * @return Hashtable<Integer, Miguel> - level of the pheromones in the nodes
+     * @return Hashtable<Integer, Feromona> - level of the pheromones in the nodes
      *         that the ant can go to
      */
-    private Hashtable<Integer, Miguel> getPossiblePheromones() {
-        Hashtable<Integer, Miguel> pheromones = getPheromones();
+    private Hashtable<Integer, Feromona> getPossiblePheromones() {
+        Hashtable<Integer, Feromona> pheromones = getPheromones();
 
-        Hashtable<Integer, Miguel> possiblePheromones = new Hashtable<>(pheromones);
+        Hashtable<Integer, Feromona> possiblePheromones = new Hashtable<>(pheromones);
         for (Integer integer : path) {
             possiblePheromones.remove(integer);
         }

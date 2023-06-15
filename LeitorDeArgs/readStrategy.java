@@ -29,7 +29,7 @@ public class readStrategy implements stratsInterface {
 
         if (args.length != 12) {
             System.out.println("Invalid number of arguments");
-            System.exit(0); // terminates program ???
+            System.exit(0);
         } else {
             constantes.add(Integer.parseInt(args[1]));
             constantes.add(Integer.parseInt(args[2]));
