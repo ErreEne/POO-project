@@ -53,6 +53,10 @@ public class fileStrategy implements stratsInterface {
                 System.exit(0);
             }
             constantes.add(VerifyInt(inputs[0]));
+            if ((int) constantes.get(0) < 3) { // Minimum number of nodes is 3
+                System.out.println("Invalid number of nodes");
+                System.exit(0);
+            }
             constantes.add(VerifyInt(inputs[1]));
             constantes.add(VerifyFloat(inputs[2]));
             constantes.add(VerifyFloat(inputs[3]));
@@ -77,16 +81,25 @@ public class fileStrategy implements stratsInterface {
                         System.exit(0);
                     }
                 }
+
+
                 j++;
-                for (i = 0; i < (int) constantes.get(0); i++) {
+
+            }
+       for (i = 0; i < (int) constantes.get(0); i++) {
                     for (j=i; j < (int) constantes.get(0); j++){
                         if (matriz[i][j]!=matriz[j][i]){
                             System.out.println("Invalid file matrix format");
+                            for (int k=0; k<(int) constantes.get(0); k++){
+                                for (int l=0; l<(int) constantes.get(0); l++){
+                                    System.out.print(matriz[k][l]+" ");
+                                }
+                                System.out.println();
+                            }
                             System.exit(0);
                         }
                     }
                 }
-            }
             if (j != (int) constantes.get(0) || i != (int) constantes.get(0)) {
                 System.out.println("Invalid number of nodes");
                 System.exit(0);

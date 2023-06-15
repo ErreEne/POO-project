@@ -35,6 +35,10 @@ public class readStrategy implements stratsInterface {
             System.exit(0);
         } else {
             constantes.add(VerifyInt(args[1]));
+            if ((int) constantes.get(1) < 3) { // Minimum number of nodes is 3
+                System.out.println("Invalid number of nodes");
+                System.exit(0);
+            }
             constantes.add(VerifyInt(args[2]));
             constantes.add(VerifyInt(args[3]));
             constantes.add(VerifyFloat(args[4]));
