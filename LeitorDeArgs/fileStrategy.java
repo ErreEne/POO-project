@@ -69,7 +69,7 @@ public class fileStrategy implements stratsInterface {
 
             int[][] matriz = new int[(int) constantes.get(0)][(int) constantes.get(0)];
 
-            int j = 0, i = 0;
+            int j = 0, i;
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] elements = line.split("[\\s\\t]+");

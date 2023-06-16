@@ -28,6 +28,9 @@ public interface EventForSwarm {
      */
     void addQueueNewEvent(double timestamp, int Id1, int Id2);
 
+    /**
+     * Method that changes the ant event number
+     */
     void changeAntEventNumber();
 
 }

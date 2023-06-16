@@ -13,11 +13,29 @@ import java.util.ArrayList;
  */
 public class Grafo implements GrafoInterface {
 
+    /**
+     * max number of vertices
+     */
     private final int MaxVertices;
-    vertice[] Vertices;
+
+    /**
+     * array of vertices
+     */
+    private final vertice[] Vertices;
+
+    /**
+     * new vertices
+     */
     private int verticenovo;
+
+    /**
+     * total number of edges
+     */
     private int Totaledges;
-    int peso;
+
+    /**
+     * total weight of the edges
+     */
     private int somarEdges;
 
     /**
@@ -32,7 +50,6 @@ public class Grafo implements GrafoInterface {
         this.Vertices = new vertice[this.MaxVertices];
         this.verticenovo = 0;
         this.Totaledges = 0;
-        this.peso = peso;
 
         this.GenerateGraphWHamiltonCycle(peso, edges);
     }

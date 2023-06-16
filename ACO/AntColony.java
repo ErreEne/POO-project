@@ -19,62 +19,57 @@ public class AntColony implements AntColonyInterface {
     /**
      * The colony of ants use in the Ant Colony Optimization algorithm.
      */
-    private ArrayList<Ant> colony;
+    private final ArrayList<Ant> colony;
 
     /**
      * The node index representing the nest in the graph.
      */
-    public int nest_node;
+    private final int nest_node;
 
     /**
      * The parameter controlling the influence of pheromone trails in the ACO algorithm.
      */
-    public float beta;
+    private final float beta;
 
     /**
      * The parameter controlling the influence of weight information in the ACO algorithm.
      */
-    public float alpha;
+    private final float alpha;
 
     /**
      * The parameter controlling the influence of pheromone updates in the ACO algorithm.
      */
-    public float gamma;
-
-    /**
-     * The parameter controlling the time between ant movement
-     */
-    public float delta;
+    private final float gamma;
 
     /**
      * The size of the ant colony.
      */
-    public int ant_colony_size;
+    private final int ant_colony_size;
 
     /**
      * The graph interface used in the ACO algorithm.
      */
-    public GrafoInterface Grafo;
+    private final GrafoInterface Grafo;
 
     /**
      * The pheromone levels on the edges of the graph.
      */
-    public HashMap<Integer, Hashtable<Integer, Feromona>> pheromones;
+    private final HashMap<Integer, Hashtable<Integer, Feromona>> pheromones;
 
     /**
      * The total weights of the graph edges.
      */
-    public int totalWeights;
+    private final int totalWeights;
 
     /**
      * The evaporation rate of pheromones in the ACO algorithm.
      */
-    public float ro;
+    private final float ro;
 
     /**
      * The total number of vertices in the graph.
      */
-    public int totalVertex;
+    private final int totalVertex;
 
     /**
      * @param Graph           - graph to be used
@@ -84,18 +79,16 @@ public class AntColony implements AntColonyInterface {
      * @param beta            - value for calculating the probability of choosing a
      *                        node
      * @param gamma           - value for calculating the level of pheromone
-     * @param delta           - value for calculating next time to move the ant
      * @param ant_colony_size - number of ants in the colony
      * @param ro              - value for decreasing pheromones
      */
-    public AntColony(GrafoInterface Graph, int nest_node, float alpha, float beta, float gamma, float delta,
+    public AntColony(GrafoInterface Graph, int nest_node, float alpha, float beta, float gamma,
             int ant_colony_size, float ro) {
         this.Grafo = Graph;
         this.nest_node = nest_node;
         this.beta = beta;
         this.alpha = alpha;
         this.gamma = gamma;
-        this.delta = delta;
         this.ant_colony_size = ant_colony_size;
         this.colony = new ArrayList<>();
         this.ro = ro;
@@ -169,7 +162,7 @@ public class AntColony implements AntColonyInterface {
         for (int i = 0; i < path.size() - 1; i++) {
             sum += getCost(path.get(i), path.get(i + 1));
         }
-        sum += getCost(path.get(path.size() - 1), nest_node);
+        sum += getCost(path.get(path.size() - 1), this.nest_node);
         return sum;
     }
 
@@ -235,4 +228,41 @@ public class AntColony implements AntColonyInterface {
     Hashtable<Integer, Integer> getWeightsFromNode(int node) {
         return Grafo.getEdges(node);
     }
+
+    /**
+     * Get the alpha value
+     *
+     * @return the alpha value
+     */
+    float getAlpha() {
+        return alpha;
+    }
+
+    /**
+     * Get the beta value
+     *
+     * @return the beta value
+     */
+    float getBeta() {
+        return beta;
+    }
+
+    /**
+     * Get the nest node
+     *
+     * @return the nest node
+     */
+    int getNestNode() {
+        return nest_node;
+    }
+
+    /**
+     * Get the total vertex of the graph
+     *
+     * @return the total vertex of the graph
+     */
+    int getTotalVertex() {
+        return totalVertex;
+    }
+
 }

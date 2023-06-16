@@ -151,7 +151,7 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
                 System.out.print("{"+ (auxInit = Bestpath[i].get(0)));
                 for(Integer aux: Bestpath[i]){
                     if (aux != auxInit)
-                    System.out.print("," + aux);
+                        System.out.print("," + aux);
                 }
                 System.out.print("}"+ " : " + BestPrice[i]);
                 System.out.println();

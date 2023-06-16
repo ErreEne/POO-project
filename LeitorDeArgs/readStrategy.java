@@ -25,6 +25,11 @@ public class readStrategy implements stratsInterface {
         constantes = new ArrayList<>();
     }
 
+    /**
+     * Reads the input parameters from the command line
+     *
+     * @param args the input parameters
+     */
     @Override
     public void readArgs(String[] args) {
 
@@ -64,6 +69,11 @@ public class readStrategy implements stratsInterface {
 
     }
 
+    /**
+     * Returns the input parameters
+     *
+     * @return the input parameters
+     */
     public ArrayList<Number> getConstants() {
         return constantes;
     }

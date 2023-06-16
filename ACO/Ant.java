@@ -48,8 +48,8 @@ class Ant implements AntInterface {
     Ant(AntColony Antcolony) {
         this.colony = Antcolony;
         this.path = new ArrayList<>();
-        addToList(path, colony.nest_node);
-        this.currentNode = colony.nest_node;
+        addToList(path, colony.getNestNode());
+        this.currentNode = colony.getNestNode();
         this.PathEnded = 0;
     }
 
@@ -93,11 +93,11 @@ class Ant implements AntInterface {
         }
         // Compute Ci
         for (Map.Entry<Integer, Integer> entry : weights.entrySet()) {
-            Ci += ((colony.alpha + pheromone.get(entry.getKey()).getPheromone()) / (colony.beta + entry.getValue()));
+            Ci += ((colony.getAlpha() + pheromone.get(entry.getKey()).getPheromone()) / (colony.getBeta() + entry.getValue()));
         }
         // Compute Cijk and the sum of all Cijk
         for (Map.Entry<Integer, Integer> entry : weights.entrySet()) {
-            Cijk = ((colony.alpha + pheromone.get(entry.getKey()).getPheromone()) / (colony.beta + entry.getValue()));
+            Cijk = ((colony.getAlpha() + pheromone.get(entry.getKey()).getPheromone()) / (colony.getBeta() + entry.getValue()));
             probability.put(entry.getKey(), Cijk / Ci);
             sum += Cijk / Ci;
         }
@@ -199,7 +199,7 @@ class Ant implements AntInterface {
      * @return boolean - true if the ant has ended the path, false otherwise
      */
     private boolean checkIfEndedPath(int node) {
-        return getSize(path) == colony.totalVertex && node == colony.nest_node;
+        return getSize(path) == colony.getTotalVertex() && node == colony.getNestNode();
     }
 
     /**
@@ -209,8 +209,8 @@ class Ant implements AntInterface {
     @Override
     public void resetPath() {
         path.clear();
-        path.add(colony.nest_node);
-        currentNode = colony.nest_node;
+        path.add(colony.getNestNode());
+        currentNode = colony.getNestNode();
         PathCost = 0;
         PathEnded = 0;
     }

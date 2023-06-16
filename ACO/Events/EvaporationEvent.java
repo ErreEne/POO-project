@@ -50,19 +50,6 @@ public class EvaporationEvent extends EventTypes {
     }
 
     /**
-     * Method that increases the number of events
-     *
-     * @param eventNumber number of events
-     * @return the number of events
-     */
-    public int eventTypeIncrase(int eventNumber) {
-        if (feromonas.getPheromone() > 1)
-            return eventNumber + 1;
-
-        return eventNumber;
-    }
-
-    /**
      * Method that executes the event
      */
     @Override
