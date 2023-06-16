@@ -1,4 +1,4 @@
-package Main;
+package PrincipalMain;
 
 import DSS.*;
 import ACO.*;
@@ -39,7 +39,6 @@ public class Main {
                 (float) constantes.get(3));
 
         Simulacao.simular(Grafo.totalEdges() + 1 + (Integer) constantes.get(7));
-        Grafo.MostrarVerticeInfo();
 
     }
 }

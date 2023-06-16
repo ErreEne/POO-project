@@ -44,7 +44,7 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
     /**
      * The best path of the simulation
      */
-    private final ArrayList<Integer>[] Bestpath;
+    private final ArrayList<Integer>[] Bestpath = new ArrayList[6];
     /**
      * The best price of the simulation
      */
@@ -64,15 +64,13 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
 
     /**
      * The constructor of the event manager
-     * 
+     *
      * @param colonia      the ant colony
      * @param maxTime      the maximum time of simulation
      * @param timeconstant the time constant
-     * @param delta        the time that the ant will move
      */
     public EventManager(AntColonyInterface colonia, double maxTime, double timeconstant, float delta) {
         PEC = new PriorityQueue<>();
-        this.Bestpath = new ArrayList[6];
         this.timeconstant = timeconstant;
         this.Colonia = colonia;
         this.timelimit = maxTime;
@@ -81,10 +79,6 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
         this.eevents = 0;
         this.oevents = 0;
         this.delta = delta;
-        for (int i = 0; i < 5; i++)
-        {
-            this.Bestpath[i] = new ArrayList<>();
-        }
     }
 
     /**
@@ -105,7 +99,7 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
         }
         TodasAsFeromonasCriadas.add(aux1);
         EventTypes aux = new EvaporationEvent(timestamp + (-timeconstant) * Math.log(1 - rand.nextDouble()), aux1,
-                timeconstant, this);
+                timeconstant,this);
         PEC.add(aux);
     }
 
@@ -131,9 +125,7 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
                 if (this.Bestpath[i] != null) {
                     alterarPath(i, this.Bestpath[i], BestPrice[i]);
                 }
-
-
-                    this.Bestpath[i] = (ArrayList<Integer>) path.clone();
+                this.Bestpath[i] = (ArrayList<Integer>) path.clone();
                 this.BestPrice[i] = TotalPrice;
 
                 break;
@@ -144,34 +136,34 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
 
     /**
      * Print the results of the simulation
-     * 
+     *
      * @param PresentTime the present time
      */
     public void print(double PresentTime) {
         int auxInit;
-        System.out.println("Observation number:" + oevents);
+        System.out.println("Observation number:"+oevents);
         System.out.println("Present instant: " + PresentTime);
         System.out.println("Number of move events: " + mevents);
         System.out.println("Number of evaporation events: " + eevents);
         System.out.println("Top candidate cycles:");
         for (int i = 1; i < 6; i++)
             if (Bestpath[i] != null) {
-                System.out.print("{" + (auxInit = Bestpath[i].get(0)));
-                for (Integer aux : Bestpath[i]) {
+                System.out.print("{"+ (auxInit = Bestpath[i].get(0)));
+                for(Integer aux: Bestpath[i]){
                     if (aux != auxInit)
                         System.out.print("," + aux);
                 }
-                System.out.print("}" + " : " + BestPrice[i]);
+                System.out.print("}"+ " : " + BestPrice[i]);
                 System.out.println();
             }
 
         if (Bestpath[0] != null) {
-            System.out.print("Best Hamiltonian cycle: {" + (auxInit = Bestpath[0].get(0)));
-            for (Integer aux : Bestpath[0]) {
+            System.out.print("Best Hamiltonian cycle: {"+ (auxInit = Bestpath[0].get(0)));
+            for(Integer aux: Bestpath[0]){
                 if (aux != auxInit)
                     System.out.print("," + aux);
             }
-            System.out.print("}" + " : " + BestPrice[0]);
+            System.out.print("}"+ " : " + BestPrice[0]);
             System.out.println();
         } else {
             System.out.println("Best Hamiltonian cycle: {}");
@@ -184,14 +176,12 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
     public void changeAntEventNumber() {
         this.mevents++;
     }
-
     /**
      * Increase the number of events of evaporation
      */
     public void changeEvapEventNumber() {
         this.eevents++;
     }
-
     /**
      * Increase the number of events of observer
      */
@@ -201,7 +191,7 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
 
     /**
      * Simulate the events
-     * 
+     *
      * @param PQueueSize the size of the priority queue
      */
     public void simular(int PQueueSize) {
@@ -226,7 +216,7 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
 
     /**
      * Generate the events of the simulation
-     * 
+     *
      * @param QueueSize the size of the priority queue
      */
     void GenerateQueue(int QueueSize) {
