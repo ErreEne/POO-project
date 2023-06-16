@@ -21,6 +21,8 @@ class ObservationEvent extends EventTypes {
     private final double maxTime;
 
     /**
+     * Construtor to the observation event
+     * 
      * @param time   time of the event
      * @param evento event that will be executed
      */

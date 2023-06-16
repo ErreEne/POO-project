@@ -16,6 +16,8 @@ public abstract class EventTypes implements Comparable<EventTypes> {
     public double timestamp;
 
     /**
+     * Time of the event
+     * 
      * @param time time of the event
      */
     public EventTypes(double time) {
@@ -28,6 +30,8 @@ public abstract class EventTypes implements Comparable<EventTypes> {
     public abstract void execute();
 
     /**
+     * get the current time
+     * 
      * @return the time of the event
      */
     double getTime() {
@@ -37,6 +41,8 @@ public abstract class EventTypes implements Comparable<EventTypes> {
     }
 
     /**
+     * set the new time
+     * 
      * @param newTime new time of the event
      */
     public abstract void setTime(double newTime);
