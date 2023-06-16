@@ -44,7 +44,7 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
     /**
      * The best path of the simulation
      */
-    private final ArrayList<Integer>[] Bestpath = new ArrayList[6];
+    private final ArrayList<Integer>[] Bestpath;
     /**
      * The best price of the simulation
      */
@@ -72,6 +72,7 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
      */
     public EventManager(AntColonyInterface colonia, double maxTime, double timeconstant, float delta) {
         PEC = new PriorityQueue<>();
+        this.Bestpath = new ArrayList[6];
         this.timeconstant = timeconstant;
         this.Colonia = colonia;
         this.timelimit = maxTime;
@@ -80,6 +81,10 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
         this.eevents = 0;
         this.oevents = 0;
         this.delta = delta;
+        for (int i = 0; i < 5; i++)
+        {
+            this.Bestpath[i] = new ArrayList<>();
+        }
     }
 
     /**
@@ -126,11 +131,9 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
                 if (this.Bestpath[i] != null) {
                     alterarPath(i, this.Bestpath[i], BestPrice[i]);
                 }
-                if (this.Bestpath[i] != null) {
-                    this.Bestpath[i].clear();
-                }
-                for (Integer x : path)
-                    ((ArrayList<Integer>) this.Bestpath[i]).add(x);
+
+
+                    this.Bestpath[i] = (ArrayList<Integer>) path.clone();
                 this.BestPrice[i] = TotalPrice;
 
                 break;
