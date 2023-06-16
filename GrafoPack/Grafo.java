@@ -140,11 +140,10 @@ public class Grafo implements GrafoInterface {
     /**
      * metodo que cria o graph com o hamilton cycle
      *
-     * @param peso
-     * 
-     *             Talvez tenhamos de ver isto mais tarde
+     * @param peso  peso maximo das edges
+     * @param edges numero de edges do grafo
      */
-     private void GenerateGraphWHamiltonCycle(int peso, int edges) {
+    private void GenerateGraphWHamiltonCycle(int peso, int edges) {
 
         int aux, aux1, flag = 0;
         ArrayList<Integer> EdgeAux = new ArrayList<>();

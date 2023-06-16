@@ -10,12 +10,19 @@ import java.util.*;
 import static LeitorDeArgs.stratChooser.VerifyFloat;
 import static LeitorDeArgs.stratChooser.VerifyInt;
 
+/**
+ * Class that represents the strategy that reads from a file
+ */
 public class readStrategy implements stratsInterface {
 
     /**
      * the input parameters
      */
     private final ArrayList<Number> constantes;
+
+    /**
+     * the graph
+     */
     private Grafo grafo;
 
     /**

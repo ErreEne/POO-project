@@ -14,10 +14,16 @@ import java.util.ArrayList;
 public interface AntInterface {
 
     /**
+     * An ant chooses the next node to visit based on the pheromone levels and the
+     * distance between the nodes
+     * 
      * @return the cost of the path
      */
     int move();
 
+    /**
+     * resets the path of the ant
+     */
     void resetPath();
 
     /**

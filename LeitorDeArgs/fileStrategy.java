@@ -14,10 +14,13 @@ import java.util.Scanner;
 import static LeitorDeArgs.stratChooser.VerifyFloat;
 import static LeitorDeArgs.stratChooser.VerifyInt;
 
+/**
+ * Class that represents the strategy that reads from a file
+ */
 public class fileStrategy implements stratsInterface {
 
     /**
-     *  the graph
+     * the graph
      */
     private Grafo grafo;
     /**
@@ -74,32 +77,31 @@ public class fileStrategy implements stratsInterface {
                 String line = scanner.nextLine();
                 String[] elements = line.split("[\\s\\t]+");
                 for (i = 0; i < (int) constantes.get(0); i++) {
-                    try{
-                        matriz[j][i] = VerifyInt(elements[i]);}
-                    catch (Exception e){
+                    try {
+                        matriz[j][i] = VerifyInt(elements[i]);
+                    } catch (Exception e) {
                         System.out.println("Invalid file matrix format");
                         System.exit(0);
                     }
                 }
 
-
                 j++;
 
             }
-       for (i = 0; i < (int) constantes.get(0); i++) {
-                    for (j=i; j < (int) constantes.get(0); j++){
-                        if (matriz[i][j]!=matriz[j][i]){
-                            System.out.println("Invalid file matrix format");
-                            for (int k=0; k<(int) constantes.get(0); k++){
-                                for (int l=0; l<(int) constantes.get(0); l++){
-                                    System.out.print(matriz[k][l]+" ");
-                                }
-                                System.out.println();
+            for (i = 0; i < (int) constantes.get(0); i++) {
+                for (j = i; j < (int) constantes.get(0); j++) {
+                    if (matriz[i][j] != matriz[j][i]) {
+                        System.out.println("Invalid file matrix format");
+                        for (int k = 0; k < (int) constantes.get(0); k++) {
+                            for (int l = 0; l < (int) constantes.get(0); l++) {
+                                System.out.print(matriz[k][l] + " ");
                             }
-                            System.exit(0);
+                            System.out.println();
                         }
+                        System.exit(0);
                     }
                 }
+            }
             if (j != (int) constantes.get(0) || i != (int) constantes.get(0)) {
                 System.out.println("Invalid number of nodes");
                 System.exit(0);

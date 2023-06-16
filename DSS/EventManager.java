@@ -68,6 +68,7 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
      * @param colonia      the ant colony
      * @param maxTime      the maximum time of simulation
      * @param timeconstant the time constant
+     * @param delta        the time that the ant will move
      */
     public EventManager(AntColonyInterface colonia, double maxTime, double timeconstant, float delta) {
         PEC = new PriorityQueue<>();
@@ -99,7 +100,7 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
         }
         TodasAsFeromonasCriadas.add(aux1);
         EventTypes aux = new EvaporationEvent(timestamp + (-timeconstant) * Math.log(1 - rand.nextDouble()), aux1,
-                timeconstant,this);
+                timeconstant, this);
         PEC.add(aux);
     }
 
@@ -141,29 +142,29 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
      */
     public void print(double PresentTime) {
         int auxInit;
-        System.out.println("Observation number:"+oevents);
+        System.out.println("Observation number:" + oevents);
         System.out.println("Present instant: " + PresentTime);
         System.out.println("Number of move events: " + mevents);
         System.out.println("Number of evaporation events: " + eevents);
         System.out.println("Top candidate cycles:");
         for (int i = 1; i < 6; i++)
             if (Bestpath[i] != null) {
-                System.out.print("{"+ (auxInit = Bestpath[i].get(0)));
-                for(Integer aux: Bestpath[i]){
+                System.out.print("{" + (auxInit = Bestpath[i].get(0)));
+                for (Integer aux : Bestpath[i]) {
                     if (aux != auxInit)
                         System.out.print("," + aux);
                 }
-                System.out.print("}"+ " : " + BestPrice[i]);
+                System.out.print("}" + " : " + BestPrice[i]);
                 System.out.println();
             }
 
         if (Bestpath[0] != null) {
-            System.out.print("Best Hamiltonian cycle: {"+ (auxInit = Bestpath[0].get(0)));
-            for(Integer aux: Bestpath[0]){
+            System.out.print("Best Hamiltonian cycle: {" + (auxInit = Bestpath[0].get(0)));
+            for (Integer aux : Bestpath[0]) {
                 if (aux != auxInit)
                     System.out.print("," + aux);
             }
-            System.out.print("}"+ " : " + BestPrice[0]);
+            System.out.print("}" + " : " + BestPrice[0]);
             System.out.println();
         } else {
             System.out.println("Best Hamiltonian cycle: {}");
@@ -176,12 +177,14 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
     public void changeAntEventNumber() {
         this.mevents++;
     }
+
     /**
      * Increase the number of events of evaporation
      */
     public void changeEvapEventNumber() {
         this.eevents++;
     }
+
     /**
      * Increase the number of events of observer
      */

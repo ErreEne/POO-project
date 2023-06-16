@@ -35,6 +35,7 @@ public class AntMove extends EventTypes {
      * @param time    time that the event will be executed??
      * @param formiga ant that will move
      * @param test    event that will be executed
+     * @param delta   represents the time that the ant will move
      */
     public AntMove(double time, AntInterface formiga, EventForSwarm test, float delta) {
         super(time);

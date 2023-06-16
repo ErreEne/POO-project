@@ -10,21 +10,29 @@ package DSS;
  */
 class ObservationEvent extends EventTypes {
 
+    /**
+     * The event that will be executed
+     */
     private final EventForObserver Evento;
+
+    /**
+     * The maximum time that the event will be executed
+     */
     private final double maxTime;
 
     /**
-     * @param time  time of the event
+     * @param time   time of the event
      * @param evento event that will be executed
      */
     ObservationEvent(double time, EventForObserver evento) {
         super(time);
         this.Evento = evento;
-        this.maxTime = time*20;
+        this.maxTime = time * 20;
     }
 
     /**
      * Set the time of the next event
+     * 
      * @param newTime new time of the event
      */
     public void setTime(double newTime) {
@@ -39,7 +47,7 @@ class ObservationEvent extends EventTypes {
     public void execute() {
         Evento.changeObservationNumber();
         Evento.print(this.timestamp);
-        this.setTime(timestamp+maxTime/20);
+        this.setTime(timestamp + maxTime / 20);
 
     }
 

@@ -9,8 +9,8 @@ package ACO;
 import java.util.*;
 
 /**
- * Class that represents one ant, connected to the ant colony through generalization
- * Implements the AntInterface
+ * Class that represents one ant, connected to the ant colony through
+ * generalization
  *
  */
 class Ant implements AntInterface {
@@ -43,7 +43,8 @@ class Ant implements AntInterface {
     /**
      * Constructor of the Ant class
      * 
-     * @param Antcolony - AntColony object that contains all the information that the ant needs
+     * @param Antcolony - AntColony object that contains all the information that
+     *                  the ant needs
      */
     Ant(AntColony Antcolony) {
         this.colony = Antcolony;
@@ -55,7 +56,8 @@ class Ant implements AntInterface {
 
     /**
      * get the weight of the current path
-     *  @return int - the weight of the current path
+     * 
+     * @return int - the weight of the current path
      */
     public int PathCost() {
         return this.PathCost;
@@ -64,7 +66,7 @@ class Ant implements AntInterface {
     /**
      * Get the path of the ant
      * 
-     * @return ArrayList<Integer> - the path of the ant
+     * @return ArrayList - the path of the ant
      */
     public ArrayList<Integer> getPath() {
         return this.path;
@@ -73,7 +75,7 @@ class Ant implements AntInterface {
     /**
      * Calculate the normalized probabilities to go to the adjacent nodes
      * 
-     * @return Hashtable<Integer, Float> - the normalized probabilities to go to
+     * @return Hashtable - the normalized probabilities to go to
      *         another Node (Integer - Node, Float - Probability)
      */
     private Hashtable<Integer, Float> getNormalizedProbabilities() {
@@ -83,21 +85,24 @@ class Ant implements AntInterface {
         float Cijk;
 
         Hashtable<Integer, Integer> weights = getPossibleWeights(); // get the weights of the adjacent nodes that the
-        if (weights.isEmpty()) {                                    // ant can go to
+        if (weights.isEmpty()) { // ant can go to
             return null;
         }
 
-        Hashtable<Integer, Feromona> pheromone = getPossiblePheromones(); // get the pheromones of the adjacent nodes that
-        if (pheromone.isEmpty()) {                                      // the ant can go to
+        Hashtable<Integer, Feromona> pheromone = getPossiblePheromones(); // get the pheromones of the adjacent nodes
+                                                                          // that
+        if (pheromone.isEmpty()) { // the ant can go to
             return null;
         }
         // Compute Ci
         for (Map.Entry<Integer, Integer> entry : weights.entrySet()) {
-            Ci += ((colony.getAlpha() + pheromone.get(entry.getKey()).getPheromone()) / (colony.getBeta() + entry.getValue()));
+            Ci += ((colony.getAlpha() + pheromone.get(entry.getKey()).getPheromone())
+                    / (colony.getBeta() + entry.getValue()));
         }
         // Compute Cijk and the sum of all Cijk
         for (Map.Entry<Integer, Integer> entry : weights.entrySet()) {
-            Cijk = ((colony.getAlpha() + pheromone.get(entry.getKey()).getPheromone()) / (colony.getBeta() + entry.getValue()));
+            Cijk = ((colony.getAlpha() + pheromone.get(entry.getKey()).getPheromone())
+                    / (colony.getBeta() + entry.getValue()));
             probability.put(entry.getKey(), Cijk / Ci);
             sum += Cijk / Ci;
         }
@@ -112,7 +117,7 @@ class Ant implements AntInterface {
     /**
      * Choose the next node to go to
      * 
-     * @param probability - Hashtable<Integer, Float> with the probabilities to go
+     * @param probability - Hashtable with the probabilities to go
      *                    to another Node
      * @return int - the node that the ant will go to next
      */
@@ -156,7 +161,8 @@ class Ant implements AntInterface {
         } else { // is not in a loop and will choose a node based on the normalized probabilities
             newNode = chooseNode(NormalizedProbabilities);
         }
-        // If the ant has ended the path, it will set the pheromones and return the cost of the path
+        // If the ant has ended the path, it will set the pheromones and return the cost
+        // of the path
         if (checkIfEndedPath(newNode)) {
             setPheromones(path);
             PathEnded = 1;
@@ -168,7 +174,7 @@ class Ant implements AntInterface {
             addToList(this.path, newNode);
         }
         currentNode = newNode;
-        
+
         return getCost(currentNode, previousNode);
     }
 
@@ -218,7 +224,7 @@ class Ant implements AntInterface {
     /**
      * Set the pheromones in the path that the and finished
      * 
-     * @param path - ArrayList<Integer> with the path of the ant where the
+     * @param path ArrayList with the path of the ant where the
      *             pheremones will be added
      */
     private void setPheromones(ArrayList<Integer> path) {
@@ -227,7 +233,8 @@ class Ant implements AntInterface {
 
     /**
      * Remove loops that the ant might has done in the graph trying to find the
-     * Hamiltonian cycle, sees the first node that is repeated and removes all the nodes after that
+     * Hamiltonian cycle, sees the first node that is repeated and removes all the
+     * nodes after that
      * 
      * @param nodeToRemove - int with the node to remove from the path
      */
@@ -246,7 +253,8 @@ class Ant implements AntInterface {
     /**
      * Get the weights of the adjacent nodes that are not in the path
      * 
-     * @return Hashtable<Integer, Integer> - the weights of the possible adjacent nodes
+     * @return Hashtable with the weights of the possible adjacent
+     *         nodes
      */
     private Hashtable<Integer, Integer> getPossibleWeights() {
         Hashtable<Integer, Integer> possibleWeights = getWeights();
@@ -259,7 +267,7 @@ class Ant implements AntInterface {
     /**
      * Get the weights of the adjacent nodes
      * 
-     * @return Hashtable<Integer, Integer> - the weights of the adjacent nodes
+     * @return Hashtable with the weights of the adjacent nodes
      */
     private Hashtable<Integer, Integer> getWeights() { // não podemos juntar com o de cima??????
         return colony.getWeightsFromNode(currentNode);
@@ -268,7 +276,7 @@ class Ant implements AntInterface {
     /**
      * Get the pheromones in the nodes
      * 
-     * @return Hashtable<Integer, Feromona> - level of the pheromones in the nodes
+     * @return Hashtable with level of the pheromones in the nodes
      */
     private Hashtable<Integer, Feromona> getPheromones() {
         return colony.getPheromonesFromNode(currentNode);
@@ -277,7 +285,7 @@ class Ant implements AntInterface {
     /**
      * Get the pheromones in the nodes that the ant can go to
      * 
-     * @return Hashtable<Integer, Feromona> - level of the pheromones in the nodes
+     * @return Hashtable with the level of the pheromones in the nodes
      *         that the ant can go to
      */
     private Hashtable<Integer, Feromona> getPossiblePheromones() {
@@ -304,7 +312,7 @@ class Ant implements AntInterface {
     /**
      * Remove a node from the path
      * 
-     * @param listToRemove - ArrayList<Integer> with the path of the ant
+     * @param listToRemove - ArrayList with the path of the ant
      * @param nodeToRemove - int with the node to remove from the path
      */
     private void removeFromList(ArrayList<Integer> listToRemove, int nodeToRemove) {
@@ -314,7 +322,7 @@ class Ant implements AntInterface {
     /**
      * Add a node to the path
      * 
-     * @param listToAdd - ArrayList<Integer> with the path of the ant
+     * @param listToAdd - ArrayList with the path of the ant
      * @param nodeToAdd - int with the node to add to the path
      */
     private void addToList(ArrayList<Integer> listToAdd, int nodeToAdd) {
@@ -322,7 +330,7 @@ class Ant implements AntInterface {
     }
 
     /**
-     * @param listToCheck - ArrayList<Integer> with the path of the ant
+     * @param listToCheck - ArrayList with the path of the ant
      * @return int - the size of the path
      */
     private int getSize(ArrayList<Integer> listToCheck) {
@@ -339,5 +347,5 @@ class Ant implements AntInterface {
     private int getCost(int a, int b) {
         return colony.getCost(a, b);
     }
-    
+
 }

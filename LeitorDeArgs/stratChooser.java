@@ -13,7 +13,14 @@ import GrafoPack.GrafoInterface;
  */
 public class stratChooser {
 
+    /**
+     * The strategy to be used
+     */
     private stratsInterface FinalStrategy;
+
+    /**
+     * The strategies available
+     */
     private final HashMap<String, stratsInterface> strategies;
 
     /**
@@ -67,18 +74,18 @@ public class stratChooser {
 
     /**
      * Verifies if the input is an integer
+     * 
      * @param input the input to be verified
      * @return the input as int if it is an integer
      */
-    static int VerifyInt(String input){
-        try{
-            if (Integer.parseInt(input)<0){
+    static int VerifyInt(String input) {
+        try {
+            if (Integer.parseInt(input) < 0) {
                 System.out.println("Negative number input");
                 System.exit(0);
             }
             return Integer.parseInt(input);
-        }
-        catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             System.out.println("Some input value is not Integer as should be");
             System.exit(0);
         }
@@ -87,20 +94,20 @@ public class stratChooser {
 
     /**
      * Verifies if the input is a float
+     * 
      * @param input the input to be verified
      * @return the input as float if it is a float
      */
-    static float VerifyFloat(String input){
-        try{
-            if(input.contains(",")){
+    static float VerifyFloat(String input) {
+        try {
+            if (input.contains(",")) {
                 input = input.replace(",", ".");
             }
-            if (Float.parseFloat(input)<0){
+            if (Float.parseFloat(input) < 0) {
                 System.out.println("Negative number input");
                 System.exit(0);
             }
-        }
-        catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             System.out.println("Some input value is not Float as should be");
             System.exit(0);
         }

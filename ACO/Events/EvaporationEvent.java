@@ -25,12 +25,16 @@ public class EvaporationEvent extends EventTypes {
      */
     private final double timeConstant;
 
+    /**
+     * The event that will be executed
+     */
     private final EventForEvap Simulate;
 
     /**
      * @param time        time that the event will be executed
      * @param newFeromona pheromone that will be evaporated
      * @param teta        time constant of the evaporation
+     * @param eventMain   event that will be executed
      */
     public EvaporationEvent(double time, FeromonaInter newFeromona, double teta, EventForEvap eventMain) {
 
