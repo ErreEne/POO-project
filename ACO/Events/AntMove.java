@@ -62,7 +62,6 @@ public class AntMove extends EventTypes {
         double mean = delta * aij;
         this.setTime(timestamp + (-mean) * Math.log(1 - rand.nextDouble()));
         if (formiga.checkIfEndedPath()) {
-            System.out.println(formiga.getPath() + " - " + formiga.PathCost());
             test.alterarPath(0, formiga.getPath(), formiga.PathCost());
             for (int i = 0; i < formiga.getPath().size() - 1; i++) {
 
