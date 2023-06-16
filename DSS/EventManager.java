@@ -126,7 +126,11 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
                 if (this.Bestpath[i] != null) {
                     alterarPath(i, this.Bestpath[i], BestPrice[i]);
                 }
-                this.Bestpath[i] = (ArrayList<Integer>) path.clone();
+                if (this.Bestpath[i] != null) {
+                    this.Bestpath[i].clear();
+                }
+                for (Integer x : path)
+                    ((ArrayList<Integer>) this.Bestpath[i]).add(x);
                 this.BestPrice[i] = TotalPrice;
 
                 break;

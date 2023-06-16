@@ -17,6 +17,8 @@ class vertice extends VerticeSuper {
     private final ArrayList<Edge> ListaEdges;
 
     /**
+     * Creates a new vertex
+     * 
      * @param elementoNovo Element that this vertex will have
      */
     public vertice(int elementoNovo) {
@@ -26,6 +28,7 @@ class vertice extends VerticeSuper {
 
     /**
      * Creates a new pointer to a vertex
+     * 
      * @param id    ID of the vertex
      * @param custo Cost of the pointer
      */
@@ -36,8 +39,9 @@ class vertice extends VerticeSuper {
 
     /**
      * Checks if a vertex is connected to this vertex
+     * 
      * @param novo Vertex to be checked
-     * @return  True if the vertex is connected to this vertex
+     * @return True if the vertex is connected to this vertex
      */
     boolean checkLig(VerticeSuper novo) {
         for (Edge x : ListaEdges) {
@@ -49,6 +53,8 @@ class vertice extends VerticeSuper {
     }
 
     /**
+     * Get the information of the vertex
+     * 
      * @return Element of the vertex
      */
     public int GetVerticeInfo() {
@@ -56,6 +62,8 @@ class vertice extends VerticeSuper {
     }
 
     /**
+     * Get the list of pointers of this vertex
+     * 
      * @return List of pointers of this vertex
      */
     ArrayList<Edge> getPonteiros() {
@@ -64,8 +72,9 @@ class vertice extends VerticeSuper {
 
     /**
      * Get the cost of a pointer to a vertex
+     * 
      * @param Vertice Vertex to be checked
-     * @return  Cost of the pointer to the vertex
+     * @return Cost of the pointer to the vertex
      */
     int GetCustoLig(VerticeSuper Vertice) {
         for (Edge x : this.ListaEdges) {

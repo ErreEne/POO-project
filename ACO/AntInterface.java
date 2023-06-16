@@ -27,16 +27,22 @@ public interface AntInterface {
     void resetPath();
 
     /**
+     * gets the cost of the path
+     * 
      * @return the cost of the path
      */
     int PathCost();
 
     /**
+     * get the path of the ant
+     * 
      * @return the path
      */
     ArrayList<Integer> getPath();
 
     /**
+     * checks if the ant has ended the path
+     * 
      * @return true if the ant has ended the path, false if not
      */
     boolean checkIfEndedPath();

@@ -330,6 +330,8 @@ class Ant implements AntInterface {
     }
 
     /**
+     * gets the size of the path
+     * 
      * @param listToCheck - ArrayList with the path of the ant
      * @return int - the size of the path
      */

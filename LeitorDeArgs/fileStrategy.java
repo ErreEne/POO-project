@@ -5,6 +5,7 @@
 package LeitorDeArgs;
 
 import GrafoPack.Grafo;
+import GrafoPack.GrafoInterface;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -117,13 +118,17 @@ public class fileStrategy implements stratsInterface {
     }
 
     /**
+     * get the graph
+     * 
      * @return the grafo
      */
-    public Grafo getGrafo() {
+    public GrafoInterface getGrafo() {
         return grafo;
     }
 
     /**
+     * get all the constants
+     * 
      * @return the constants
      */
     public ArrayList<Number> getConstants() {
@@ -135,15 +140,15 @@ public class fileStrategy implements stratsInterface {
      */
     private void printInputs() {
         System.out.println("Input parameters: ");
-        System.out.println(constantes.get(0) + ": Number of nodes in the graph");
-        System.out.println(constantes.get(1) + ": The nest node");
-        System.out.println(constantes.get(2) + ": alpha, ant move event");
-        System.out.println(constantes.get(3) + ": beta, ant move event");
-        System.out.println(constantes.get(4) + ": delta, ant move event");
-        System.out.println(constantes.get(5) + ": eta, pheromone evaporation event");
-        System.out.println(constantes.get(6) + ": rho, pheromone evaporation event");
-        System.out.println(constantes.get(7) + ": pheromone level");
-        System.out.println(constantes.get(8) + ": ant colony size");
-        System.out.println(constantes.get(9) + ": final instant");
+        System.out.println("\t" + constantes.get(0) + ": Number of nodes in the graph");
+        System.out.println("\t" + constantes.get(1) + ": The nest node");
+        System.out.println("\t" + constantes.get(2) + ": alpha, ant move event");
+        System.out.println("\t" + constantes.get(3) + ": beta, ant move event");
+        System.out.println("\t" + constantes.get(4) + ": delta, ant move event");
+        System.out.println("\t" + constantes.get(5) + ": eta, pheromone evaporation event");
+        System.out.println("\t" + constantes.get(6) + ": rho, pheromone evaporation event");
+        System.out.println("\t" + constantes.get(7) + ": pheromone level");
+        System.out.println("\t" + constantes.get(8) + ": ant colony size");
+        System.out.println("\t" + constantes.get(9) + ": final instant");
     }
 }

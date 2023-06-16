@@ -5,6 +5,8 @@
 package LeitorDeArgs;
 
 import GrafoPack.Grafo;
+import GrafoPack.GrafoInterface;
+
 import java.util.*;
 
 import static LeitorDeArgs.stratChooser.VerifyFloat;
@@ -70,7 +72,7 @@ public class readStrategy implements stratsInterface {
         constantes.remove(0);
     }
 
-    public Grafo getGrafo() {
+    public GrafoInterface getGrafo() {
 
         return grafo;
 
@@ -90,15 +92,15 @@ public class readStrategy implements stratsInterface {
      */
     private void printInputs() {
         System.out.println("Input parameters: ");
-        System.out.println(constantes.get(0) + ": Number of nodes in the graph");
-        System.out.println(constantes.get(2) + ": The nest node");
-        System.out.println(constantes.get(3) + ": alpha, ant move event");
-        System.out.println(constantes.get(4) + ": beta, ant move event");
-        System.out.println(constantes.get(5) + ": delta, ant move event");
-        System.out.println(constantes.get(6) + ": eta, pheromone evaporation event");
-        System.out.println(constantes.get(7) + ": rho, pheromone evaporation event");
-        System.out.println(constantes.get(8) + ": pheromone level");
-        System.out.println(constantes.get(9) + ": ant colony size");
-        System.out.println(constantes.get(10) + ": final instant");
+        System.out.println("\t" + constantes.get(0) + ": Number of nodes in the graph");
+        System.out.println("\t" + constantes.get(2) + ": The nest node");
+        System.out.println("\t" + constantes.get(3) + ": alpha, ant move event");
+        System.out.println("\t" + constantes.get(4) + ": beta, ant move event");
+        System.out.println("\t" + constantes.get(5) + ": delta, ant move event");
+        System.out.println("\t" + constantes.get(6) + ": eta, pheromone evaporation event");
+        System.out.println("\t" + constantes.get(7) + ": rho, pheromone evaporation event");
+        System.out.println("\t" + constantes.get(8) + ": pheromone level");
+        System.out.println("\t" + constantes.get(9) + ": ant colony size");
+        System.out.println("\t" + constantes.get(10) + ": final instant");
     }
 }

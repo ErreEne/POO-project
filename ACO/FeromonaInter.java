@@ -17,8 +17,10 @@ public interface FeromonaInter {
     void evaporationOfPheromone();
 
     /**
+     * get the pheromone level
+     * 
      * @return the pheromone level
      */
     float getPheromone();
-    
+
 }

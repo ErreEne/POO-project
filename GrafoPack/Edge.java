@@ -15,8 +15,10 @@ class Edge extends VerticeSuper {
     private final int custo;
 
     /**
+     * Creates a new pointer to a vertex
+     * 
      * @param elementoLig - element to which the pointer points
-     * @param weight    - weight of the pointer
+     * @param weight      - weight of the pointer
      */
     Edge(int elementoLig, int weight) {
 
@@ -27,6 +29,7 @@ class Edge extends VerticeSuper {
 
     /**
      * Get of the weight of the pointer
+     * 
      * @return weight of the pointer
      */
     int getCusto() {

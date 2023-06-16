@@ -11,14 +11,18 @@ import java.util.*;
 /**
  * Interface that represents the ant colony
  */
-    public interface AntColonyInterface {
+public interface AntColonyInterface {
 
     /**
+     * returns the array of ants
+     * 
      * @return the colony of ants
      */
     ArrayList<Ant> getAnts();
 
     /**
+     * gets the map of the pheromones
+     * 
      * @return the pheromone map
      */
     HashMap<Integer, Hashtable<Integer, Feromona>> getPheromones();

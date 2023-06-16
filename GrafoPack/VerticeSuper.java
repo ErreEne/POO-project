@@ -15,6 +15,8 @@ public class VerticeSuper {
     int elemento;
 
     /**
+     * Creates a new vertex
+     * 
      * @param elementoNovo Element that this vertex will have
      */
     VerticeSuper(int elementoNovo) {
@@ -22,6 +24,8 @@ public class VerticeSuper {
     }
 
     /**
+     * Get the information of the vertex
+     * 
      * @return Element of the vertex
      */
     int GetVerticeInfo() {

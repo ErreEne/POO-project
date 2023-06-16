@@ -78,7 +78,8 @@ public class Grafo implements GrafoInterface {
     }
 
     /**
-     *
+     * gets the total number of edges
+     * 
      * @return return the total of edges
      */
     public int totalEdges() {
@@ -86,6 +87,8 @@ public class Grafo implements GrafoInterface {
     }
 
     /**
+     * gets the edges of a vertex
+     * 
      * @param vertice vertex to know
      * @return return all edges of a vertex
      */
@@ -128,6 +131,8 @@ public class Grafo implements GrafoInterface {
     }
 
     /**
+     * gets the total sum of all edges
+     * 
      * @return return the sum of all edges
      */
     @Override
@@ -186,11 +191,11 @@ public class Grafo implements GrafoInterface {
     }
 
     /**
-     * Criar uma ligação entre vertices
+     * Criar uma ligacao entre vertices
      *
      * @param a     vertice 1 ident
      * @param b     vertice 2 ident
-     * @param custo custo da ligação
+     * @param custo custo da ligacao
      */
 
     public void AdicionarLiga(int a, int b, int custo) {
@@ -216,18 +221,13 @@ public class Grafo implements GrafoInterface {
     }
 
     /**
-     * Print da informação sobre um vertice especifico
+     * Print da informacao sobre um vertice especifico
      *
      */
     public void MostrarVerticeInfo() {
 
         int[][] matriz = new int[MaxVertices][MaxVertices];
-
-        /*
-         * for (int i = 0; i < this.verticenovo; i++) {
-         * Vertices[i].printLigacoes();
-         * }
-         */
+        System.out.println("With graph:");
 
         for (int i = 0; i < MaxVertices; i++) {
 

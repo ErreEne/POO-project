@@ -1,3 +1,5 @@
+package Main;
+
 import DSS.*;
 import ACO.*;
 import GrafoPack.*;
@@ -30,7 +32,8 @@ public class Main {
         constantes = strategies.getConstantes();
 
         colonia = new AntColony(Grafo, (Integer) constantes.get(0),
-                (Float) constantes.get(1), (Float) constantes.get(2), (Float) constantes.get(6), (Integer) constantes.get(7), (Float) constantes.get(5));
+                (Float) constantes.get(1), (Float) constantes.get(2), (Float) constantes.get(6),
+                (Integer) constantes.get(7), (Float) constantes.get(5));
 
         Simulacao = new EventManager(colonia, (float) constantes.get(8), (float) constantes.get(4),
                 (float) constantes.get(3));
