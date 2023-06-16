@@ -44,7 +44,7 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
     /**
      * The best path of the simulation
      */
-    private final ArrayList<Integer>[] Bestpath = new ArrayList[6];
+    private final Path[] Bestpath = new Path[6];
     /**
      * The best price of the simulation
      */
@@ -111,7 +111,7 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
      * @param path       the path to be altered
      * @param TotalPrice the total price of the path
      */
-    public void alterarPath(int flag, ArrayList<Integer> path, int TotalPrice) {
+    public void alterarPath(int flag, Path path, int TotalPrice) {
 
         for (int l = 0; l < 6; l++) {
             if (this.Bestpath[l] != null)
@@ -130,7 +130,7 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
                     this.Bestpath[i].clear();
                 }
                 for (Integer x : path)
-                    ((ArrayList<Integer>) this.Bestpath[i]).add(x);
+                    this.Bestpath[i].add(x);
                 this.BestPrice[i] = TotalPrice;
 
                 break;
