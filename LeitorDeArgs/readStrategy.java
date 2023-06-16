@@ -45,17 +45,23 @@ public class readStrategy implements stratsInterface {
         Random rand = new Random();
 
         if (args.length != 12) {
+
             System.out.println("Invalid number of arguments");
             System.exit(0);
         } else {
             constantes.add(VerifyInt(args[1]));
-            if ((int) constantes.get(1) < 3) { // Minimum number of nodes is 3
+
+            if ((int) constantes.get(0) < 3) { // Minimum number of nodes is 3
                 System.out.println("Invalid number of nodes");
                 System.exit(0);
             }
+
             constantes.add(VerifyInt(args[2]));
+
             constantes.add(VerifyInt(args[3]));
+
             constantes.add(VerifyFloat(args[4]));
+
             constantes.add(VerifyFloat(args[5]));
             constantes.add(VerifyFloat(args[6]));
             constantes.add(VerifyFloat(args[7]));
@@ -63,6 +69,8 @@ public class readStrategy implements stratsInterface {
             constantes.add(VerifyFloat(args[9]));
             constantes.add(VerifyInt(args[10]));
             constantes.add(VerifyFloat(args[11]));
+
+
         }
         int max = (Integer) constantes.get(0) * ((Integer) constantes.get(0) - 1);
         int min = (Integer) constantes.get(0);
