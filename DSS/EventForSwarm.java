@@ -5,6 +5,8 @@
  */
 package DSS;
 
+import java.util.ArrayList;
+
 /**
  * Interface that represents the event
  */
@@ -17,7 +19,7 @@ public interface EventForSwarm {
      * @param path      path that will be changed
      * @param totalCost cost of the path
      */
-    void alterarPath(int flag, Path path, int totalCost);
+    void alterarPath(int flag, ArrayList<Integer> path, int totalCost);
 
     /**
      * Method that adds a new event to the queue
