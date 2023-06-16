@@ -44,7 +44,7 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
     /**
      * The best path of the simulation
      */
-    private final ArrayList<Integer>[] Bestpath = new ArrayList[6];
+    private final ArrayList<Integer>[] Bestpath;
     /**
      * The best price of the simulation
      */
@@ -74,11 +74,14 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
         this.timeconstant = timeconstant;
         this.Colonia = colonia;
         this.timelimit = maxTime;
+
         TodasAsFeromonasCriadas = new ArrayList<>();
         this.mevents = 0;
         this.eevents = 0;
         this.oevents = 0;
         this.delta = delta;
+        this.Bestpath = new ArrayList[6];
+
     }
 
     /**
@@ -125,7 +128,11 @@ public class EventManager implements EventSimulation, EventForObserver, EventFor
                 if (this.Bestpath[i] != null) {
                     alterarPath(i, this.Bestpath[i], BestPrice[i]);
                 }
-                this.Bestpath[i] = (ArrayList<Integer>) path.clone();
+                try{
+                    this.Bestpath[i] = (ArrayList<Integer>) path.clone();
+                } catch (Exception e) {
+                    System.out.println("Erro no clone");
+                }
                 this.BestPrice[i] = TotalPrice;
 
                 break;
